@@ -1,0 +1,7 @@
+.item {
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
+  width: 320px;
+  display: flex;
+  justify-content: space-between;
+}
