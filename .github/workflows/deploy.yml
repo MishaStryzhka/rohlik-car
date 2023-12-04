@@ -21,3 +21,9 @@ jobs:
         with:
           branch: gh-pages
           folder: build
+
+      - name: Cleanup 🗑️
+        run: |
+          if [ -d "github-pages-deploy-action-temp-deployment-folder" ]; then
+            rm -rf github-pages-deploy-action-temp-deployment-folder
+          fi
