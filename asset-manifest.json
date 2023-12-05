@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/rohlik-car/static/css/main.2248ecb1.css",
+    "main.js": "/rohlik-car/static/js/main.a33bafc1.js",
+    "static/js/266.205b4eb9.chunk.js": "/rohlik-car/static/js/266.205b4eb9.chunk.js",
+    "static/js/416.6e92ad2f.chunk.js": "/rohlik-car/static/js/416.6e92ad2f.chunk.js",
+    "static/js/960.5e124353.chunk.js": "/rohlik-car/static/js/960.5e124353.chunk.js",
+    "static/css/829.37085e9f.chunk.css": "/rohlik-car/static/css/829.37085e9f.chunk.css",
+    "static/js/829.b847fdc7.chunk.js": "/rohlik-car/static/js/829.b847fdc7.chunk.js",
+    "static/js/795.2eb4b8c1.chunk.js": "/rohlik-car/static/js/795.2eb4b8c1.chunk.js",
+    "static/js/503.63adaf81.chunk.js": "/rohlik-car/static/js/503.63adaf81.chunk.js",
+    "static/js/199.898d042e.chunk.js": "/rohlik-car/static/js/199.898d042e.chunk.js",
+    "static/media/iconContact.png": "/rohlik-car/static/media/iconContact.93b45c7da059939489ce.png",
+    "index.html": "/rohlik-car/index.html",
+    "static/media/sort-icon-png-19.svg": "/rohlik-car/static/media/sort-icon-png-19.1f5c4ad3f137ac16dc9a2fe97ac65de9.svg",
+    "main.2248ecb1.css.map": "/rohlik-car/static/css/main.2248ecb1.css.map",
+    "main.a33bafc1.js.map": "/rohlik-car/static/js/main.a33bafc1.js.map",
+    "266.205b4eb9.chunk.js.map": "/rohlik-car/static/js/266.205b4eb9.chunk.js.map",
+    "416.6e92ad2f.chunk.js.map": "/rohlik-car/static/js/416.6e92ad2f.chunk.js.map",
+    "960.5e124353.chunk.js.map": "/rohlik-car/static/js/960.5e124353.chunk.js.map",
+    "829.37085e9f.chunk.css.map": "/rohlik-car/static/css/829.37085e9f.chunk.css.map",
+    "829.b847fdc7.chunk.js.map": "/rohlik-car/static/js/829.b847fdc7.chunk.js.map",
+    "795.2eb4b8c1.chunk.js.map": "/rohlik-car/static/js/795.2eb4b8c1.chunk.js.map",
+    "503.63adaf81.chunk.js.map": "/rohlik-car/static/js/503.63adaf81.chunk.js.map",
+    "199.898d042e.chunk.js.map": "/rohlik-car/static/js/199.898d042e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2248ecb1.css",
+    "static/js/main.a33bafc1.js"
+  ]
+}
