@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../../firebase/config';
+import { doc, setDoc } from 'firebase/firestore';
 
 axios.defaults.baseURL = 'http://Localhost:4000/api';
 
@@ -13,21 +16,30 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-/*
- * POST @ /users/signup
- * body: { name, email, password }
- */
 export const register = createAsyncThunk(
-  'auth/register',
-  async (credentials, thunkAPI) => {
+  'auth/registerUser',
+  async (credentials, { rejectWithValue }) => {
+    const { email, password, id: userId, name, surname } = credentials;
     try {
-      const res = await axios.post('/users/register', credentials);
-      // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const { accessToken, uid } = userCredential.user;
+
+      await setDoc(doc(db, 'users', uid), {
+        userId: userId,
+        email: email,
+        name: name,
+        surname: surname,
+      });
+
+      const user = { uid: userId, email, name, surname };
+      return { user, token: accessToken };
     } catch (error) {
-      // console.log('error :>> ', error.response.data.code);
-      return thunkAPI.rejectWithValue(error.response.data.code);
+      console.log('error', error);
+      return rejectWithValue(error.message);
     }
   }
 );
