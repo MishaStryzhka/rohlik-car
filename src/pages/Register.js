@@ -21,7 +21,7 @@ export default function Register() {
           p="4"
         >
           <Heading as="h1" size="2xl" color="#6DA305" noOfLines={1}>
-            Register in "Rohlik-CARS".
+            Register in "Help-Book".
           </Heading>
           <IconCars width="300" height="300" />
         </VStack>

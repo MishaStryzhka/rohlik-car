@@ -18,7 +18,7 @@ export const LoginForm = () => {
     <Formik
       initialValues={{
         id: '',
-        password: '',
+        pin: '',
       }}
       onSubmit={handleSubmit}
     >
@@ -31,14 +31,14 @@ export const LoginForm = () => {
               </InputGroup>
             )}
           </Field>
-          <Field name="password">
+          <Field name="pin">
             {({ field }) => (
               <InputGroup mt={4} size="md">
                 <Input
                   {...field}
                   pr="4.5r em"
-                  type={show ? 'text' : 'password'}
-                  placeholder="Enter password"
+                  type={show ? 'text' : 'pin'}
+                  placeholder="Enter pin"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>

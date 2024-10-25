@@ -9,8 +9,9 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
-import { EmailIcon } from '@chakra-ui/icons';
+import { EmailIcon, PhoneIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { validationRegisterFormScheme } from 'schemas/registerFormScheme';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -30,8 +31,10 @@ export const RegisterForm = () => {
         name: '',
         surname: '',
         email: '',
-        password: '',
+        pin: '',
+        phone: '',
       }}
+      validationSchema={validationRegisterFormScheme}
       onSubmit={handleSubmit}
     >
       {props => (
@@ -39,7 +42,7 @@ export const RegisterForm = () => {
           <Field name="id">
             {({ field }) => (
               <InputGroup minW="400px">
-                <Input {...field} placeholder="ID" />
+                <Input {...field} placeholder="id" autoComplete="false" />
               </InputGroup>
             )}
           </Field>
@@ -67,18 +70,28 @@ export const RegisterForm = () => {
               </InputGroup>
             )}
           </Field>
-          <Field name="password">
+          <Field name="phone">
+            {({ field }) => (
+              <InputGroup mt={4} minW="400px">
+                <InputLeftElement pointerEvents="none">
+                  <PhoneIcon color="gray.300" />
+                </InputLeftElement>
+                <Input {...field} placeholder="phone" />
+              </InputGroup>
+            )}
+          </Field>
+          <Field name="pin">
             {({ field }) => (
               <InputGroup mt={4} size="md">
                 <Input
                   {...field}
                   pr="4.5rem"
                   type={show ? 'text' : 'password'}
-                  placeholder="Enter password"
+                  placeholder="Enter pin"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? 'Hide' : 'Show'}
+                    {show ? <UnlockIcon /> : <LockIcon />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
