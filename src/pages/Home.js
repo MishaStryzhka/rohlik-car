@@ -15,7 +15,7 @@ export default function Home() {
         <title>Home</title>
       </Helmet>
       <IconCars width="300" height="300" />
-      <Heading>Your personal cars book.</Heading>
+      <Heading>Your personal Help-Book.</Heading>
     </Container>
   );
 }
