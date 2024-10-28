@@ -5,7 +5,8 @@ import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
 import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const CarsBox = () => {
+const CarsBox = ({ filters }) => {
+  const { search, filter, hasAirConditioner, hasFridge } = filters;
   const [cars, setCars] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
@@ -18,12 +19,24 @@ const CarsBox = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setCars(carsData);
+
+      const filteredCars = carsData.filter(car => {
+        const matchesSearch = car.name.includes(search);
+        const matchesType = filter ? car.type === filter : true;
+        const matchesAirConditioner = hasAirConditioner
+          ? car.hasAirConditioner === true
+          : true;
+        const matchesFridge = hasFridge ? car.hasFridge === true : true;
+        return (
+          matchesSearch && matchesType && matchesAirConditioner && matchesFridge
+        );
+      });
+      setCars(filteredCars);
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [filter, hasAirConditioner, hasFridge, search]);
 
   // Іконка для стилю їзди залежно від значення drivingStyle
   const getDrivingStyle = style => {
@@ -44,11 +57,10 @@ const CarsBox = () => {
     <Box p={4}>
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {cars.map(car => (
-          <Link to={`/cars/${car.id}`}>
+          <Link key={car.id} to={`/cars/${car.id}`}>
             <Flex
               alignItems="center"
               gap={4}
-              key={car.id}
               p={3}
               borderWidth={1}
               borderRadius="md"
