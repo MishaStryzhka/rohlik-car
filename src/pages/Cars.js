@@ -1,180 +1,127 @@
-import FormContacts from 'components/FormContacts/FormContacts';
-import FormFind from 'components/FormFind/FormFind';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/contacts/selectors';
-import { addContact, fetchContacts } from 'redux/contacts/operations';
-import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import ItemContact from 'components/ItemContact/ItemContact';
+import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import {
+  Button,
+  Container,
+  Flex,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Switch,
+} from '@chakra-ui/react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Container, Heading, List, Text } from '@chakra-ui/layout';
-import { Alert, AlertIcon, AlertTitle, Button } from '@chakra-ui/react';
-import Contact from '../components/Contact/Contact';
-import { ReactComponent as LogoSort } from '../image/sort-icon-png-19.svg';
+import { IoSearch } from 'react-icons/io5';
+import { FaSnowflake, FaBox } from 'react-icons/fa';
+import ModalWrapper from 'components/Modal/Modal';
+import AddCarForm from 'components/AddCarForm/AddCarForm';
+import { addsNewCar } from 'app';
+import CarsBox from 'components/CarsBox/CarsBox';
 
 const Cars = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [showError, setShowError] = useState(false);
-  const [selectedContact, setSelectedContact] = useState(null);
-  const [sortContacts, setsortContacts] = useState(null);
-  const [isSort, setIsSort] = useState(false);
+  const [isOpenModalAddCar, setIsOpenModalAddCar] = useState(false);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('');
+  const [hasAirConditioner, setHasAirConditioner] = useState(false);
+  const [hasShelves, setHasShelves] = useState(false);
 
-  const location = useLocation();
-  const filter = searchParams.get('filter') || '';
-  // console.log('location.state', location.state);
-
-  useEffect(() => {
-    if (location?.state?.filter) {
-      setSearchParams({ filter: location.state.filter });
-    }
-  });
-
-  // console.log('searchParams', searchParams)
-
-  const dispatch = useDispatch();
-
-  const { contacts, isLoading, error } = useSelector(getContacts);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    setsortContacts(contacts);
-  }, [contacts]);
-
-  const onSubmit = user => {
-    if (
-      contacts &&
-      contacts.find(contact => {
-        const normalizeUser = user.name.toLowerCase();
-        return contact.name.toLowerCase() === normalizeUser;
-      })
-    ) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 3000);
-    } else {
-      dispatch(addContact(user));
-    }
+  const handleSelect = value => {
+    setFilter(value);
+    console.log('Selected Filter:', value); // Лог для перевірки вибраного значення
   };
 
-  const handleChangeFilter = e => {
-    setSearchParams({ filter: e });
-  };
-
-  const getVizibleContacts = () => {
-    if (filter) {
-      const normalizedFilter = filter.toLowerCase();
-
-      const valueFilter = searchParams.get('filter');
-      if (valueFilter !== filter) {
-        setSearchParams({ filter: normalizedFilter });
-      }
-      if (contacts) {
-        return sortContacts
-          ? sortContacts.filter(contact =>
-              contact.name.toLowerCase().includes(normalizedFilter)
-            )
-          : contacts.filter(contact =>
-              contact.name.toLowerCase().includes(normalizedFilter)
-            );
-      }
-    }
-
-    return sortContacts ? sortContacts : contacts;
-  };
-
-  const onClickBtnSort = () => {
-    const inAlphabeticalOrder = [...contacts].sort(
-      (firstContact, secondContact) =>
-        isSort
-          ? secondContact.name.localeCompare(firstContact.name)
-          : firstContact.name.localeCompare(secondContact.name)
-    );
-    setsortContacts(inAlphabeticalOrder);
-    setIsSort(!isSort);
+  const handleSubmitAddCar = async formData => {
+    await addsNewCar(formData);
+    setIsOpenModalAddCar(false);
   };
 
   return (
     <>
       <Helmet>
-        <title>Contacts</title>
+        <title>Cars</title>
       </Helmet>
 
-      {showError && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>This contact is already in the phone book!</AlertTitle>
-        </Alert>
-      )}
-
-      <Container mt={5} maxW="100%" display="flex">
-        <Contact
-          selectedContact={selectedContact}
-          setSelectedContact={setSelectedContact}
-        />
-        <Container
-          p="15px"
-          w="400px"
-          as="section"
-          bg="orange.200"
-          color="orange.900"
-          borderRadius="10px"
-          display="flex"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Heading as="h2" size="2xl" noOfLines={1}>
-            Contacts
-          </Heading>
-
-          {contacts.length !== 0 && (
-            <Container display="flex" mt={5}>
-              <Button colorScheme="orange" p="1px" onClick={onClickBtnSort}>
-                <LogoSort
-                  style={{ width: '25px', height: '25px', fill: 'white' }}
-                />
-              </Button>
-              <FormFind handleChange={handleChangeFilter} value={filter} />
-            </Container>
-          )}
-
-          {contacts.length === 0 && (
-            <Text mt={5} fontSize="2xl">
-              Your contact book is empty. Add your first contact in the menu on
-              the right.
-            </Text>
-          )}
-
-          {isLoading && !error && <b>Request in progress...</b>}
-          {error && <b>{error};</b>}
-
-          <List mt={5}>
-            {getVizibleContacts().map(contact => (
-              <ItemContact
-                setSelectedContact={setSelectedContact}
-                key={contact.id}
-                contact={contact}
+      <Container maxW={'max-content'}>
+        <Flex gap={4}>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<IoSearch color="gray.300" />}
+            />
+            <Input
+              w={400}
+              value={search}
+              onChange={e => {
+                setSearch(
+                  e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '')
+                ); // Оновлюємо стан `search`
+                console.log('Search Value:', e.target.value); // Лог значення
+              }}
+              placeholder="Search"
+            />
+          </InputGroup>
+          <Flex gap={4} align="center">
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w="80px">
+                {filter || 'Type'}
+              </MenuButton>
+              <MenuList minW="80px">
+                <MenuItem onClick={() => handleSelect('CDV')}>CDV</MenuItem>
+                <MenuItem onClick={() => handleSelect('CD')}>CD</MenuItem>
+                <MenuItem onClick={() => handleSelect('D')}>D</MenuItem>
+                <MenuItem onClick={() => handleSelect('OV')}>OV</MenuItem>
+                <MenuItem onClick={() => handleSelect('EXP')}>EXP</MenuItem>
+              </MenuList>
+            </Menu>
+            <Flex align="center">
+              <Icon
+                as={FaSnowflake}
+                boxSize={5}
+                mr={2}
+                color={hasAirConditioner ? 'green.500' : 'gray.500'}
               />
-            ))}
-          </List>
-        </Container>
-        <Container
-          p="15px"
-          w="400px"
-          as="section"
-          bg="orange.100"
-          color="orange.900"
-          borderRadius="10px"
-          display="flex"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <FormContacts onSubmit={onSubmit} name />
-        </Container>
+              <Switch
+                colorScheme="green"
+                isChecked={hasAirConditioner}
+                onChange={() => setHasAirConditioner(!hasAirConditioner)}
+              />
+            </Flex>
+
+            <Flex align="center">
+              <Icon as={FaBox} boxSize={5} mr={2} />
+              <Switch
+                colorScheme="green"
+                isChecked={hasShelves}
+                onChange={() => setHasShelves(!hasShelves)}
+              />
+            </Flex>
+
+            <Button
+              leftIcon={<AddIcon />}
+              bg="#6da305"
+              color="white"
+              _hover={{ bg: '#5c8e04' }}
+              onClick={() => setIsOpenModalAddCar(true)}
+            >
+              přidat auto
+            </Button>
+          </Flex>
+        </Flex>
+        <CarsBox />
       </Container>
+
+      {isOpenModalAddCar && (
+        <ModalWrapper
+          isOpen={isOpenModalAddCar}
+          onClose={() => setIsOpenModalAddCar(false)}
+        >
+          <AddCarForm onSubmit={handleSubmitAddCar} />
+        </ModalWrapper>
+      )}
     </>
   );
 };

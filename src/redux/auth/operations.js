@@ -1,25 +1,31 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { auth, db } from '../../firebase/config';
-import { doc, setDoc } from 'firebase/firestore';
-
-axios.defaults.baseURL = 'http://Localhost:4000/api';
-
-// Utility to add JWT
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-// Utility to remove JWT
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 
 export const register = createAsyncThunk(
   'auth/registerUser',
   async (credentials, { rejectWithValue }) => {
     const { email, password, id: userId, name, surname } = credentials;
+    setPersistence(auth, browserLocalPersistence).catch(error => {
+      console.error('Помилка налаштування збереження сесії:', error.message);
+    });
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -44,61 +50,92 @@ export const register = createAsyncThunk(
   }
 );
 
-/*
- * POST @ /users/login
- * body: { email, password }
- */
 export const logIn = createAsyncThunk(
   'auth/login',
-  async (credentials, thunkAPI) => {
+  async ({ id: userId, pin: password }, thunkAPI) => {
     try {
-      const res = await axios.post('/users/login', credentials);
-      // After successful login, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where('userId', '==', userId));
+      const querySnapshot = await getDocs(q);
+
+      let userDate;
+      querySnapshot.forEach(doc => {
+        if (doc.data().email) {
+          userDate = doc.data();
+        } else {
+          return thunkAPI.rejectWithValue('Користувача з таким ID не знайдено');
+        }
+      });
+
+      let userPryvatDate;
+      await signInWithEmailAndPassword(auth, userDate.email, password)
+        .then(userCredential => {
+          userPryvatDate = userCredential.user;
+        })
+        .catch(error => {
+          return thunkAPI.rejectWithValue(error.message);
+        });
+
+      const { accessToken, uid } = userPryvatDate;
+      const user = {
+        uid,
+        userId: userDate.userId,
+        email: userDate.email,
+        name: userDate.name,
+        surname: userDate.surname,
+      };
+
+      return { user, token: accessToken };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-/*
- * POST @ /users/logout
- * headers: Authorization: Bearer token
- */
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('/users/logout');
-    // After a successful logout, remove the token from the HTTP header
-    clearAuthHeader();
+    await signOut(auth);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
 
-/*
- * GET @ /users/current
- * headers: Authorization: Bearer token
- */
 export const refreshUser = createAsyncThunk(
-  'auth/refresh',
+  'auth/refreshUser',
   async (_, thunkAPI) => {
-    // Reading the token from the state via getState()
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-
-    if (persistedToken === null) {
-      // If there is no token, exit without performing any request
-      return thunkAPI.rejectWithValue('Unable to fetch user');
-    }
-
     try {
-      // If there is a token, add it to the HTTP header and perform the request
-      setAuthHeader(persistedToken);
-      const res = await axios.get('/users/current');
-      return res.data;
+      const userPromise = new Promise((resolve, reject) => {
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            resolve({
+              uid: user.uid,
+              email: user.email,
+            });
+          } else {
+            reject('User is not authenticated');
+          }
+        });
+      });
+
+      const userAuthData = await userPromise;
+
+      const docRef = doc(db, 'users', userAuthData.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userFirestoreData = docSnap.data();
+
+        const user = {
+          uid: userAuthData.uid,
+          userId: userFirestoreData.userId,
+          email: userFirestoreData.email,
+          name: userFirestoreData.name,
+          surname: userFirestoreData.surname,
+        };
+        return { user };
+      }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

@@ -7,10 +7,10 @@ export const validationRegisterFormScheme = Yup.object().shape({
   email: Yup.string()
     .required('Required field')
     .email('Enter a valid email address'),
-  pin: Yup.string()
+  password: Yup.string()
     .required('Pin is required')
     .matches(/^\d{6}$/, 'Pin must be exactly 6 digits'),
-  phone: Yup.string()
+  phoneNumber: Yup.string()
     .required('Phone number is required')
     .matches(/^(?:\+420)?\d{9}$/, 'Enter a valid Czech phone number'),
 });

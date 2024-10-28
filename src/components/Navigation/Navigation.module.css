@@ -9,6 +9,7 @@
   }
 }
 
-.link.active {
-  color: #e84a5f;
+.active {
+  color: rgb(251, 186, 0);
+  text-decoration: underline;
 }
