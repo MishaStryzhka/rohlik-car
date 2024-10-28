@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { Box, Text, Grid, Switch, IconButton, Flex } from '@chakra-ui/react';
+import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
 import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const CarsBox = () => {
   const [cars, setCars] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

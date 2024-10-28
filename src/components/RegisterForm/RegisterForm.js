@@ -38,9 +38,6 @@ export const RegisterForm = () => {
       onSubmit={handleSubmit}
     >
       {props => {
-        console.log('props', props);
-        const { errors } = props;
-
         return (
           <Form>
             <Field name="id">
