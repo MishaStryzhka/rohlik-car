@@ -16,9 +16,7 @@ const ModalWrapper = ({ isOpen, onClose, children }) => {
       <ModalContent>
         <ModalHeader>Přidat auto</ModalHeader>
         <ModalCloseButton />
-        <ModalBody p={4}>
-          {children} {/* Тут буде відображатися ваша форма */}
-        </ModalBody>
+        <ModalBody p={4}>{children}</ModalBody>
       </ModalContent>
     </Modal>,
     document.getElementById('modal')
