@@ -1,0 +1,31 @@
+# .github/workflows/gh-pages.yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Виконуйте розгортання тільки при пушах у гілку main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Вкажіть потрібну версію Node.js
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
