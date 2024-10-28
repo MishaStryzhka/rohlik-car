@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
-import { Box, Flex, Heading, VStack } from '@chakra-ui/layout';
 import IconCars from 'components/IconCars';
+import { Box, Flex, Heading, VStack } from '@chakra-ui/react';
 
 export default function Register() {
   return (

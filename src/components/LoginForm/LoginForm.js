@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 
 export const LoginForm = () => {
@@ -31,13 +31,14 @@ export const LoginForm = () => {
               </InputGroup>
             )}
           </Field>
+          <ErrorMessage name="userId" />
           <Field name="pin">
             {({ field }) => (
               <InputGroup mt={4} size="md">
                 <Input
                   {...field}
                   pr="4.5r em"
-                  type={show ? 'text' : 'pin'}
+                  type={show ? 'text' : 'password'}
                   placeholder="Enter pin"
                 />
                 <InputRightElement width="4.5rem">
@@ -48,6 +49,7 @@ export const LoginForm = () => {
               </InputGroup>
             )}
           </Field>
+          <ErrorMessage name="pin" />
           <Button
             mt={8}
             mx="calc(50% - 40px)"
