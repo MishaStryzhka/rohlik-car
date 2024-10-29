@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Box,
   IconButton,
   VStack,
   Checkbox,
-  Select,
   Button,
   useDisclosure,
   Menu,
