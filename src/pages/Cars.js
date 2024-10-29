@@ -26,7 +26,7 @@ const Cars = () => {
         <title>Cars</title>
       </Helmet>
 
-      <Container w={'100%'} p={0}>
+      <Container w={'100%'}>
         <FilterPanel
           search={search}
           setSearch={setSearch}

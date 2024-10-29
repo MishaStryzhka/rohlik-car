@@ -48,6 +48,9 @@ const MobMenu = () => {
             <NavLink to="/cars" onClick={onClose}>
               Cars
             </NavLink>
+            <NavLink to="/bar-code" onClick={onClose}>
+              BarCode
+            </NavLink>
           </VStack>
         </Box>
       )}

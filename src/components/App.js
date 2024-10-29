@@ -8,6 +8,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 import { RingLoader } from 'react-spinners';
 import NotFound from 'pages/NotFound';
+import BarCode from 'pages/BarCode';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -61,6 +62,10 @@ export const App = () => {
           element={
             <PrivateRoute redirectTo="/login" component={<CarsPage />} />
           }
+        />
+        <Route
+          path="/bar-code"
+          element={<PrivateRoute redirectTo="/login" component={<BarCode />} />}
         />
         <Route path="*" component={<NotFound />} />
       </Route>
