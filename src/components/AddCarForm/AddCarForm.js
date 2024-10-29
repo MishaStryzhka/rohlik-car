@@ -98,6 +98,7 @@ const AddCarForm = ({ onSubmit }) => {
                 placeholder="Vyberte styl jízdy"
               >
                 <option value="A">A</option>
+                <option value="A/B">A/B</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
                 <option value="0">0</option>

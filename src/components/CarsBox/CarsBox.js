@@ -55,6 +55,8 @@ const CarsBox = ({ filters }) => {
         return '#ecd950';
       case 'C':
         return '#ff5151';
+      case 'A/B':
+        return 'linear-gradient(-8deg, #ecd950 45%, #59c959 55%)';
       case '0':
       default:
         return '#e0e0e0';

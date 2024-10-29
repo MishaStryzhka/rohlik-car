@@ -184,6 +184,9 @@ const FilterMobMenu = ({
                 <MenuItem w="100%" onClick={() => setDrivingStyle('C')}>
                   C
                 </MenuItem>
+                <MenuItem w="100%" onClick={() => setDrivingStyle('A/B')}>
+                  A/B
+                </MenuItem>
                 <MenuItem w="100%" onClick={() => setDrivingStyle('0')}>
                   0
                 </MenuItem>
