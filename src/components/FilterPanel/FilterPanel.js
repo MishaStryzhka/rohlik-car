@@ -44,7 +44,7 @@ const FilterPanel = ({
           <IoSearch color="gray.300" />
         </InputLeftElement>
         <Input
-          w={{ base: '100%', md: '400px' }}
+          w={{ base: '100%', md: '300px', xl: '500px' }}
           value={search}
           onChange={e => {
             setSearch(e.target.value.toUpperCase());

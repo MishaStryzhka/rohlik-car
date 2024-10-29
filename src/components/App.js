@@ -6,9 +6,9 @@ import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
-import { RingLoader } from 'react-spinners';
 import NotFound from 'pages/NotFound';
 import BarCode from 'pages/BarCode';
+import Loader from './Loader/Loader';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -24,23 +24,7 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <RingLoader
-        color={'#6da305'}
-        loading={true}
-        size={70}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    </div>
+    <Loader />
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>

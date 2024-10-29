@@ -26,7 +26,11 @@ const Cars = () => {
         <title>Cars</title>
       </Helmet>
 
-      <Container w={'100%'}>
+      <Container
+        w={'100%'}
+        maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
+        p={2}
+      >
         <FilterPanel
           search={search}
           setSearch={setSearch}

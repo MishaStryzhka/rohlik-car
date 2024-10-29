@@ -28,6 +28,14 @@ export const Navigation = () => {
           >
             Cars
           </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${css.link} ${isActive ? css.active : ''}`
+            }
+            to="/bar-code"
+          >
+            BarCode
+          </NavLink>
         </Box>
       )}
     </nav>
