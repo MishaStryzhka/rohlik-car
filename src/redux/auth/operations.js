@@ -41,8 +41,8 @@ export const register = createAsyncThunk(
         surname: surname,
       });
 
-      const user = { uid: userId, email, name, surname };
-      return { user, token: accessToken };
+      const user = { uid, userId, email, name, surname };
+      return { user };
     } catch (error) {
       console.log('error', error);
       return rejectWithValue(error.message);

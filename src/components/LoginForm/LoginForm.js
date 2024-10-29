@@ -23,10 +23,10 @@ export const LoginForm = () => {
       onSubmit={handleSubmit}
     >
       {props => (
-        <Form>
+        <Form style={{ width: '100%' }}>
           <Field name="id">
             {({ field }) => (
-              <InputGroup minW="400px">
+              <InputGroup minW={{ base: '100%', md: '400px' }}>
                 <Input {...field} placeholder="ID" />
               </InputGroup>
             )}
@@ -34,7 +34,7 @@ export const LoginForm = () => {
           <ErrorMessage name="userId" />
           <Field name="pin">
             {({ field }) => (
-              <InputGroup mt={4} size="md">
+              <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                 <Input
                   {...field}
                   pr="4.5r em"

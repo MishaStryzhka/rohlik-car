@@ -39,10 +39,10 @@ export const RegisterForm = () => {
     >
       {props => {
         return (
-          <Form>
+          <Form style={{ width: '100%' }}>
             <Field name="id">
               {({ field }) => (
-                <InputGroup minW="400px">
+                <InputGroup minW={{ base: '100%', md: '400px' }}>
                   <Input {...field} placeholder="id" autoComplete="false" />
                 </InputGroup>
               )}
@@ -50,7 +50,7 @@ export const RegisterForm = () => {
             <ErrorMessage name="id" />
             <Field name="name">
               {({ field }) => (
-                <InputGroup mt={4} minW="400px">
+                <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                   <Input {...field} placeholder="Jméno" />
                 </InputGroup>
               )}
@@ -58,7 +58,7 @@ export const RegisterForm = () => {
             <ErrorMessage name="name" />
             <Field name="surname">
               {({ field }) => (
-                <InputGroup mt={4} minW="400px">
+                <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                   <Input {...field} placeholder="Příjmení" />
                 </InputGroup>
               )}
@@ -66,7 +66,7 @@ export const RegisterForm = () => {
             <ErrorMessage name="surname" />
             <Field name="email">
               {({ field }) => (
-                <InputGroup mt={4} minW="400px">
+                <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                   <InputLeftElement pointerEvents="none">
                     <EmailIcon color="gray.300" />
                   </InputLeftElement>
@@ -77,7 +77,7 @@ export const RegisterForm = () => {
             <ErrorMessage name="email" />
             <Field name="phoneNumber">
               {({ field }) => (
-                <InputGroup mt={4} minW="400px">
+                <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                   <InputLeftElement pointerEvents="none">
                     <PhoneIcon color="gray.300" />
                   </InputLeftElement>

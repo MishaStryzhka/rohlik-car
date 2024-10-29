@@ -1,12 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth } from 'hooks';
 import css from './Navigation.module.css';
+import MobMenu from 'components/MobMenu/MobMenu';
+import { Box } from '@chakra-ui/react';
 
 export const Navigation = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <nav>
+    <nav style={{ display: 'flex', alignItems: 'center' }}>
+      <MobMenu />
       <NavLink
         className={({ isActive }) =>
           `${css.link} ${isActive ? css.active : ''}`
@@ -16,14 +19,16 @@ export const Navigation = () => {
         Help-Book
       </NavLink>
       {isLoggedIn && (
-        <NavLink
-          className={({ isActive }) =>
-            `${css.link} ${isActive ? css.active : ''}`
-          }
-          to="/cars"
-        >
-          Cars
-        </NavLink>
+        <Box display={{ base: 'none', md: 'block' }}>
+          <NavLink
+            className={({ isActive }) =>
+              `${css.link} ${isActive ? css.active : ''}`
+            }
+            to="/cars"
+          >
+            Cars
+          </NavLink>
+        </Box>
       )}
     </nav>
   );

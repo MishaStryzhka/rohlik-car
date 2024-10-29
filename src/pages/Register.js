@@ -10,28 +10,38 @@ export default function Register() {
         <title>Registration</title>
       </Helmet>
 
-      <Flex>
+      <Flex
+        direction={{ base: 'column', md: 'row' }} 
+        h="calc(100vh - 80px)"
+        align="center"
+        justify={{ base: 'center', md: 'space-evenly' }}
+        p={4}
+      >
         <VStack
-          w="100%"
-          h="calc(100vh - 80px)"
-          display="flex"
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          p="4"
+          w={{ base: '100%', md: '550px' }} 
+          align="center"
+          justify="center"
+          spacing={4}
         >
-          <Heading as="h1" size="2xl" color="#6DA305" noOfLines={1}>
-            Register in "Help-Book".
+          <Heading
+            as="h1"
+            fontSize={{ base: '24px', md: '48px' }}
+            lineHeight={{ base: '2.6', md: '1.5' }}
+            color="#6DA305"
+            noOfLines={1}
+          >
+            Register in "Help-Book"
           </Heading>
-          <IconCars width="300" height="300" />
+          <Box width={{ base: '150px', md: '300px' }}>
+            <IconCars />
+          </Box>
         </VStack>
         <Box
-          w="100%"
-          h="calc(100vh - 80px)"
+          w={{ base: '100%', md: '550px' }}
           display="flex"
           alignItems="center"
           justifyContent="center"
-          p="4"
+          mt={{ base: 6, md: 0 }}
         >
           <RegisterForm />
         </Box>

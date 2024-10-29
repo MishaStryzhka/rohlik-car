@@ -1,0 +1,10 @@
+.link {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  color: #6da305;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
