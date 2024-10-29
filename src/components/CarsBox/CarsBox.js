@@ -70,57 +70,61 @@ const CarsBox = ({ filters }) => {
       templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
       gap={{ base: 3, md: 6 }}
     >
-      {cars.map(car => (
-        <Link key={car.id} to={`/cars/${car.id}`}>
-          <Flex
-            w={'100%'}
-            alignItems="center"
-            justify="space-between"
-            gap={4}
-            p={{ base: 1, md: 3 }}
-            borderWidth={1}
-            borderRadius="md"
-            boxShadow="md"
-            bg={getDrivingStyle(car.drivingStyle)}
-          >
-            {/* Name */}
-            <Text fontWeight="bold" fontSize="lg">
-              {car.name}
-            </Text>
+      {cars
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(car => (
+          <Link key={car.id} to={`/cars/${car.id}`}>
+            <Flex
+              w={'100%'}
+              alignItems="center"
+              justify="space-between"
+              gap={4}
+              p={{ base: 1, md: 3 }}
+              borderWidth={1}
+              borderRadius="md"
+              boxShadow="md"
+              bg={getDrivingStyle(car.drivingStyle)}
+            >
+              {/* Name */}
+              <Text fontWeight="bold" fontSize="lg">
+                {car.name}
+              </Text>
 
-            <Box display="flex" gap={3}>
-              {/* Перемикачі */}
-              <Box display="flex" alignItems="center" mt={2}>
-                <FaSnowflake color={car.hasAirConditioner ? 'green' : 'gray'} />
-                <Switch
-                  ml={2}
-                  colorScheme="green"
-                  isChecked={car.hasAirConditioner}
-                  isReadOnly // Робимо перемикачі тільки для перегляду
-                />
-              </Box>
+              <Box display="flex" gap={3}>
+                {/* Перемикачі */}
+                <Box display="flex" alignItems="center" mt={2}>
+                  <FaSnowflake
+                    color={car.hasAirConditioner ? 'green' : 'gray'}
+                  />
+                  <Switch
+                    ml={2}
+                    colorScheme="green"
+                    isChecked={car.hasAirConditioner}
+                    isReadOnly // Робимо перемикачі тільки для перегляду
+                  />
+                </Box>
 
-              <Box display="flex" alignItems="center" mt={2}>
-                <FaBox color={car.hasFridge ? 'green' : 'gray'} />
-                <Switch
-                  ml={2}
-                  colorScheme="green"
-                  isChecked={car.hasFridge}
-                  isReadOnly
-                />
-              </Box>
+                <Box display="flex" alignItems="center" mt={2}>
+                  <FaBox color={car.hasFridge ? 'green' : 'gray'} />
+                  <Switch
+                    ml={2}
+                    colorScheme="green"
+                    isChecked={car.hasFridge}
+                    isReadOnly
+                  />
+                </Box>
 
-              {/* Іконка для стилю їзди */}
-              <Box display="flex" alignItems="center" mt={2}>
-                <FaCar size="30px" color="green" />
-                <Text ml={2} fontSize={26}>
-                  {car.drivingStyle}
-                </Text>
+                {/* Іконка для стилю їзди */}
+                <Box display="flex" alignItems="center" mt={2}>
+                  <FaCar size="30px" color="green" />
+                  <Text ml={2} fontSize={26}>
+                    {car.drivingStyle}
+                  </Text>
+                </Box>
               </Box>
-            </Box>
-          </Flex>
-        </Link>
-      ))}
+            </Flex>
+          </Link>
+        ))}
     </Grid>
   );
 };
