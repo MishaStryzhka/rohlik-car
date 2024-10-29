@@ -9,6 +9,7 @@ import { useAuth } from 'hooks';
 import NotFound from 'pages/NotFound';
 import BarCode from 'pages/BarCode';
 import Loader from './Loader/Loader';
+import CarPage from 'pages/Car';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -46,6 +47,10 @@ export const App = () => {
           element={
             <PrivateRoute redirectTo="/login" component={<CarsPage />} />
           }
+        />
+        <Route
+          path="/cars/:carId"
+          element={<PrivateRoute redirectTo="/login" component={<CarPage />} />}
         />
         <Route
           path="/bar-code"

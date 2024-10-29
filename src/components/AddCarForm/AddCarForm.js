@@ -11,20 +11,21 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
-import { validationAddCarSchema } from 'schemas/addCarSchema';
+import { validationAddCarSchema } from 'schemas/addCarScheme';
+import { updateCarSchema } from 'schemas/updateCarScheme';
 
-const AddCarForm = ({ onSubmit }) => {
+const AddCarForm = ({ value, onSubmit }) => {
   return (
     <Formik
       initialValues={{
-        name: '',
-        type: '',
-        hasAirConditioner: false,
-        hasFridge: false,
-        comment: '',
-        drivingStyle: '',
+        name: value?.name || '',
+        type: value?.type || '',
+        hasAirConditioner: value?.hasAirConditioner || false,
+        hasFridge: value?.hasFridge || false,
+        comment: value?.comment || '',
+        drivingStyle: value?.drivingStyle || '',
       }}
-      validationSchema={validationAddCarSchema}
+      validationSchema={value?.name ? updateCarSchema : validationAddCarSchema}
       onSubmit={values => {
         onSubmit(values);
       }}
@@ -42,6 +43,7 @@ const AddCarForm = ({ onSubmit }) => {
                 onChange={e =>
                   setFieldValue('name', e.target.value.toUpperCase())
                 }
+                disabled={value?.name ? true : false}
               />
               {touched.name && errors.name ? (
                 <Box color="red.500">{errors.name}</Box>
@@ -51,7 +53,12 @@ const AddCarForm = ({ onSubmit }) => {
             {/* Pole "typ" */}
             <FormControl isInvalid={touched.type && errors.type} isRequired>
               <FormLabel>Typ</FormLabel>
-              <Field as={Select} name="type" placeholder="Vyberte typ">
+              <Field
+                as={Select}
+                name="type"
+                placeholder="Vyberte typ"
+                disabled={value?.type ? true : false}
+              >
                 <option value="CD">CD</option>
                 <option value="CDV">CDV</option>
                 <option value="OV">OV</option>

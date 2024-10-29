@@ -108,7 +108,12 @@ const FilterPanel = ({
 
           {/* Перемикач для холодильника */}
           <Flex align="center">
-            <Icon as={FaBox} boxSize={5} mr={2} />
+            <Icon
+              as={FaBox}
+              boxSize={5}
+              mr={2}
+              color={hasFridge ? 'green.500' : 'gray.500'}
+            />
             <Switch
               colorScheme="green"
               isChecked={hasFridge}
