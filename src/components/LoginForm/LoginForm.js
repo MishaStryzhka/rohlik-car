@@ -30,7 +30,7 @@ export const LoginForm = () => {
           <Field name="id">
             {({ field }) => (
               <InputGroup minW={{ base: '100%', md: '400px' }}>
-                <Input {...field} placeholder="ID" />
+                <Input {...field} placeholder="id" />
               </InputGroup>
             )}
           </Field>
