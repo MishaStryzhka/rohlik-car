@@ -52,7 +52,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async ({ id: userId, pin: password }, thunkAPI) => {
+  async ({ id: userId, password }, thunkAPI) => {
     try {
       console.log('qwe');
       const usersRef = collection(db, 'users');

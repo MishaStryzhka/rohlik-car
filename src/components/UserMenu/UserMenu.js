@@ -22,7 +22,7 @@ export const UserMenu = () => {
             className={css.link}
             onClick={() => dispatch(logOut())}
           >
-            Logout
+            Log out
           </button>
         </div>
       </Box>
