@@ -11,14 +11,14 @@ export default function Register() {
       </Helmet>
 
       <Flex
-        direction={{ base: 'column', md: 'row' }} 
+        direction={{ base: 'column', md: 'row' }}
         h="calc(100vh - 80px)"
         align="center"
         justify={{ base: 'center', md: 'space-evenly' }}
         p={4}
       >
         <VStack
-          w={{ base: '100%', md: '550px' }} 
+          w={{ base: '100%', md: '550px' }}
           align="center"
           justify="center"
           spacing={4}
@@ -30,7 +30,7 @@ export default function Register() {
             color="#6DA305"
             noOfLines={1}
           >
-            Register in "Help-Book"
+            Sign up "Help-Book"
           </Heading>
           <Box width={{ base: '150px', md: '300px' }}>
             <IconCars />

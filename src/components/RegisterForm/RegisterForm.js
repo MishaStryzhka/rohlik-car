@@ -111,7 +111,7 @@ export const RegisterForm = () => {
               isLoading={isLoading}
               type="submit"
             >
-              Register
+              Sign up
             </Button>
             {error && (
               <p style={{ marginTop: 10 }}>

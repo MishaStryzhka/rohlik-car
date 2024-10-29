@@ -15,7 +15,7 @@ export default function Home() {
         <title>Home</title>
       </Helmet>
       <VStack
-        w={{ base: '100%', md: '550px' }}
+        w={{ base: '100%', md: '650px' }}
         align="center"
         justify="center"
         spacing={4}
@@ -25,7 +25,6 @@ export default function Home() {
           fontSize={{ base: '24px', md: '48px' }}
           lineHeight={{ base: '2.6', md: '1.5' }}
           color="#6DA305"
-          noOfLines={1}
         >
           Your personal Help-Book.
         </Heading>

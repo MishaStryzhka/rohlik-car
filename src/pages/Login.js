@@ -30,7 +30,7 @@ export default function Login() {
             color="#6DA305"
             noOfLines={1}
           >
-            Log in "Help-Book".
+            Log in "Help-Book"
           </Heading>
           <Box width={{ base: '150px', md: '300px' }}>
             <IconCars />
