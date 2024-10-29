@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import {
-  IconButton,
-  Box,
-  Flex,
-  VStack,
-  HStack,
-  Link,
-  useDisclosure,
-} from '@chakra-ui/react';
+import React, { useEffect, useRef } from 'react';
+import { IconButton, Box, VStack, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
 
 const MobMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toggleMenu = () => (isOpen ? onClose() : onOpen());
+  const menuRef = useRef();
+
+  // Закриття меню при кліку поза його межами
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
 
   return (
-    <Box display={{ base: 'block', md: 'none' }}>
+    <Box display={{ base: 'block', md: 'none' }} ref={menuRef}>
       <IconButton
         icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
         onClick={toggleMenu}

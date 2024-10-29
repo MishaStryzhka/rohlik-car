@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import {
-  IconButton,
-  Box,
-  Flex,
-  VStack,
-  HStack,
-  Link,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { IconButton, Box, VStack, useDisclosure } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
-import { NavLink } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { useAuth } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
 import css from './UserMobMenu.module.css';
+import { useEffect, useRef } from 'react';
 
 const UserMobMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toggleMenu = () => (isOpen ? onClose() : onOpen());
   const { user } = useAuth();
   const dispatch = useDispatch();
+  const userMenuRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
 
   return (
-    <Box display={{ base: 'block', md: 'none' }}>
+    <Box display={{ base: 'block', md: 'none' }} ref={userMenuRef}>
       <IconButton
         icon={isOpen ? <CloseIcon /> : <FaUser size="20px" color="green" />}
         onClick={toggleMenu}

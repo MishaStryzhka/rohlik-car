@@ -10,11 +10,10 @@ import FilterPanel from 'components/FilterPanel/FilterPanel';
 const Cars = () => {
   const [isOpenModalAddCar, setIsOpenModalAddCar] = useState(false);
   const [search, setSearch] = useState('');
-  console.log('search', search);
-
-  const [filter, setFilter] = useState('');
+  const [typeCars, setTypeCars] = useState('');
   const [hasAirConditioner, setHasAirConditioner] = useState(false);
   const [hasFridge, setHasFridge] = useState(false);
+  const [drivingStyle, setDrivingStyle] = useState('');
 
   const handleSubmitAddCar = async formData => {
     await addsNewCar(formData);
@@ -27,13 +26,14 @@ const Cars = () => {
         <title>Cars</title>
       </Helmet>
 
-      <Container maxW={'max-content'}>
-        {/* Панель фільтрів */}
+      <Container w={'100%'} p={0}>
         <FilterPanel
           search={search}
           setSearch={setSearch}
-          filter={filter}
-          setFilter={setFilter}
+          typeCars={typeCars}
+          setTypeCars={setTypeCars}
+          drivingStyle={drivingStyle}
+          setDrivingStyle={setDrivingStyle}
           hasAirConditioner={hasAirConditioner}
           setHasAirConditioner={setHasAirConditioner}
           hasFridge={hasFridge}
@@ -43,7 +43,8 @@ const Cars = () => {
         <CarsBox
           filters={{
             search,
-            filter,
+            typeCars,
+            drivingStyle,
             hasAirConditioner,
             hasFridge,
           }}

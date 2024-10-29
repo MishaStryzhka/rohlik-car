@@ -32,7 +32,7 @@ export const register = createAsyncThunk(
         email,
         password
       );
-      const { accessToken, uid } = userCredential.user;
+      const { uid } = userCredential.user;
 
       await setDoc(doc(db, 'users', uid), {
         userId: userId,
@@ -54,12 +54,15 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async ({ id: userId, pin: password }, thunkAPI) => {
     try {
+      console.log('qwe');
       const usersRef = collection(db, 'users');
       const q = query(usersRef, where('userId', '==', userId));
       const querySnapshot = await getDocs(q);
 
       let userDate;
       querySnapshot.forEach(doc => {
+        console.log('doc.data()', doc.data());
+        console.log('doc.data().email', doc.data().email);
         if (doc.data().email) {
           userDate = doc.data();
         } else {

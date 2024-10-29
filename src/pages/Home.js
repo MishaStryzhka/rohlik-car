@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet';
-import { Container, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading, VStack } from '@chakra-ui/react';
 import IconCars from 'components/IconCars';
 
 export default function Home() {
@@ -14,8 +14,25 @@ export default function Home() {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <IconCars width="300" height="300" />
-      <Heading>Your personal Help-Book.</Heading>
+      <VStack
+        w={{ base: '100%', md: '550px' }}
+        align="center"
+        justify="center"
+        spacing={4}
+      >
+        <Heading
+          as="h1"
+          fontSize={{ base: '24px', md: '48px' }}
+          lineHeight={{ base: '2.6', md: '1.5' }}
+          color="#6DA305"
+          noOfLines={1}
+        >
+          Your personal Help-Book.
+        </Heading>
+        <Box width={{ base: '150px', md: '300px' }}>
+          <IconCars />
+        </Box>
+      </VStack>
     </Container>
   );
 }

@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 import css from './UserMenu.module.css';
-import { FaUser } from 'react-icons/fa';
 import { Box } from '@chakra-ui/react';
 import UserMobMenu from 'components/UserMobMenu/UserMobMenu';
 

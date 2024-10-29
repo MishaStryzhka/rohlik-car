@@ -3,9 +3,12 @@ import { logIn } from 'redux/auth/operations';
 import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
+import { useAuth } from 'hooks';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const { isLoading } = useAuth();
+  console.log('isLoading', isLoading);
   const [show, setShow] = useState(false);
 
   const handleClick = () => setShow(!show);
@@ -54,7 +57,7 @@ export const LoginForm = () => {
             mt={8}
             mx="calc(50% - 40px)"
             colorScheme="teal"
-            isLoading={props.isSubmitting}
+            isLoading={isLoading}
             type="submit"
           >
             log In

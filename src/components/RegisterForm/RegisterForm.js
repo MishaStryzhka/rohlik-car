@@ -15,7 +15,7 @@ import { validationRegisterFormScheme } from 'schemas/registerFormScheme';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
-  const { error } = useAuth();
+  const { error, isLoading } = useAuth();
   const [show, setShow] = useState(false);
 
   const handleClick = () => setShow(!show);
@@ -108,7 +108,7 @@ export const RegisterForm = () => {
               mt={8}
               mx="calc(50% - 40px)"
               bgColor="#6DA305"
-              isLoading={props.isSubmitting}
+              isLoading={isLoading}
               type="submit"
             >
               Register
