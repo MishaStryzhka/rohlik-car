@@ -93,7 +93,7 @@ export const RegisterForm = () => {
                     {...field}
                     pr="4.5rem"
                     type={show ? 'text' : 'password'}
-                    placeholder="Enter password"
+                    placeholder="password"
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleClick}>
