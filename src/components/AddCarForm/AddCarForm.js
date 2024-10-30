@@ -129,7 +129,7 @@ const AddCarForm = ({ value, onSubmit }) => {
               color="white"
               _hover={{ bg: '#5c8e04' }}
             >
-              Přidat auto
+              {value?.name ? 'Uložit změny' : 'Přidat auto'}
             </Button>
           </VStack>
         </Box>

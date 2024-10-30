@@ -1,7 +1,8 @@
-import { ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon, ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Box,
   Container,
+  Divider,
   Flex,
   Icon,
   IconButton,
@@ -24,6 +25,7 @@ const CarPage = () => {
   const { carId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
+  const [isOpenModalAddComment, setIsOpenModalAddComment] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,8 +38,8 @@ const CarPage = () => {
   }, [carId]);
 
   const handleEditCar = newDataCar => {
-    console.log('newDataCar', newDataCar);
     updateCarById({ carId, ...newDataCar });
+    setIsOpenModalEdit(false);
   };
 
   return isLoading ? (
@@ -52,7 +54,7 @@ const CarPage = () => {
         w={'100%'}
         maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
         p={2}
-        pt={0}
+        borderRadius={6}
       >
         <Flex alignItems="center" justify="space-between">
           <IconButton
@@ -67,8 +69,8 @@ const CarPage = () => {
             aria-label="Назад"
           />
         </Flex>
-        <Box>
-          <Text>Type: {car.type}</Text>
+        <Box mt={2}>
+          <Text>Typ: {car.type}</Text>
           <Text>
             Klimatizace:
             <Flex align="center">
@@ -101,8 +103,34 @@ const CarPage = () => {
               />
             </Flex>
           </Text>
-          <Text>drivingStyle: {car.drivingStyle}</Text>
-          <Text>comment: {car.comment}</Text>
+          <Text>Styl jízdy: {car.drivingStyle}</Text>
+          <Divider my={4} />
+          {
+            <Box>
+              <Flex justify="space-between" alignItems="center">
+                <Text>Komentáře k autu: </Text>
+                <IconButton
+                  size="sm"
+                  bg="#6da305"
+                  color="white"
+                  _hover={{ bg: '#5c8e04' }}
+                  icon={<AddIcon />}
+                  onClick={() => setIsOpenModalAddComment(true)}
+                  aria-label="Open Modal Add Coment"
+                  position="relative"
+                />
+              </Flex>
+              <Box>
+                {!car?.comments ? (
+                  <Text>Neznalezen žádný komentář</Text>
+                ) : (
+                  car.comments.map((comment, index) => (
+                    <Text key={index}>{comment}</Text>
+                  ))
+                )}
+              </Box>
+            </Box>
+          }
         </Box>
       </Container>
 
@@ -112,6 +140,16 @@ const CarPage = () => {
           onClose={() => setIsOpenModalEdit(false)}
         >
           <AddCarForm value={car} onSubmit={handleEditCar} />
+        </ModalWrapper>
+      )}
+      {isOpenModalAddComment && (
+        <ModalWrapper
+          title="Přidat komentář"
+          isOpen={isOpenModalAddComment}
+          onClose={() => setIsOpenModalAddComment(false)}
+        >
+          {/* <AddCarForm value={car} onSubmit={handleEditCar} /> */}
+          <Text>AddCarCommentForm</Text>
         </ModalWrapper>
       )}
     </>

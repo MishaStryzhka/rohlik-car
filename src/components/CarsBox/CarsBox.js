@@ -4,6 +4,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
 import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 
 const CarsBox = ({ filters }) => {
   const { search, typeCars, drivingStyle, hasAirConditioner, hasFridge } =
@@ -46,23 +47,6 @@ const CarsBox = ({ filters }) => {
     return () => unsubscribe();
   }, [typeCars, drivingStyle, hasAirConditioner, hasFridge, search]);
 
-  // Іконка для стилю їзди залежно від значення drivingStyle
-  const getDrivingStyle = style => {
-    switch (style) {
-      case 'A':
-        return '#59c959';
-      case 'B':
-        return '#ecd950';
-      case 'C':
-        return '#ff5151';
-      case 'A/B':
-        return 'linear-gradient(-8deg, #ecd950 45%, #59c959 55%)';
-      case '0':
-      default:
-        return '#e0e0e0';
-    }
-  };
-
   return (
     <Grid
       pt={4}
@@ -83,7 +67,7 @@ const CarsBox = ({ filters }) => {
               borderWidth={1}
               borderRadius="md"
               boxShadow="md"
-              bg={getDrivingStyle(car.drivingStyle)}
+              bg={getColorDrivingStyle(car.drivingStyle)}
             >
               {/* Name */}
               <Text fontWeight="bold" fontSize="lg">
