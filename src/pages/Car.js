@@ -1,4 +1,4 @@
-import { AddIcon, ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Box,
   Container,
@@ -12,6 +12,7 @@ import {
 import { getCarById } from 'app';
 import { updateCarById } from 'app/updateCarById/updateCarById';
 import AddCarForm from 'components/AddCarForm/AddCarForm';
+import CarComments from 'components/CarComments/CarComments';
 import Loader from 'components/Loader/Loader';
 import ModalWrapper from 'components/Modal/Modal';
 import React, { useEffect, useState } from 'react';
@@ -25,7 +26,6 @@ const CarPage = () => {
   const { carId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
-  const [isOpenModalAddComment, setIsOpenModalAddComment] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +44,8 @@ const CarPage = () => {
 
   return isLoading ? (
     <Loader />
+  ) : !car ? (
+    <Text>Not found</Text>
   ) : (
     <>
       <Helmet>
@@ -71,8 +73,8 @@ const CarPage = () => {
         </Flex>
         <Box mt={2}>
           <Text>Typ: {car.type}</Text>
-          <Text>
-            Klimatizace:
+          <Flex flexDirection="column">
+            <Text>Klimatizace:</Text>
             <Flex align="center">
               <Icon
                 as={FaSnowflake}
@@ -86,9 +88,9 @@ const CarPage = () => {
                 onChange={() => {}}
               />
             </Flex>
-          </Text>
-          <Text>
-            Vestavba (ledničce):{' '}
+          </Flex>
+          <Flex flexDirection="column">
+            <Text>Vestavba (ledničce):</Text>
             <Flex align="center">
               <Icon
                 as={FaBox}
@@ -102,35 +104,10 @@ const CarPage = () => {
                 onChange={() => {}}
               />
             </Flex>
-          </Text>
+          </Flex>
           <Text>Styl jízdy: {car.drivingStyle}</Text>
           <Divider my={4} />
-          {
-            <Box>
-              <Flex justify="space-between" alignItems="center">
-                <Text>Komentáře k autu: </Text>
-                <IconButton
-                  size="sm"
-                  bg="#6da305"
-                  color="white"
-                  _hover={{ bg: '#5c8e04' }}
-                  icon={<AddIcon />}
-                  onClick={() => setIsOpenModalAddComment(true)}
-                  aria-label="Open Modal Add Coment"
-                  position="relative"
-                />
-              </Flex>
-              <Box>
-                {!car?.comments ? (
-                  <Text>Neznalezen žádný komentář</Text>
-                ) : (
-                  car.comments.map((comment, index) => (
-                    <Text key={index}>{comment}</Text>
-                  ))
-                )}
-              </Box>
-            </Box>
-          }
+          <CarComments carId={carId} />
         </Box>
       </Container>
 
@@ -140,16 +117,6 @@ const CarPage = () => {
           onClose={() => setIsOpenModalEdit(false)}
         >
           <AddCarForm value={car} onSubmit={handleEditCar} />
-        </ModalWrapper>
-      )}
-      {isOpenModalAddComment && (
-        <ModalWrapper
-          title="Přidat komentář"
-          isOpen={isOpenModalAddComment}
-          onClose={() => setIsOpenModalAddComment(false)}
-        >
-          {/* <AddCarForm value={car} onSubmit={handleEditCar} /> */}
-          <Text>AddCarCommentForm</Text>
         </ModalWrapper>
       )}
     </>

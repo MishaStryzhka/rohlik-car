@@ -11,7 +11,7 @@ import { createPortal } from 'react-dom';
 
 const ModalWrapper = ({ title, isOpen, onClose, children }) => {
   return createPortal(
-    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+    <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title || 'Přidat auto'}</ModalHeader>
