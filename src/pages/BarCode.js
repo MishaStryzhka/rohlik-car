@@ -13,13 +13,17 @@ import { CiBarcode } from 'react-icons/ci';
 
 const BarCode = () => {
   const inputRef = useRef(null);
-  const [barCode, setBarCode] = useState('1091561721-DN');
+  const [barCode, setBarCode] = useState('');
 
   const isFull =
     barCode.includes('-A-') ||
     barCode.includes('-C-') ||
     barCode.includes('-F-') ||
     barCode.includes('-DN');
+
+  if (inputRef) {
+    inputRef?.current?.focus();
+  }
 
   return (
     <>
