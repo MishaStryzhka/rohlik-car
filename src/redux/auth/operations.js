@@ -54,15 +54,12 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async ({ id: userId, password }, thunkAPI) => {
     try {
-      console.log('qwe');
       const usersRef = collection(db, 'users');
       const q = query(usersRef, where('userId', '==', userId));
       const querySnapshot = await getDocs(q);
 
       let userDate;
       querySnapshot.forEach(doc => {
-        console.log('doc.data()', doc.data());
-        console.log('doc.data().email', doc.data().email);
         if (doc.data().email) {
           userDate = doc.data();
         } else {
@@ -82,10 +79,7 @@ export const logIn = createAsyncThunk(
       const { accessToken, uid } = userPryvatDate;
       const user = {
         uid,
-        userId: userDate.userId,
-        email: userDate.email,
-        name: userDate.name,
-        surname: userDate.surname,
+        ...userDate,
       };
 
       return { user, token: accessToken };
@@ -130,10 +124,7 @@ export const refreshUser = createAsyncThunk(
 
         const user = {
           uid: userAuthData.uid,
-          userId: userFirestoreData.userId,
-          email: userFirestoreData.email,
-          name: userFirestoreData.name,
-          surname: userFirestoreData.surname,
+          ...userFirestoreData,
         };
         return { user };
       }

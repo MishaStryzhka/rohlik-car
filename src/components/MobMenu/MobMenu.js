@@ -9,7 +9,6 @@ const MobMenu = () => {
   const toggleMenu = () => (isOpen ? onClose() : onOpen());
   const menuRef = useRef();
   const { user } = useAuth();
-  console.log('user', user);
 
   // Закриття меню при кліку поза його межами
   useEffect(() => {

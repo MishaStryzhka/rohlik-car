@@ -8,7 +8,6 @@ import { useAuth } from 'hooks';
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const { isLoading } = useAuth();
-  console.log('isLoading', isLoading);
   const [show, setShow] = useState(false);
 
   const handleClick = () => setShow(!show);
