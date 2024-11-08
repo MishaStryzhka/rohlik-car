@@ -11,7 +11,6 @@ export const addCarComment = async ({ carId, commentText, user }) => {
     name,
   };
 
-  console.log('comment', comment);
   try {
     const carRef = collection(db, 'cars', carId, 'comments');
     await addDoc(carRef, comment);

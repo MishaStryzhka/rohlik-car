@@ -4,10 +4,10 @@ import { addDoc, collection } from 'firebase/firestore';
 export const addsNewCar = async formData => {
   try {
     const docRef = await addDoc(collection(db, 'cars'), formData);
-    alert(`Автомобіль ${formData.name} успішно додано.`);
+    alert(`Automobil ${formData.name} byl úspěšně přidán.`);
     return docRef;
   } catch (error) {
-    alert(`Помилка при додаванні автомобіля: ${formData.name}`, error);
+    alert(`Chyba při přidávání automobilu: ${formData.name}`, error);
     return null;
   }
 };

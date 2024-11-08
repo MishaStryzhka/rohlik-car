@@ -112,7 +112,7 @@ const AddCarForm = ({ value, onSubmit }) => {
               </Field>
             </FormControl>
 
-            {/* Pole "Komentář k autu" */}
+            {/* Pole "Komentář k autu"
             <FormControl>
               <FormLabel>Komentář k autu</FormLabel>
               <Field
@@ -120,7 +120,7 @@ const AddCarForm = ({ value, onSubmit }) => {
                 name="comment"
                 placeholder="Přidejte komentář..."
               />
-            </FormControl>
+            </FormControl> */}
 
             {/* Tlačítko odeslání */}
             <Button
