@@ -2,11 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { IconButton, Box, VStack, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from 'hooks';
 
 const MobMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toggleMenu = () => (isOpen ? onClose() : onOpen());
   const menuRef = useRef();
+  const { user } = useAuth();
+  console.log('user', user);
 
   // Закриття меню при кліку поза його межами
   useEffect(() => {
@@ -48,9 +51,11 @@ const MobMenu = () => {
             <NavLink to="/cars" onClick={onClose}>
               Cars
             </NavLink>
-            <NavLink to="/bar-code" onClick={onClose}>
-              BarCode
-            </NavLink>
+            {user?.role === 'VIP' && (
+              <NavLink to="/bar-code" onClick={onClose}>
+                BarCode
+              </NavLink>
+            )}
           </VStack>
         </Box>
       )}

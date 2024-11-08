@@ -5,7 +5,7 @@ import MobMenu from 'components/MobMenu/MobMenu';
 import { Box } from '@chakra-ui/react';
 
 export const Navigation = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
 
   return (
     <nav style={{ display: 'flex', alignItems: 'center' }}>
@@ -28,14 +28,16 @@ export const Navigation = () => {
           >
             Cars
           </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              `${css.link} ${isActive ? css.active : ''}`
-            }
-            to="/bar-code"
-          >
-            BarCode
-          </NavLink>
+          {user?.role === 'VIP' && (
+            <NavLink
+              className={({ isActive }) =>
+                `${css.link} ${isActive ? css.active : ''}`
+              }
+              to="/bar-code"
+            >
+              BarCode
+            </NavLink>
+          )}
         </Box>
       )}
     </nav>
