@@ -50,9 +50,14 @@ const MobMenu = () => {
             <NavLink to="/cars" onClick={onClose}>
               Cars
             </NavLink>
-            {user?.role === 'VIP' && (
+            {(user?.role === 'VIP' || user?.role === 'dev') && (
               <NavLink to="/bar-code" onClick={onClose}>
                 BarCode
+              </NavLink>
+            )}
+            {(user?.role === 'VIP' || user?.role === 'dev') && (
+              <NavLink to="/faq" onClick={onClose}>
+                FAQ
               </NavLink>
             )}
           </VStack>
