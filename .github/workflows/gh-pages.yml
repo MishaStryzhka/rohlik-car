@@ -30,6 +30,8 @@ jobs:
         run: npm install
 
       - name: Build the project
+        env:
+          REACT_APP_BASENAME: '/help-book'
         run: npm run build
 
       - name: Deploy with gh-pages

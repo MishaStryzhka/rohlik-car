@@ -8,11 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ChakraProvider } from '@chakra-ui/react';
 
+const basename = process.env.REACT_APP_BASENAME || '';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      {/* <BrowserRouter basename="/help-book"> */}
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <ChakraProvider>
           <App />
         </ChakraProvider>
