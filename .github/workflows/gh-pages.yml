@@ -31,7 +31,8 @@ jobs:
 
       - name: Build the project
         env:
-          REACT_APP_BASENAME: '/help-book'
+          GITHUB_PAGES_BASENAME: '/help-book'
+          PUBLIC_URL: 'https://MishaStryzhka.github.io/help-book/'
         run: npm run build
 
       - name: Deploy with gh-pages
