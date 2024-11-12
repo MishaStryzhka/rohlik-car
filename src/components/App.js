@@ -10,6 +10,7 @@ import NotFound from 'pages/NotFound';
 import BarCode from 'pages/BarCode';
 import Loader from './Loader/Loader';
 import CarPage from 'pages/Car';
+import FAQ from 'pages/Faq';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -55,6 +56,10 @@ export const App = () => {
         <Route
           path="/bar-code"
           element={<PrivateRoute redirectTo="/login" component={<BarCode />} />}
+        />
+        <Route
+          path="/faq"
+          element={<PrivateRoute redirectTo="/login" component={<FAQ />} />}
         />
         <Route path="*" component={<NotFound />} />
       </Route>
