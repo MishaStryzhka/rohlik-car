@@ -13,7 +13,7 @@ console.log('process.env', process.env);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter basename={process.env.GITHUB_PAGES_BASENAME || ''}>
+      <BrowserRouter basename={process.env.REACT_APP_BASENAME || ''}>
         <ChakraProvider>
           <App />
         </ChakraProvider>
