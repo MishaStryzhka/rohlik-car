@@ -7,7 +7,6 @@ import {
   Input,
   Select,
   Switch,
-  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';

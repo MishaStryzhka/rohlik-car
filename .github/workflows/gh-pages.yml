@@ -4,7 +4,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Виконуйте розгортання тільки при пушах у гілку main
+      - dev # Виконуйте розгортання тільки при пушах у гілку main
 
 jobs:
   deploy:
@@ -30,6 +30,9 @@ jobs:
         run: npm install
 
       - name: Build the project
+        env:
+          REACT_APP_BASENAME: '/help-book'
+          PUBLIC_URL: 'https://MishaStryzhka.github.io/help-book/'
         run: npm run build
 
       - name: Deploy with gh-pages

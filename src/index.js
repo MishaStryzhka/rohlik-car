@@ -11,8 +11,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      {/* <BrowserRouter basename="/help-book"> */}
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.REACT_APP_BASENAME || ''}>
         <ChakraProvider>
           <App />
         </ChakraProvider>
