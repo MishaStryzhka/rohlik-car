@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 const NotificationsMenu = () => {
   const [permission, setPermission] = useState(Notification.permission);
+  // eslint-disable-next-line no-unused-vars
   const [notifications, setNotifications] = useState([
     { id: 1, title: 'Welcome!', message: 'Thank you for visiting our site!' },
     { id: 2, title: 'New Feature', message: 'Check out our latest feature!' },
