@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "https://MishaStryzhka.github.io/help-book/static/css/main.c1741e67.css",
-    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.da8a5d53.js",
+    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.baaff265.js",
     "static/js/266.bfdf60b7.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js",
     "static/js/789.668d7c61.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/789.668d7c61.chunk.js",
     "static/js/960.bf90e511.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/960.bf90e511.chunk.js",
-    "static/js/835.84f80d93.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/835.84f80d93.chunk.js",
+    "static/js/835.9877dedd.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/835.9877dedd.chunk.js",
     "static/js/164.0c04ab7b.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/164.0c04ab7b.chunk.js",
     "index.html": "https://MishaStryzhka.github.io/help-book/index.html",
     "main.c1741e67.css.map": "https://MishaStryzhka.github.io/help-book/static/css/main.c1741e67.css.map",
-    "main.da8a5d53.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.da8a5d53.js.map",
+    "main.baaff265.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.baaff265.js.map",
     "266.bfdf60b7.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js.map",
     "789.668d7c61.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/789.668d7c61.chunk.js.map",
     "960.bf90e511.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/960.bf90e511.chunk.js.map",
-    "835.84f80d93.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/835.84f80d93.chunk.js.map",
+    "835.9877dedd.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/835.9877dedd.chunk.js.map",
     "164.0c04ab7b.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/164.0c04ab7b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c1741e67.css",
-    "static/js/main.da8a5d53.js"
+    "static/js/main.baaff265.js"
   ]
 }
