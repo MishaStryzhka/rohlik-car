@@ -5,6 +5,8 @@ import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
 import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
+import { GiHotSurface } from 'react-icons/gi';
+import { getSortCars } from 'helpers/getSortCars';
 
 const CarsBox = ({ filters }) => {
   const { search, typeCars, drivingStyle, hasAirConditioner, hasFridge } =
@@ -78,25 +80,27 @@ const CarsBox = ({ filters }) => {
                 {/* Перемикачі */}
                 <Box display="flex" alignItems="center" mt={2}>
                   <FaSnowflake
-                    color={car.hasAirConditioner ? 'green' : 'gray'}
-                  />
-                  <Switch
-                    ml={2}
-                    colorScheme="green"
-                    isChecked={car.hasAirConditioner}
-                    isReadOnly // Робимо перемикачі тільки для перегляду
+                    color={car.hasAirConditioner ? 'green' : 'red'}
                   />
                 </Box>
 
                 <Box display="flex" alignItems="center" mt={2}>
-                  <FaBox color={car.hasFridge ? 'green' : 'gray'} />
-                  <Switch
-                    ml={2}
-                    colorScheme="green"
-                    isChecked={car.hasFridge}
-                    isReadOnly
-                  />
+                  <FaBox color={car.hasFridge ? 'green' : 'red'} />
                 </Box>
+
+                {'hasHeating' in car && (
+                  <Box display="flex" alignItems="center" mt={2}>
+                    <GiHotSurface color={car.hasHeating ? 'green' : 'red'} />
+                  </Box>
+                )}
+
+                {'hasSoundProofed' in car && (
+                  <Box display="flex" alignItems="center" mt={2}>
+                    <GiHotSurface
+                      color={car.hashasSoundProofed ? 'green' : 'red'}
+                    />
+                  </Box>
+                )}
 
                 {/* Іконка для стилю їзди */}
                 <Box display="flex" alignItems="center" mt={2}>
