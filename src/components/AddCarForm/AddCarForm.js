@@ -21,6 +21,8 @@ const AddCarForm = ({ value, onSubmit }) => {
         type: value?.type || '',
         hasAirConditioner: value?.hasAirConditioner || false,
         hasFridge: value?.hasFridge || false,
+        hasHeating: value?.hasHeating || false,
+        hasSoundProofed: value?.hasSoundProofed || false,
         comment: value?.comment || '',
         drivingStyle: value?.drivingStyle || '',
       }}
@@ -83,6 +85,18 @@ const AddCarForm = ({ value, onSubmit }) => {
               />
             </FormControl>
 
+            {/* Přepínač pro "Topení" */}
+            <FormControl display="flex" alignItems="center">
+              <FormLabel mb="0">Topení</FormLabel>
+              <Field
+                as={Switch}
+                name="hasHeating"
+                colorScheme="green"
+                isChecked={values.hasHeating}
+                onChange={() => setFieldValue('hasHeating', !values.hasHeating)}
+              />
+            </FormControl>
+
             {/* Přepínač pro "Vestavba (ledničce)" */}
             <FormControl display="flex" alignItems="center">
               <FormLabel mb="0">Vestavba (ledničce)</FormLabel>
@@ -92,6 +106,20 @@ const AddCarForm = ({ value, onSubmit }) => {
                 colorScheme="green"
                 isChecked={values.hasFridge}
                 onChange={() => setFieldValue('hasFridge', !values.hasFridge)}
+              />
+            </FormControl>
+
+            {/* Přepínač pro "Odhlučněné" */}
+            <FormControl display="flex" alignItems="center">
+              <FormLabel mb="0">Odhlučněné</FormLabel>
+              <Field
+                as={Switch}
+                name="hasSoundProofed"
+                colorScheme="green"
+                isChecked={values.hasSoundProofed}
+                onChange={() =>
+                  setFieldValue('hasSoundProofed', !values.hasSoundProofed)
+                }
               />
             </FormControl>
 
