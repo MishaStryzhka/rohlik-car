@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { Box, Text, Grid, Flex } from '@chakra-ui/react';
-import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
+import { FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 import { GiHotSurface } from 'react-icons/gi';
@@ -58,7 +58,7 @@ const CarsBox = ({ filters }) => {
       gap={{ base: 3, md: 6 }}
     >
       {cars
-        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => getSortCars(a, b))
         .map(car => (
           <Link key={car.id} to={`/cars/${car.id}`}>
             <Flex

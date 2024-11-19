@@ -18,7 +18,7 @@ import { IoSearch } from 'react-icons/io5';
 import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import { FaSnowflake, FaBox } from 'react-icons/fa';
 import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
-import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
+// import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 
 const FilterPanel = ({
   search,
