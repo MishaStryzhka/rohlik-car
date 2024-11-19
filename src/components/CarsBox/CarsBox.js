@@ -55,7 +55,7 @@ const CarsBox = ({ filters }) => {
       gap={{ base: 3, md: 6 }}
     >
       {cars
-        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => getSortCars(a, b))
         .map(car => (
           <Link key={car.id} to={`/cars/${car.id}`}>
             <Flex
