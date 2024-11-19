@@ -4,7 +4,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - dev # Виконуйте розгортання тільки при пушах у гілку main
+      - dev # Виконуйте розгортання тільки при пушах у гілку dev
 
 jobs:
   deploy:

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 import { GiHotSurface } from 'react-icons/gi';
 import { getSortCars } from 'helpers/getSortCars';
+import { MdVolumeOff } from 'react-icons/md';
 
 const CarsBox = ({ filters }) => {
   const { search, typeCars, drivingStyle, hasAirConditioner, hasFridge } =
@@ -78,36 +79,33 @@ const CarsBox = ({ filters }) => {
 
               <Box display="flex" gap={3}>
                 {/* Перемикачі */}
-                <Box display="flex" alignItems="center" mt={2}>
+                <Box display="flex" alignItems="center">
                   <FaSnowflake
                     color={car.hasAirConditioner ? 'green' : 'red'}
                   />
                 </Box>
 
-                <Box display="flex" alignItems="center" mt={2}>
-                  <FaBox color={car.hasFridge ? 'green' : 'red'} />
-                </Box>
-
                 {'hasHeating' in car && (
-                  <Box display="flex" alignItems="center" mt={2}>
+                  <Box display="flex" alignItems="center">
                     <GiHotSurface color={car.hasHeating ? 'green' : 'red'} />
                   </Box>
                 )}
 
+                <Box display="flex" alignItems="center">
+                  <FaBox color={car.hasFridge ? 'green' : 'red'} />
+                </Box>
+
                 {'hasSoundProofed' in car && (
-                  <Box display="flex" alignItems="center" mt={2}>
-                    <GiHotSurface
-                      color={car.hashasSoundProofed ? 'green' : 'red'}
+                  <Box display="flex" alignItems="center">
+                    <MdVolumeOff
+                      color={car.hasSoundProofed ? 'green' : 'red'}
                     />
                   </Box>
                 )}
 
                 {/* Іконка для стилю їзди */}
-                <Box display="flex" alignItems="center" mt={2}>
-                  <FaCar size="30px" color="green" />
-                  <Text ml={2} fontSize={26}>
-                    {car.drivingStyle}
-                  </Text>
+                <Box display="flex" alignItems="center" px={1}>
+                  <Text fontSize={22}>{car.drivingStyle}</Text>
                 </Box>
               </Box>
             </Flex>

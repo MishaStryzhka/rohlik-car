@@ -18,6 +18,7 @@ import { IoSearch } from 'react-icons/io5';
 import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import { FaSnowflake, FaBox } from 'react-icons/fa';
 import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
+import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 
 const FilterPanel = ({
   search,
@@ -37,7 +38,7 @@ const FilterPanel = ({
   };
 
   return (
-    <Flex gap={4}>
+    <Flex gap={2}>
       {/* Поле пошуку */}
       <InputGroup>
         <InputLeftElement pointerEvents="none">
@@ -52,6 +53,8 @@ const FilterPanel = ({
           placeholder="Search"
         />
       </InputGroup>
+
+      {/* <ListViewSwitcher /> */}
 
       <Box display={{ base: 'flex', md: 'none' }} gap={2}>
         <FilterMobMenu
