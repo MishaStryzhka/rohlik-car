@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
+import { Box, Text, Grid, Flex } from '@chakra-ui/react';
 import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
