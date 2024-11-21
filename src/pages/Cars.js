@@ -50,6 +50,8 @@ const Cars = () => {
           setIsGridView={setIsGridView}
           hasHeating={hasHeating}
           setHasHeating={setHasHeating}
+          hasSoundProofed={hasSoundProofed}
+          setHasSoundProofed={setHasSoundProofed}
         />
         <CarsBox
           filters={{
@@ -57,7 +59,9 @@ const Cars = () => {
             typeCars,
             drivingStyle,
             hasAirConditioner,
+            hasHeating,
             hasFridge,
+            hasSoundProofed,
           }}
           isGridView={isGridView}
         />
