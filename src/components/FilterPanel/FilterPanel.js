@@ -18,7 +18,7 @@ import { IoSearch } from 'react-icons/io5';
 import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import { FaSnowflake, FaBox } from 'react-icons/fa';
 import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
-// import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
+import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 
 const FilterPanel = ({
   search,
@@ -32,6 +32,10 @@ const FilterPanel = ({
   hasFridge,
   setHasFridge,
   setIsOpenModalAddCar,
+  isGridView,
+  setIsGridView,
+  hasHeating,
+  hasSoundProofed,
 }) => {
   const handleSelect = type => {
     setTypeCars(type);
@@ -54,7 +58,7 @@ const FilterPanel = ({
         />
       </InputGroup>
 
-      {/* <ListViewSwitcher /> */}
+      <ListViewSwitcher isGridView={isGridView} setIsGridView={setIsGridView} />
 
       <Box display={{ base: 'flex', md: 'none' }} gap={2}>
         <FilterMobMenu

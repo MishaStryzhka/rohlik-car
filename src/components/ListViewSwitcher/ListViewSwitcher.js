@@ -1,12 +1,10 @@
 import { IconButton } from '@chakra-ui/react';
-import React, { useState } from 'react';
 import { FaTh, FaThList } from 'react-icons/fa';
 
-const ListViewSwitcher = () => {
-  const [isGridView, setIsGridView] = useState(true);
+const ListViewSwitcher = ({ isGridView, setIsGridView }) => {
   return (
     <IconButton
-      icon={isGridView ? <FaTh /> : <FaThList />}
+      icon={isGridView ? <FaThList /> : <FaTh />}
       onClick={() => setIsGridView(pref => !pref)}
       aria-label={
         isGridView
