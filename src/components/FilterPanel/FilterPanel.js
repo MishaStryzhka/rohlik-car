@@ -19,6 +19,8 @@ import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import { FaSnowflake, FaBox } from 'react-icons/fa';
 import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
 import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
+import { GiHotSurface } from 'react-icons/gi';
+import { MdVolumeOff } from 'react-icons/md';
 
 const FilterPanel = ({
   search,
@@ -35,7 +37,9 @@ const FilterPanel = ({
   isGridView,
   setIsGridView,
   hasHeating,
+  setHasHeating,
   hasSoundProofed,
+  setHasSoundProofed,
 }) => {
   const handleSelect = type => {
     setTypeCars(type);
@@ -60,7 +64,7 @@ const FilterPanel = ({
 
       <ListViewSwitcher isGridView={isGridView} setIsGridView={setIsGridView} />
 
-      <Box display={{ base: 'flex', md: 'none' }} gap={2}>
+      <Box display={{ base: 'flex', xl: 'none' }} gap={2}>
         <FilterMobMenu
           typeCars={typeCars}
           setTypeCars={setTypeCars}
@@ -70,6 +74,10 @@ const FilterPanel = ({
           setHasAirConditioner={setHasAirConditioner}
           hasFridge={hasFridge}
           setHasFridge={setHasFridge}
+          hasHeating={hasHeating}
+          setHasHeating={setHasHeating}
+          hasSoundProofed={hasSoundProofed}
+          setHasSoundProofed={setHasSoundProofed}
         />
         <IconButton
           bg="#6da305"
@@ -81,7 +89,7 @@ const FilterPanel = ({
           position="relative"
         />
       </Box>
-      <Box display={{ base: 'none', md: 'block' }}>
+      <Box display={{ base: 'none', xl: 'block' }}>
         <Flex gap={4} align="center">
           {/* Вибір типу авто */}
           <Menu>
@@ -97,7 +105,6 @@ const FilterPanel = ({
               <MenuItem onClick={() => handleSelect('EXP')}>EXP</MenuItem>
             </MenuList>
           </Menu>
-
           {/* Перемикач для кондиціонера */}
           <Flex align="center">
             <Icon
@@ -110,6 +117,20 @@ const FilterPanel = ({
               colorScheme="green"
               isChecked={hasAirConditioner}
               onChange={() => setHasAirConditioner(!hasAirConditioner)}
+            />
+          </Flex>
+          {/* Перемикач для Topení */}
+          <Flex align="center">
+            <Icon
+              as={GiHotSurface}
+              boxSize={5}
+              mr={2}
+              color={hasHeating ? 'green.500' : 'gray.500'}
+            />
+            <Switch
+              colorScheme="green"
+              isChecked={hasHeating}
+              onChange={() => setHasHeating(!hasHeating)}
             />
           </Flex>
 
@@ -125,6 +146,21 @@ const FilterPanel = ({
               colorScheme="green"
               isChecked={hasFridge}
               onChange={() => setHasFridge(!hasFridge)}
+            />
+          </Flex>
+
+          {/* Перемикач для холодильника */}
+          <Flex align="center">
+            <Icon
+              as={MdVolumeOff}
+              boxSize={5}
+              mr={2}
+              color={hasSoundProofed ? 'green.500' : 'gray.500'}
+            />
+            <Switch
+              colorScheme="green"
+              isChecked={hasSoundProofed}
+              onChange={() => setHasSoundProofed(!hasSoundProofed)}
             />
           </Flex>
 
