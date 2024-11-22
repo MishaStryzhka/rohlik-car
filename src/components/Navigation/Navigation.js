@@ -28,7 +28,7 @@ export const Navigation = () => {
           >
             Cars
           </NavLink>
-          {user?.role === 'VIP' && (
+          {(user?.role === 'VIP' || user?.role === 'dev') && (
             <NavLink
               className={({ isActive }) =>
                 `${css.link} ${isActive ? css.active : ''}`
@@ -36,6 +36,16 @@ export const Navigation = () => {
               to="/bar-code"
             >
               BarCode
+            </NavLink>
+          )}
+          {(user?.role === 'VIP' || user?.role === 'dev') && (
+            <NavLink
+              className={({ isActive }) =>
+                `${css.link} ${isActive ? css.active : ''}`
+              }
+              to="/faq"
+            >
+              FAQ
             </NavLink>
           )}
         </Box>

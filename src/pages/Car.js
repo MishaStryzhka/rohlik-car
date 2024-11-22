@@ -19,10 +19,11 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
+import { MdVolumeOff } from 'react-icons/md';
+import { GiHotSurface } from 'react-icons/gi';
 
 const CarPage = () => {
   const [car, setCar] = useState(null);
-  console.log('car', car);
   const { carId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -90,6 +91,28 @@ const CarPage = () => {
             </Flex>
           </Flex>
           <Flex flexDirection="column">
+            <Text>Topení:</Text>
+            <Flex align="center">
+              <Icon
+                as={GiHotSurface}
+                boxSize={5}
+                mr={2}
+                color={car?.hasHeating ? 'green.500' : 'gray.200'}
+              />
+              {'hasHeating' in car ? (
+                <Switch
+                  colorScheme="green"
+                  isChecked={car?.hasHeating}
+                  onChange={() => {}}
+                />
+              ) : (
+                <Text fontWeight="bold" color="gray.200">
+                  nenalezeno
+                </Text>
+              )}
+            </Flex>
+          </Flex>
+          <Flex flexDirection="column">
             <Text>Vestavba (ledničce):</Text>
             <Flex align="center">
               <Icon
@@ -103,6 +126,28 @@ const CarPage = () => {
                 isChecked={car.hasFridge}
                 onChange={() => {}}
               />
+            </Flex>
+          </Flex>
+          <Flex flexDirection="column">
+            <Text>Odhlučněné:</Text>
+            <Flex align="center">
+              <Icon
+                as={MdVolumeOff}
+                boxSize={5}
+                mr={2}
+                color={car?.hasSoundProofed ? 'green.500' : 'gray.200'}
+              />
+              {'hasSoundProofed' in car ? (
+                <Switch
+                  colorScheme="green"
+                  isChecked={car?.hasSoundProofed}
+                  onChange={() => {}}
+                />
+              ) : (
+                <Text fontWeight="bold" color="gray.200">
+                  nenalezeno
+                </Text>
+              )}
             </Flex>
           </Flex>
           <Text>Styl jízdy: {car.drivingStyle}</Text>
