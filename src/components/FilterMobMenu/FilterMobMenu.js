@@ -146,7 +146,7 @@ const FilterMobMenu = ({
         p={isOpen ? 4 : 0}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        transition={{ height: { duration: 0.4 }, opacity: { duration: 0.2 } }} // Тривалість анімації
+        transition={{ height: { duration: 0.4 }, opacity: { duration: 0.8 } }} // Тривалість анімації
       >
         <VStack align="start" spacing={4}>
           <Box
