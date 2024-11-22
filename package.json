@@ -2,7 +2,6 @@
   "name": "help-book",
   "version": "0.1.1",
   "private": true,
-  "homepage": "https://mishastryzhka.github.io/help-book/",
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.3",
