@@ -1,7 +1,8 @@
 {
   "name": "help-book",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
+  "homepage": "https://mishastryzhka.github.io/help-book/",
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.3",
@@ -14,6 +15,7 @@
     "date-fns": "^4.1.0",
     "firebase": "^11.0.1",
     "formik": "^2.4.5",
+    "framer-motion": "^11.11.17",
     "gh-pages": "^6.1.0",
     "http-proxy-middleware": ">=2.0.7",
     "react": "^18.2.0",

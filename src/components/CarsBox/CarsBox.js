@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { Box, Text, Grid, Switch, Flex } from '@chakra-ui/react';
-import { FaCar, FaSnowflake, FaBox } from 'react-icons/fa';
+import { Box, Text, Grid, Flex } from '@chakra-ui/react';
+import { FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
+import { GiHotSurface } from 'react-icons/gi';
+import { getSortCars } from 'helpers/getSortCars';
+import { MdVolumeOff } from 'react-icons/md';
 
-const CarsBox = ({ filters }) => {
-  const { search, typeCars, drivingStyle, hasAirConditioner, hasFridge } =
-    filters;
+const CarsBox = ({ filters, isGridView }) => {
+  const {
+    search,
+    typeCars,
+    drivingStyle,
+    hasAirConditioner,
+    hasFridge,
+    hasHeating,
+    hasSoundProofed,
+  } = filters;
   const [cars, setCars] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
@@ -32,12 +42,18 @@ const CarsBox = ({ filters }) => {
           ? car.hasAirConditioner === true
           : true;
         const matchesFridge = hasFridge ? car.hasFridge === true : true;
+        const matchesHeating = hasHeating ? car.hasHeating === true : true;
+        const matchesSoundProofed = hasSoundProofed
+          ? car.hasSoundProofed === true
+          : true;
         return (
           matchesSearch &&
           matchesType &&
           matchesAirConditioner &&
           matchesFridge &&
-          matchesTypeDrivingStyle
+          matchesTypeDrivingStyle &&
+          matchesHeating &&
+          matchesSoundProofed
         );
       });
       setCars(filteredCars);
@@ -45,9 +61,79 @@ const CarsBox = ({ filters }) => {
     });
 
     return () => unsubscribe();
-  }, [typeCars, drivingStyle, hasAirConditioner, hasFridge, search]);
+  }, [
+    typeCars,
+    drivingStyle,
+    hasAirConditioner,
+    hasFridge,
+    search,
+    hasHeating,
+    hasSoundProofed,
+  ]);
 
-  return (
+  return isGridView ? (
+    <Grid
+      pt={4}
+      w={'100%'}
+      templateColumns={{
+        base: 'repeat(4, 1fr)',
+        md: 'repeat(6, 1fr)',
+        xl: 'repeat(10, 1fr)',
+      }}
+      gap={{ base: 1, md: 6, xl: 2 }}
+    >
+      {cars
+        .sort((a, b) => getSortCars(a, b))
+        .map(car => (
+          <Link key={car.id} to={`/cars/${car.id}`}>
+            <Flex
+              w={'100%'}
+              flexDirection="column"
+              alignItems="center"
+              justify="space-between"
+              gap={1}
+              p={{ base: 0, md: 3 }}
+              borderWidth={1}
+              borderRadius="md"
+              boxShadow="md"
+              bg={getColorDrivingStyle(car.drivingStyle)}
+            >
+              {/* Name */}
+              <Text fontWeight="bold" fontSize={14}>
+                {car.name}
+              </Text>
+
+              <Box display="flex" gap={1}>
+                {/* Перемикачі */}
+                <Box display="flex" alignItems="center">
+                  <FaSnowflake
+                    color={car.hasAirConditioner ? 'green' : 'red'}
+                  />
+                </Box>
+
+                {'hasHeating' in car && (
+                  <Box display="flex" alignItems="center">
+                    <GiHotSurface color={car.hasHeating ? 'green' : 'red'} />
+                  </Box>
+                )}
+
+                <Box display="flex" alignItems="center">
+                  <FaBox color={car.hasFridge ? 'green' : 'red'} />
+                </Box>
+
+                {'hasSoundProofed' in car && (
+                  <Box display="flex" alignItems="center">
+                    <MdVolumeOff
+                      color={car.hasSoundProofed ? 'green' : 'red'}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </Flex>
+          </Link>
+        ))}
+    </Grid>
+  ) : (
     <Grid
       pt={4}
       w={'100%'}
@@ -55,7 +141,7 @@ const CarsBox = ({ filters }) => {
       gap={{ base: 3, md: 6 }}
     >
       {cars
-        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => getSortCars(a, b))
         .map(car => (
           <Link key={car.id} to={`/cars/${car.id}`}>
             <Flex
@@ -74,36 +160,35 @@ const CarsBox = ({ filters }) => {
                 {car.name}
               </Text>
 
-              <Box display="flex" gap={3}>
+              <Box display="flex" gap={1}>
                 {/* Перемикачі */}
-                <Box display="flex" alignItems="center" mt={2}>
+                <Box display="flex" alignItems="center">
                   <FaSnowflake
-                    color={car.hasAirConditioner ? 'green' : 'gray'}
-                  />
-                  <Switch
-                    ml={2}
-                    colorScheme="green"
-                    isChecked={car.hasAirConditioner}
-                    isReadOnly // Робимо перемикачі тільки для перегляду
+                    color={car.hasAirConditioner ? 'green' : 'red'}
                   />
                 </Box>
 
-                <Box display="flex" alignItems="center" mt={2}>
-                  <FaBox color={car.hasFridge ? 'green' : 'gray'} />
-                  <Switch
-                    ml={2}
-                    colorScheme="green"
-                    isChecked={car.hasFridge}
-                    isReadOnly
-                  />
+                {'hasHeating' in car && (
+                  <Box display="flex" alignItems="center">
+                    <GiHotSurface color={car.hasHeating ? 'green' : 'red'} />
+                  </Box>
+                )}
+
+                <Box display="flex" alignItems="center">
+                  <FaBox color={car.hasFridge ? 'green' : 'red'} />
                 </Box>
+
+                {'hasSoundProofed' in car && (
+                  <Box display="flex" alignItems="center">
+                    <MdVolumeOff
+                      color={car.hasSoundProofed ? 'green' : 'red'}
+                    />
+                  </Box>
+                )}
 
                 {/* Іконка для стилю їзди */}
-                <Box display="flex" alignItems="center" mt={2}>
-                  <FaCar size="30px" color="green" />
-                  <Text ml={2} fontSize={26}>
-                    {car.drivingStyle}
-                  </Text>
+                <Box display="flex" alignItems="center" px={1}>
+                  <Text fontSize={22}>{car.drivingStyle}</Text>
                 </Box>
               </Box>
             </Flex>

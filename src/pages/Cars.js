@@ -14,6 +14,9 @@ const Cars = () => {
   const [hasAirConditioner, setHasAirConditioner] = useState(false);
   const [hasFridge, setHasFridge] = useState(false);
   const [drivingStyle, setDrivingStyle] = useState('');
+  const [isGridView, setIsGridView] = useState(false);
+  const [hasHeating, setHasHeating] = useState(false);
+  const [hasSoundProofed, setHasSoundProofed] = useState(false);
 
   const handleSubmitAddCar = async formData => {
     await addsNewCar(formData);
@@ -43,6 +46,12 @@ const Cars = () => {
           hasFridge={hasFridge}
           setHasFridge={setHasFridge}
           setIsOpenModalAddCar={setIsOpenModalAddCar}
+          isGridView={isGridView}
+          setIsGridView={setIsGridView}
+          hasHeating={hasHeating}
+          setHasHeating={setHasHeating}
+          hasSoundProofed={hasSoundProofed}
+          setHasSoundProofed={setHasSoundProofed}
         />
         <CarsBox
           filters={{
@@ -50,8 +59,11 @@ const Cars = () => {
             typeCars,
             drivingStyle,
             hasAirConditioner,
+            hasHeating,
             hasFridge,
+            hasSoundProofed,
           }}
+          isGridView={isGridView}
         />
       </Container>
 
