@@ -110,15 +110,12 @@ const FaqQuestionComments = ({ id: questionId }) => {
         mt={1}
       >
         <Textarea
-          minH="60px"
-          height="60px"
           placeholder="Napište komentář..."
           value={comment}
           onChange={e => setComment(e.target.value)}
           border="none"
           _focusVisible={{ border: 'none' }}
           ref={textareaRef}
-          fontFamily="'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif"
         />
         <ButtonGroup
           position="absolute"
