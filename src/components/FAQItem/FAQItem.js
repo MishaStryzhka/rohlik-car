@@ -1,9 +1,10 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   ButtonGroup,
   IconButton,
+  Image,
   Text,
   Textarea,
 } from '@chakra-ui/react';
@@ -14,15 +15,20 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { GrSend } from 'react-icons/gr';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import './fullscreenSwiper.css';
 
 const MotionBox = motion(Box);
 
-const FAQItem = ({ id, question, answer: defAnswer }) => {
+const FAQItem = ({ id, images, question, answer: defAnswer }) => {
   const [answer, setAnswer] = useState(defAnswer);
   const textAnswerAreaRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -30,7 +36,7 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
 
   const handleEmojiClick = emoji => {
     setAnswer(prevComment => prevComment + emoji.emoji);
-    setShowEmojiPicker(false); // Закрити пікер після вибору смайлика
+    setShowEmojiPicker(false);
     textAnswerAreaRef.current.focus();
   };
 
@@ -43,6 +49,15 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
     console.log('answer', answer);
 
     updateFaqQuestion({ questionId: id, question: { answer } });
+  };
+
+  const handleImageClick = index => {
+    setCurrentIndex(index);
+    setIsFullscreen(true);
+  };
+
+  const handleCloseFullscreen = () => {
+    setIsFullscreen(false);
   };
 
   return (
@@ -81,6 +96,48 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
         transition={{ duration: 0.3 }}
         mt={2}
       >
+        {images?.length > 0 && (
+          <Box>
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={10}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+              breakpoints={{
+                480: {
+                  slidesPerView: 3,
+                  spaceBetween: 5,
+                },
+                768: {
+                  slidesPerView: 5,
+                  spaceBetween: 10,
+                },
+                1280: {
+                  slidesPerView: 6,
+                  spaceBetween: 10,
+                },
+              }}
+            >
+              {images.map((img, index) => (
+                <SwiperSlide>
+                  <Image
+                    src={img}
+                    // width="100px"
+                    height={{ base: '120px', md: '150px', xl: '200px' }}
+                    objectFit="cover"
+                    borderRadius="md"
+                    boxShadow="md"
+                    onClick={() => handleImageClick(index)} // Відкриття повноекранного режиму
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+        )}
+
         {defAnswer ? (
           <Text fontSize="md" color="gray.600" p={2}>
             {answer}
@@ -156,6 +213,56 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
                     showPreview: false, // Прибирає блок попереднього перегляду
                   }}
                 />
+              </Box>
+            )}
+            {isFullscreen && (
+              <Box
+                position="fixed"
+                top={0}
+                left={0}
+                width="100vw"
+                height="100vh"
+                bg="rgba(0, 0, 0, 0.9)"
+                zIndex={99}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                {/* Кнопка закриття */}
+                <IconButton
+                  icon={<CloseIcon />}
+                  position="absolute"
+                  top="20px"
+                  right="20px"
+                  onClick={handleCloseFullscreen}
+                  colorScheme="whiteAlpha"
+                  aria-label="Close fullscreen gallery"
+                  zIndex={999}
+                />
+
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination]}
+                  className="fullscreenSwiper"
+                  initialSlide={currentIndex} // Встановити початковий слайд
+                >
+                  {images.map((img, index) => (
+                    <SwiperSlide style={{ alignItems: 'center' }} key={index}>
+                      <Image
+                        src={img}
+                        alt={`Image ${index + 1}`}
+                        maxHeight="100%"
+                        m="auto"
+                        borderRadius="md"
+                        objectFit={'cover'}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </Box>
             )}
           </Box>
