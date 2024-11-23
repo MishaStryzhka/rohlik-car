@@ -1,29 +1,44 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Box, Button, Text, VStack } from '@chakra-ui/react';
+import { nanoid } from '@reduxjs/toolkit';
+import { subscribeToFaqQuestions } from 'app';
 import AddFaqQuestion from 'components/AddFaqQuestion/AddFaqQuestion';
 import FAQItem from 'components/FAQItem/FAQItem';
 import ModalWrapper from 'components/Modal/Modal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const faqData = [
   {
+    id: nanoid(),
     question: 'Co je Help-Book?',
     answer:
       'Help-Book je platforma pro kurýry, která pomáhá organizovat jejich práci a zajišťuje lepší přehled o jejich vozidlech.',
   },
   {
+    id: nanoid(),
     question: 'Jak mohu přidat auto?',
     answer:
       'Můžete přidat auto kliknutím na tlačítko "Přidat auto" a vyplněním potřebných informací.',
   },
   {
+    id: nanoid(),
     question: 'Jaké jsou podporované typy aut?',
     answer: 'Podporované typy aut zahrnují CD, CDV, D, OV a EXP.',
   },
 ];
 
 const FAQ = () => {
+  const [questions, setQuestions] = useState(faqData);
   const [isOpenModalAddQuestion, setIsOpenModalAddQuestion] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToFaqQuestions(data => {
+      setQuestions([...faqData, ...data]);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <VStack align="stretch" spacing={4} mt={6}>
@@ -55,8 +70,8 @@ const FAQ = () => {
           </Button>
         </Box>
 
-        {faqData.map((faq, index) => (
-          <FAQItem key={index} question={faq.question} answer={faq.answer} />
+        {questions.map((question, index) => (
+          <FAQItem key={question.id} {...question} />
         ))}
       </VStack>
       {/* Formulář pro přidání nové otázky */}

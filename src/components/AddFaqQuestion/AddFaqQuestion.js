@@ -23,10 +23,9 @@ const AddFaqQuestion = ({ value, onClose }) => {
   const [imageFiles, setImageFiles] = useState([]);
   const hiddenFileInput = useRef(null);
   const [loading, setLoading] = useState(false);
-  console.log('loading', loading);
 
   const handleFileChange = e => {
-    const files = Array.from(e.target.files); // Масив файлів
+    const files = Array.from(e.target.files);
     setImageFiles(prevFiles => [...prevFiles, ...files]);
   };
 
@@ -41,10 +40,9 @@ const AddFaqQuestion = ({ value, onClose }) => {
     }
     setLoading(true);
 
-    const urls = await uploadPhotos({ path: 'questions', files: imageFiles }); // Чекаємо результат
+    const urls = await uploadPhotos({ path: 'questions', files: imageFiles });
 
     addFaqQuestion({ section, question, answer, images: urls, user });
-    alert('Otázka byla úspěšně přidána!');
     setLoading(false);
     onClose();
   };

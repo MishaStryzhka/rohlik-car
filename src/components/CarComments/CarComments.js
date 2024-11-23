@@ -1,7 +1,7 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
-import { addCarComment } from 'app';
-import AddCarCommentForm from 'components/AddCarsCommentForm/AddCarsCommentForm';
+import { addComment } from 'app';
+import AddCommentForm from 'components/AddCommentForm/AddCommentForm';
 import ModalWrapper from 'components/Modal/Modal';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -32,7 +32,7 @@ const CarComments = ({ carId }) => {
   }, [carId]);
 
   const hendleAddComment = commentText => {
-    addCarComment({ carId, commentText, user });
+    addComment({ collectionName: 'cars', elemId: carId, commentText, user });
     setIsOpenModalAddComment(false);
     alert('Komentář byl přidán!');
   };
@@ -60,7 +60,15 @@ const CarComments = ({ carId }) => {
             <Text textAlign="center">Neznalezen žádný komentář</Text>
           ) : (
             comments.map(comment => (
-              <OneComment key={comment.id} carId={carId} {...comment} />
+              <OneComment
+                key={comment.id}
+                elemId={carId}
+                commentId={comment.id}
+                userId={comment.userId}
+                name={comment.name}
+                date={comment.data || comment.CreatedAt}
+                text={comment.text}
+              />
             ))
           )}
         </Box>
@@ -71,7 +79,7 @@ const CarComments = ({ carId }) => {
           isOpen={isOpenModalAddComment}
           onClose={() => setIsOpenModalAddComment(false)}
         >
-          <AddCarCommentForm onSubmit={hendleAddComment} />
+          <AddCommentForm onSubmit={hendleAddComment} />
         </ModalWrapper>
       )}
     </>
