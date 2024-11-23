@@ -49,6 +49,7 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
     <Box borderWidth="1px" borderRadius="md" p={4} mb={4} boxShadow="md">
       {/* Питання */}
       <Button
+        maxWidth="100%"
         height="auto"
         variant="ghost"
         onClick={toggleOpen}
