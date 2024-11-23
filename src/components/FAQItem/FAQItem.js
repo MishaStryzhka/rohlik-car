@@ -49,13 +49,23 @@ const FAQItem = ({ id, question, answer: defAnswer }) => {
     <Box borderWidth="1px" borderRadius="md" p={4} mb={4} boxShadow="md">
       {/* Питання */}
       <Button
+        height="auto"
         variant="ghost"
         onClick={toggleOpen}
         w="100%"
         justifyContent="space-between"
         rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+        _hover={{ bg: 'gray.50' }}
+        _active={{ bg: 'gray.100' }}
       >
-        <Text fontSize="lg" fontWeight="medium" textAlign="left">
+        <Text
+          fontSize="lg"
+          fontWeight="medium"
+          textAlign="left"
+          flex="1"
+          whiteSpace="normal"
+          wordBreak="break-word"
+        >
           {question}
         </Text>
       </Button>
