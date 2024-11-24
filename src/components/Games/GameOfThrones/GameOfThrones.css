@@ -1,0 +1,53 @@
+.game-title {
+  text-align: center;
+}
+
+.game-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 20px auto;
+  padding: 5px;
+  text-align: center;
+  background-color: rgb(207, 190, 176);
+
+  font-weight: bold;
+  font-size: 1.5rem;
+  /* width: 200px; */
+  border-radius: 10px;
+}
+.line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes captureEffect {
+  0% {
+    transform: scale(1);
+    background-color: white;
+  }
+  50% {
+    transform: scale(1.2);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #111;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.cell.capturing {
+  animation: captureEffect 0.5s ease-out;
+}

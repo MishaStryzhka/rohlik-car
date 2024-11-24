@@ -45,9 +45,6 @@ const FAQItem = ({ id, images, question, answer: defAnswer }) => {
       alert('Napište komentář!');
       return;
     }
-
-    console.log('answer', answer);
-
     updateFaqQuestion({ questionId: id, question: { answer } });
   };
 
@@ -212,61 +209,61 @@ const FAQItem = ({ id, images, question, answer: defAnswer }) => {
                 />
               </Box>
             )}
-            {isFullscreen && (
-              <Box
-                position="fixed"
-                top={0}
-                left={0}
-                width="100vw"
-                height="100vh"
-                bg="rgba(0, 0, 0, 0.9)"
-                zIndex={99}
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                {/* Кнопка закриття */}
-                <IconButton
-                  icon={<CloseIcon />}
-                  position="absolute"
-                  top="20px"
-                  right="20px"
-                  onClick={handleCloseFullscreen}
-                  colorScheme="whiteAlpha"
-                  aria-label="Close fullscreen gallery"
-                  zIndex={999}
-                />
-
-                <Swiper
-                  slidesPerView={1}
-                  spaceBetween={10}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination]}
-                  className="fullscreenSwiper"
-                  initialSlide={currentIndex} // Встановити початковий слайд
-                >
-                  {images.map((img, index) => (
-                    <SwiperSlide style={{ alignItems: 'center' }} key={index}>
-                      <Image
-                        src={img}
-                        alt={`Image ${index + 1}`}
-                        maxHeight="100%"
-                        m="auto"
-                        borderRadius="md"
-                        objectFit={'cover'}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Box>
-            )}
           </Box>
         )}
 
         <FaqQuestionComments id={id} />
       </MotionBox>
+      {isFullscreen && (
+        <Box
+          position="fixed"
+          top={0}
+          left={0}
+          width="100vw"
+          height="100vh"
+          bg="rgba(0, 0, 0, 0.9)"
+          zIndex={99}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {/* Кнопка закриття */}
+          <IconButton
+            icon={<CloseIcon />}
+            position="absolute"
+            top="20px"
+            right="20px"
+            onClick={handleCloseFullscreen}
+            colorScheme="whiteAlpha"
+            aria-label="Close fullscreen gallery"
+            zIndex={999}
+          />
+
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="fullscreenSwiper"
+            initialSlide={currentIndex} // Встановити початковий слайд
+          >
+            {images.map((img, index) => (
+              <SwiperSlide style={{ alignItems: 'center' }} key={index}>
+                <Image
+                  src={img}
+                  alt={`Image ${index + 1}`}
+                  maxHeight="100%"
+                  m="auto"
+                  borderRadius="md"
+                  objectFit={'cover'}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
+      )}
     </Box>
   );
 };

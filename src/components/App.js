@@ -11,6 +11,8 @@ import BarCode from 'pages/BarCode';
 import Loader from './Loader/Loader';
 import CarPage from 'pages/Car';
 import FAQ from 'pages/Faq';
+import Games from 'pages/Games';
+import GameOfThrones from './Games/GameOfThrones/GameOfThrones';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -60,6 +62,16 @@ export const App = () => {
         <Route
           path="/faq"
           element={<PrivateRoute redirectTo="/login" component={<FAQ />} />}
+        />
+        <Route
+          path="/games"
+          element={<PrivateRoute redirectTo="/login" component={<Games />} />}
+        />
+        <Route
+          path="/games/game-of-thrones"
+          element={
+            <PrivateRoute redirectTo="/login" component={<GameOfThrones />} />
+          }
         />
         <Route path="*" component={<NotFound />} />
       </Route>
