@@ -85,22 +85,24 @@ const FaqQuestionComments = ({ id: questionId }) => {
 
   return (
     <Box>
-      <VStack align="stretch" spacing={4} mt={4} gap={1}>
-        {comments
-          .sort((a, b) => a.CreatedAt.toDate() - b.CreatedAt.toDate())
-          .map(comment => (
-            <OneComment
-              key={comment.id}
-              colectionsName="questions"
-              elemId={questionId}
-              commentId={comment.id}
-              userId={comment.userId}
-              name={comment.name}
-              date={comment.CreatedAt}
-              text={comment.text}
-            />
-          ))}
-      </VStack>
+      {comments.length > 0 && (
+        <VStack align="stretch" spacing={4} mt={4} gap={1}>
+          {comments
+            .sort((a, b) => a.CreatedAt.toDate() - b.CreatedAt.toDate())
+            .map(comment => (
+              <OneComment
+                key={comment.id}
+                colectionsName="questions"
+                elemId={questionId}
+                commentId={comment.id}
+                userId={comment.userId}
+                name={comment.name}
+                date={comment.CreatedAt}
+                text={comment.text}
+              />
+            ))}
+        </VStack>
+      )}
 
       <Box
         position="relative"
