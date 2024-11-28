@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://MishaStryzhka.github.io/help-book/static/css/main.b4edd32a.css",
-    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.6342c23f.js",
+    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.3d33dc8e.js",
     "static/js/266.bfdf60b7.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js",
     "static/js/789.5d2b8009.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/789.5d2b8009.chunk.js",
     "static/js/960.f37b70e3.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/960.f37b70e3.chunk.js",
@@ -9,7 +9,7 @@
     "static/js/655.725ac6b3.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/655.725ac6b3.chunk.js",
     "index.html": "https://MishaStryzhka.github.io/help-book/index.html",
     "main.b4edd32a.css.map": "https://MishaStryzhka.github.io/help-book/static/css/main.b4edd32a.css.map",
-    "main.6342c23f.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.6342c23f.js.map",
+    "main.3d33dc8e.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.3d33dc8e.js.map",
     "266.bfdf60b7.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js.map",
     "789.5d2b8009.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/789.5d2b8009.chunk.js.map",
     "960.f37b70e3.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/960.f37b70e3.chunk.js.map",
@@ -18,6 +18,6 @@
   },
   "entrypoints": [
     "static/css/main.b4edd32a.css",
-    "static/js/main.6342c23f.js"
+    "static/js/main.3d33dc8e.js"
   ]
 }
