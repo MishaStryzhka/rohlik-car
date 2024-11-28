@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "https://MishaStryzhka.github.io/help-book/static/css/main.b4edd32a.css",
-    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.3d33dc8e.js",
+    "main.css": "https://MishaStryzhka.github.io/help-book/static/css/main.005cb52c.css",
+    "main.js": "https://MishaStryzhka.github.io/help-book/static/js/main.1e4cf067.js",
     "static/js/266.bfdf60b7.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js",
     "static/js/789.5d2b8009.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/789.5d2b8009.chunk.js",
     "static/js/960.f37b70e3.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/960.f37b70e3.chunk.js",
     "static/js/370.57605126.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/370.57605126.chunk.js",
-    "static/js/655.725ac6b3.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/655.725ac6b3.chunk.js",
+    "static/js/464.164881ca.chunk.js": "https://MishaStryzhka.github.io/help-book/static/js/464.164881ca.chunk.js",
     "index.html": "https://MishaStryzhka.github.io/help-book/index.html",
-    "main.b4edd32a.css.map": "https://MishaStryzhka.github.io/help-book/static/css/main.b4edd32a.css.map",
-    "main.3d33dc8e.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.3d33dc8e.js.map",
+    "main.005cb52c.css.map": "https://MishaStryzhka.github.io/help-book/static/css/main.005cb52c.css.map",
+    "main.1e4cf067.js.map": "https://MishaStryzhka.github.io/help-book/static/js/main.1e4cf067.js.map",
     "266.bfdf60b7.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/266.bfdf60b7.chunk.js.map",
     "789.5d2b8009.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/789.5d2b8009.chunk.js.map",
     "960.f37b70e3.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/960.f37b70e3.chunk.js.map",
     "370.57605126.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/370.57605126.chunk.js.map",
-    "655.725ac6b3.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/655.725ac6b3.chunk.js.map"
+    "464.164881ca.chunk.js.map": "https://MishaStryzhka.github.io/help-book/static/js/464.164881ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b4edd32a.css",
-    "static/js/main.3d33dc8e.js"
+    "static/css/main.005cb52c.css",
+    "static/js/main.1e4cf067.js"
   ]
 }
