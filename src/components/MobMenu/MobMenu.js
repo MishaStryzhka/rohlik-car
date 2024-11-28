@@ -60,11 +60,6 @@ const MobMenu = () => {
                 FAQ
               </NavLink>
             )}
-            {(user?.role === 'VIP' || user?.role === 'dev') && (
-              <NavLink to="/games" onClick={onClose}>
-                Games
-              </NavLink>
-            )}
           </VStack>
         </Box>
       )}
