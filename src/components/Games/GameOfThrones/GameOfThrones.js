@@ -166,7 +166,7 @@ const GameOfThrones = () => {
 
             // If the neighboring square also reaches MAX_POWER, it explodes
             if (neighborCell.power > MAX_POWER) {
-              await delay(150); // Зупиняємо виконання на 150 мс
+              await delay(150); // Зупиняємо виконання на 300 мс
 
               processExplosion(
                 newGrid,
@@ -214,14 +214,16 @@ const GameOfThrones = () => {
               newAnimationGrid,
               explosionsInProgress
             );
+            console.log('111');
           } else {
+            console.log('222');
             handleEndTurn();
           }
 
           // Перевіряємо, чи завершена гра
           if (checkGameOver(newGrid)) {
             // Оновлюємо стан для зупинки гри
-            setIsGameRunning(false);
+            setIsGameRunning(true);
           }
 
           return newGrid;
@@ -260,7 +262,7 @@ const GameOfThrones = () => {
     ) {
       const botMoveTimeout = setTimeout(() => {
         handleBotMove();
-      }, 300);
+      }, 500);
       return () => clearTimeout(botMoveTimeout);
     }
   }, [currentPlayer, handleBotMove, isGameRunning]);
