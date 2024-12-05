@@ -38,16 +38,23 @@ export const Navigation = () => {
               BarCode
             </NavLink>
           )}
-          {(user?.role === 'VIP' || user?.role === 'dev') && (
-            <NavLink
-              className={({ isActive }) =>
-                `${css.link} ${isActive ? css.active : ''}`
-              }
-              to="/faq"
-            >
-              FAQ
-            </NavLink>
-          )}
+
+          <NavLink
+            className={({ isActive }) =>
+              `${css.link} ${isActive ? css.active : ''}`
+            }
+            to="/returnablePackaging"
+          >
+            Vratné obaly
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${css.link} ${isActive ? css.active : ''}`
+            }
+            to="/faq"
+          >
+            FAQ
+          </NavLink>
         </Box>
       )}
     </nav>

@@ -9,7 +9,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { updateFaqQuestion } from 'app';
-import FaqQuestionComments from 'components/Loader/FaqQuestionComments/FaqQuestionComments';
+import FaqQuestionComments from 'components/FaqQuestionComments/FaqQuestionComments';
 import EmojiPicker from 'emoji-picker-react';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
