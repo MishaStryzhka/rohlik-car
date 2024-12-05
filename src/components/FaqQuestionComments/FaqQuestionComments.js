@@ -6,7 +6,7 @@ import {
   IconButton,
   ButtonGroup,
 } from '@chakra-ui/react';
-import { db } from '../../../firebase/config';
+import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import OneComment from 'components/CarComments/OneComment';
 import { GrSend } from 'react-icons/gr';

@@ -4,6 +4,9 @@ const { addsNewCar } = require('./addsNewCar/addsNewCar');
 const { getCarById } = require('./getCarById/getCarById');
 const { removeComment } = require('./removeComment/removeComment');
 const {
+  addReturnablePackaging,
+} = require('./returnablePackaging/addReturnablePackaging/addReturnablePackaging');
+const {
   subscribeToFaqQuestions,
 } = require('./subscribeToFaqQuestions/subscribeToFaqQuestions');
 const { updateComment } = require('./updateComment/updateComment');
@@ -20,4 +23,6 @@ module.exports = {
   uploadPhotos,
   subscribeToFaqQuestions,
   updateFaqQuestion,
+
+  addReturnablePackaging,
 };
