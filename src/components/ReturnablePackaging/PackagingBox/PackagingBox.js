@@ -1,10 +1,8 @@
-import { Box, Flex, Grid, IconButton, Image, Text } from '@chakra-ui/react';
+import { Flex, Grid, Image, Text } from '@chakra-ui/react';
 import { db } from '../../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheck, FaTimes, FaQuestion } from 'react-icons/fa';
-import { MdOutlineModeEdit } from 'react-icons/md';
 import OnePackaging from '../OnePackaging/OnePackaging';
 
 const PackagingBox = ({ filters, isGridView }) => {
