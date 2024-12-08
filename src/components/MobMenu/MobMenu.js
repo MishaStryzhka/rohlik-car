@@ -55,7 +55,7 @@ const MobMenu = () => {
                 BarCode
               </NavLink>
             )}
-            <NavLink to="/returnablePackaging" onClick={onClose}>
+            <NavLink to="/packagings" onClick={onClose}>
               Vratné obaly
             </NavLink>
             <NavLink to="/faq" onClick={onClose}>

@@ -59,7 +59,7 @@ export const App = () => {
           element={<PrivateRoute redirectTo="/login" component={<BarCode />} />}
         />
         <Route
-          path="/returnablePackaging"
+          path="/packagings"
           element={
             <PrivateRoute
               redirectTo="/login"

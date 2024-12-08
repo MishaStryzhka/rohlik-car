@@ -1,8 +1,9 @@
 import { uploadPhotos } from 'app/uploadPhotos/uploadPhotos';
 import { db } from '../../../firebase/config';
-import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { Timestamp, doc, setDoc } from 'firebase/firestore';
 
-export const addReturnablePackaging = async ({
+export const updateReturnablePackaging = async ({
+  id,
   name,
   systemName,
   type,
@@ -13,10 +14,14 @@ export const addReturnablePackaging = async ({
 }) => {
   const { userId, name: userName } = user;
 
-  const [pathImg] = await uploadPhotos({
-    path: 'returnable-packaging',
-    files: [img],
-  });
+  let pathImg = img;
+
+  if (typeof img !== 'string') {
+    [pathImg] = await uploadPhotos({
+      path: 'returnable-packaging',
+      files: [img],
+    });
+  }
 
   const newPackaging = {
     name,
@@ -31,8 +36,8 @@ export const addReturnablePackaging = async ({
   };
 
   try {
-    const packagingRef = collection(db, 'returnable-packaging');
-    await addDoc(packagingRef, newPackaging);
+    const packagingRef = doc(db, 'returnable-packaging', id);
+    await setDoc(packagingRef, newPackaging);
     console.log('Packaging added successfully');
   } catch (error) {
     console.error('Error adding packaging:', error);

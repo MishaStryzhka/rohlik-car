@@ -19,6 +19,7 @@ import { FaRegImages } from 'react-icons/fa';
 
 const AddPackagingForm = ({ isLoading, value, onSubmit }) => {
   const hiddenFileInput = useRef(null);
+  console.log('value', value);
 
   const handleUploadClick = () => {
     hiddenFileInput.current.click();
@@ -28,18 +29,20 @@ const AddPackagingForm = ({ isLoading, value, onSubmit }) => {
     <Formik
       initialValues={{
         name: value?.name || '',
+        systemName: value?.systemName || '',
         type: value?.type || '',
         comment: value?.comment || '',
-        img: value?.type || '',
+        img: value?.img || '',
         isReturnable: value?.isReturnable || null,
       }}
+      enableReinitialize
       // validationSchema={value?.name ? updateCarSchema : validationAddCarSchema}
       onSubmit={values => {
         onSubmit(values);
       }}
     >
       {({ values, handleChange, setFieldValue, errors, touched }) => {
-        console.log('values.isReturnable', values.isReturnable);
+        console.log('values', values);
         return (
           <Box as={Form} p={4} borderWidth={1} borderRadius="md" boxShadow="md">
             <VStack spacing={4} align="stretch">
@@ -51,21 +54,34 @@ const AddPackagingForm = ({ isLoading, value, onSubmit }) => {
                   name="name"
                   placeholder='Například "pilsner 0.5"'
                   onChange={e => setFieldValue('name', e.target.value)}
-                  disabled={value?.name ? true : false}
                 />
                 {touched.name && errors.name ? (
                   <Box color="red.500">{errors.name}</Box>
                 ) : null}
               </FormControl>
 
+              {/* Pole "název" */}
+              <FormControl isInvalid={touched.systemName && errors.systemName}>
+                <FormLabel>Název v systému</FormLabel>
+                <Field
+                  as={Input}
+                  name="systemName"
+                  placeholder='Například "Pivní láhev"'
+                  onChange={e => setFieldValue('systemName', e.target.value)}
+                />
+                {touched.systemName && errors.systemName ? (
+                  <Box color="red.500">{errors.systemName}</Box>
+                ) : null}
+              </FormControl>
+
               {/* Pole "typ" */}
-              <FormControl isInvalid={touched.type && errors.type} isRequired>
+              <FormControl isInvalid={touched.type && errors.type}>
                 <FormLabel>Typ</FormLabel>
                 <Field
                   as={Select}
                   name="type"
                   placeholder="Vyberte typ"
-                  disabled={value?.type ? true : false}
+                  value={values.type}
                 >
                   <option value="crate">přepravka (basa)</option>
                   <option value="bottle">lahev</option>
@@ -82,7 +98,7 @@ const AddPackagingForm = ({ isLoading, value, onSubmit }) => {
                 <Flex gap={6} justify="center">
                   {[
                     ['true', 'vratný'],
-                    ['', 'zjistit '],
+                    ['null', 'zjistit '],
                     ['false', 'nevratný'],
                   ].map(([value, name]) => (
                     <Checkbox
@@ -113,25 +129,27 @@ const AddPackagingForm = ({ isLoading, value, onSubmit }) => {
                 />
                 {
                   <Box mt={2} display="flex" gap={2} flexWrap="wrap">
-                    {!values.img && (
-                      <IconButton
-                        w="85px"
-                        h="85px"
-                        icon={<FaRegImages color="#6da305" />}
-                        fontSize="24px"
-                        onClick={handleUploadClick}
-                        aria-label="Připojit obrázek"
-                      />
-                    )}
-                    {values.img && (
+                    {values?.img && (
                       <Image
-                        src={URL.createObjectURL(values.img)}
+                        src={
+                          typeof values.img === 'string'
+                            ? values.img
+                            : URL.createObjectURL(values.img)
+                        }
                         alt={`Preview`}
                         boxSize="85px"
                         objectFit="cover"
                         borderRadius="md"
                       />
                     )}
+                    <IconButton
+                      w="85px"
+                      h="85px"
+                      icon={<FaRegImages color="#6da305" />}
+                      fontSize="24px"
+                      onClick={handleUploadClick}
+                      aria-label="Připojit obrázek"
+                    />
                   </Box>
                 }
               </FormControl>
