@@ -7,6 +7,9 @@ const {
   addReturnablePackaging,
 } = require('./returnablePackaging/addReturnablePackaging/addReturnablePackaging');
 const {
+  updateReturnablePackaging,
+} = require('./returnablePackaging/updateReturnablePackaging/updateReturnablePackaging');
+const {
   subscribeToFaqQuestions,
 } = require('./subscribeToFaqQuestions/subscribeToFaqQuestions');
 const { updateComment } = require('./updateComment/updateComment');
@@ -25,4 +28,5 @@ module.exports = {
   updateFaqQuestion,
 
   addReturnablePackaging,
+  updateReturnablePackaging,
 };

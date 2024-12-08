@@ -40,16 +40,10 @@ const ReturnablePackaging = () => {
           setIsGridView={setIsGridView}
         />
         <PackagingBox
-        //   filters={{
-        //     search,
-        //     typeCars,
-        //     drivingStyle,
-        //     hasAirConditioner,
-        //     hasHeating,
-        //     hasFridge,
-        //     hasSoundProofed,
-        //   }}
-        //   isGridView={isGridView}
+          filters={{
+            search,
+          }}
+          isGridView={isGridView}
         />
       </Container>
 
