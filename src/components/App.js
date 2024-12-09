@@ -12,6 +12,7 @@ import Loader from './Loader/Loader';
 import CarPage from 'pages/Car';
 import FAQ from 'pages/Faq';
 import ReturnablePackaging from 'pages/ReturnablePackaging';
+import OneReturnablePackaging from 'pages/OneReturnablePackaging';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -64,6 +65,15 @@ export const App = () => {
             <PrivateRoute
               redirectTo="/login"
               component={<ReturnablePackaging />}
+            />
+          }
+        />
+        <Route
+          path="/packaging/:packagingId"
+          element={
+            <PrivateRoute
+              redirectTo="/login"
+              component={<OneReturnablePackaging />}
             />
           }
         />
