@@ -6,6 +6,7 @@ import { MdOutlineModeEdit } from 'react-icons/md';
 import AddPackagingForm from '../AddPackagingForm/AddPackagingForm';
 import { updateReturnablePackaging } from 'app';
 import { useAuth } from 'hooks';
+import FullScreenGalery from 'components/FullScreenGalery/FullScreenGalery';
 
 const OnePackaging = ({ isGridView, packaging }) => {
   console.log('packaging', packaging);
@@ -14,6 +15,8 @@ const OnePackaging = ({ isGridView, packaging }) => {
   const [isLoadingUpdatePackaging, setIsLoadingUpdatePackaging] =
     useState(false);
   const { user } = useAuth();
+  const [isOpenFullScreenGalery, setIsOpenFullScreenGalery] = useState(false);
+  const [currentIndexImage, setCurrentIndexImage] = useState(null);
 
   const handleSubmitUpdatePackaging = async newData => {
     setIsLoadingUpdatePackaging(true);
@@ -26,6 +29,7 @@ const OnePackaging = ({ isGridView, packaging }) => {
     <>
       {isGridView ? (
         <Flex
+          position="relative"
           w={'100%'}
           flexDirection="column"
           alignItems="center"
@@ -35,7 +39,6 @@ const OnePackaging = ({ isGridView, packaging }) => {
           borderWidth={1}
           borderRadius="md"
           boxShadow="md"
-          // bg={getColorDrivingStyle(car.drivingStyle)}
         >
           {/* Image */}
           <Image
@@ -45,15 +48,16 @@ const OnePackaging = ({ isGridView, packaging }) => {
             objectFit="cover"
           />
 
-          {/* Name */}
-          <Text fontWeight="bold" fontSize={14}>
-            {packaging.name}
-          </Text>
-
-          {/* System name */}
-          <Text fontWeight="bold" fontSize={14}>
-            V systému: {packaging?.systemName}
-          </Text>
+          {/* Check icon  */}
+          <Box position="absolute" top={1} left={1}>
+            {packaging.isReturnable === 'null' ? (
+              <FaQuestion size="24px" color="#c0c8b2" />
+            ) : packaging.isReturnable === 'true' ? (
+              <FaCheck size="24px" color="#6da305" />
+            ) : (
+              <FaTimes size="24px" color="red" />
+            )}
+          </Box>
         </Flex>
       ) : (
         <Flex
@@ -106,7 +110,16 @@ const OnePackaging = ({ isGridView, packaging }) => {
             width={{ base: '100px', md: '130px', xl: '170px' }}
             height={{ base: '100px', md: '130px', xl: '170px' }}
           >
-            <Image src={packaging.img} objectFit="cover" />
+            <Image
+              cursor="pointer"
+              src={packaging.img}
+              objectFit="cover"
+              onClick={() => {
+                console.log('qwe');
+                setCurrentIndexImage(0);
+                setIsOpenFullScreenGalery(true);
+              }}
+            />
           </Flex>
 
           <Flex direction="column">
@@ -147,6 +160,13 @@ const OnePackaging = ({ isGridView, packaging }) => {
             onSubmit={handleSubmitUpdatePackaging}
           />
         </ModalWrapper>
+      )}
+      {isOpenFullScreenGalery && (
+        <FullScreenGalery
+          currentIndex={currentIndexImage}
+          images={[packaging.img]}
+          closeGalery={() => setIsOpenFullScreenGalery(false)}
+        />
       )}
     </>
   );

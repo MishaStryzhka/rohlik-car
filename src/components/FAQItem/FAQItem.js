@@ -17,7 +17,6 @@ import { BsEmojiSmile } from 'react-icons/bs';
 import { GrSend } from 'react-icons/gr';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import './fullscreenSwiper.css';
 
 const MotionBox = motion(Box);
 

@@ -43,7 +43,7 @@ export const Navigation = () => {
             className={({ isActive }) =>
               `${css.link} ${isActive ? css.active : ''}`
             }
-            to="/packaging"
+            to="/packagings"
           >
             Vratné obaly
           </NavLink>

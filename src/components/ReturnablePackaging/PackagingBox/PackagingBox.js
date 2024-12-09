@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import OnePackaging from '../OnePackaging/OnePackaging';
 
 const PackagingBox = ({ filters, isGridView }) => {
+  const { search } = filters;
   const [packagings, setPackagings] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(null);
@@ -27,6 +28,10 @@ const PackagingBox = ({ filters, isGridView }) => {
     return () => unsubscribe();
   }, []);
 
+  const filteredPackagings = packagings.filter(onePackaging =>
+    onePackaging.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <>
       {isGridView ? (
@@ -40,7 +45,7 @@ const PackagingBox = ({ filters, isGridView }) => {
           }}
           gap={{ base: 1, md: 6, xl: 2 }}
         >
-          {packagings
+          {filteredPackagings
             // .sort((a, b) => getSortCars(a, b))
             .map(packaging => (
               <Link key={packaging.id} to={`/packaging/${packaging.id}`}>
@@ -84,12 +89,12 @@ const PackagingBox = ({ filters, isGridView }) => {
           templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
           gap={{ base: 3, md: 6 }}
         >
-          {packagings
+          {filteredPackagings
             // .sort((a, b) => getSortCars(a, b))
             .map(packaging => (
-              <Link key={packaging.id} to={`/packagings/${packaging.id}`}>
-                <OnePackaging isGridView={isGridView} packaging={packaging} />
-              </Link>
+              // <Link key={packaging.id} to={`/packagings/${packaging.id}`}>
+              <OnePackaging isGridView={isGridView} packaging={packaging} />
+              // </Link>
             ))}
         </Grid>
       )}
