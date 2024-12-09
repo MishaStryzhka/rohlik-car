@@ -30,7 +30,7 @@ const FilterPanerReturnablePackaging = ({
           w={{ base: '100%', md: '300px', xl: '500px' }}
           value={search}
           onChange={e => {
-            setSearch(e.target.value.toUpperCase());
+            setSearch(e.target.value);
           }}
           placeholder="Search"
         />

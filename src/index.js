@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './styles/fullscreenSwiper.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
