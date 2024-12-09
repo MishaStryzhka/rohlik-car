@@ -30,7 +30,7 @@ const OneReturnablePackaging = () => {
       setIsLoading(false);
     };
     fetchCarData();
-  }, []);
+  }, [packagingId]);
   return isLoading ? (
     <Loader />
   ) : !packaging ? (

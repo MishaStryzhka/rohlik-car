@@ -1,4 +1,4 @@
-import { Flex, Grid, Image, Text } from '@chakra-ui/react';
+import { Grid } from '@chakra-ui/react';
 import { db } from '../../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
