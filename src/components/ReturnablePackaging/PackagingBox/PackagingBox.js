@@ -49,36 +49,7 @@ const PackagingBox = ({ filters, isGridView }) => {
             // .sort((a, b) => getSortCars(a, b))
             .map(packaging => (
               <Link key={packaging.id} to={`/packaging/${packaging.id}`}>
-                <Flex
-                  w={'100%'}
-                  flexDirection="column"
-                  alignItems="center"
-                  justify="space-between"
-                  gap={1}
-                  p={{ base: 1, md: 3 }}
-                  borderWidth={1}
-                  borderRadius="md"
-                  boxShadow="md"
-                  // bg={getColorDrivingStyle(car.drivingStyle)}
-                >
-                  {/* Image */}
-                  <Image
-                    src={packaging.img}
-                    width={{ base: '120px', md: '150px', xl: '200px' }}
-                    height={{ base: '120px', md: '150px', xl: '200px' }}
-                    objectFit="cover"
-                  />
-
-                  {/* Name */}
-                  <Text fontWeight="bold" fontSize={14}>
-                    {packaging.name}
-                  </Text>
-
-                  {/* System name */}
-                  <Text fontWeight="bold" fontSize={14}>
-                    V systému: {packaging?.systemName}
-                  </Text>
-                </Flex>
+                <OnePackaging isGridView={isGridView} packaging={packaging} />
               </Link>
             ))}
         </Grid>
@@ -92,9 +63,7 @@ const PackagingBox = ({ filters, isGridView }) => {
           {filteredPackagings
             // .sort((a, b) => getSortCars(a, b))
             .map(packaging => (
-              // <Link key={packaging.id} to={`/packagings/${packaging.id}`}>
               <OnePackaging isGridView={isGridView} packaging={packaging} />
-              // </Link>
             ))}
         </Grid>
       )}
