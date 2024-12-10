@@ -14,7 +14,7 @@ import { updateCarById } from 'app/updateCarById/updateCarById';
 import AddCarForm from 'components/AddCarForm/AddCarForm';
 import CarComments from 'components/CarComments/CarComments';
 import Loader from 'components/Loader/Loader';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FaBox, FaSnowflake } from 'react-icons/fa';

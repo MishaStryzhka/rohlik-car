@@ -1,5 +1,5 @@
 import { Box, Flex, IconButton, Image, Text } from '@chakra-ui/react';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import React, { useState } from 'react';
 import { FaCheck, FaQuestion, FaTimes } from 'react-icons/fa';
 import { MdOutlineModeEdit } from 'react-icons/md';

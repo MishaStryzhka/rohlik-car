@@ -2,7 +2,7 @@ import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
 import { addComment } from 'app';
 import AddCommentForm from 'components/AddCommentForm/AddCommentForm';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { useAuth } from 'hooks';

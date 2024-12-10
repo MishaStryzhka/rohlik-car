@@ -21,6 +21,7 @@ import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
 import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
+import { IoScan } from 'react-icons/io5';
 
 const FilterPanel = ({
   search,
@@ -40,6 +41,7 @@ const FilterPanel = ({
   setHasHeating,
   hasSoundProofed,
   setHasSoundProofed,
+  setIsOpenModalScan,
 }) => {
   const handleSelect = type => {
     setTypeCars(type);
@@ -47,6 +49,14 @@ const FilterPanel = ({
 
   return (
     <Flex gap={2}>
+      <IconButton
+        color="#6da305"
+        icon={<IoScan />}
+        onClick={() => setIsOpenModalScan(true)}
+        aria-label="Open Modal Add Cars"
+        position="relative"
+      />
+
       {/* Поле пошуку */}
       <InputGroup>
         <InputLeftElement pointerEvents="none">

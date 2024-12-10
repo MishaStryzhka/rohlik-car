@@ -31,6 +31,7 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "swiper": "^11.1.15",
+    "tesseract.js": "^5.1.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },

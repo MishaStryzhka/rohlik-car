@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { removeComment, updateComment } from 'app';
 import AddCommentForm from 'components/AddCommentForm/AddCommentForm';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import { getFormatDate } from 'helpers/getFormatDate';
 import { useAuth } from 'hooks';
 import React, { useState } from 'react';
