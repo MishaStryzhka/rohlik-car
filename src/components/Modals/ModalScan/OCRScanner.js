@@ -17,6 +17,7 @@ const OCRScanner = ({ onRecognized }) => {
     return () => {
       // Зупиняємо відеопотік при розмонтуванні компонента
       if (videoRef.current && videoRef.current.srcObject) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
       }
     };
