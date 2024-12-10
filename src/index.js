@@ -10,13 +10,16 @@ import { ChakraProvider } from '@chakra-ui/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './styles/fullscreenSwiper.css';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter basename={process.env.REACT_APP_BASENAME || ''}>
         <ChakraProvider>
-          <App />
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
         </ChakraProvider>
       </BrowserRouter>
     </PersistGate>
