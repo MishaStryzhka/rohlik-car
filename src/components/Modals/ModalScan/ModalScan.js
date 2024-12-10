@@ -1,5 +1,4 @@
 import {
-  Box,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,8 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import OCRScanner from './OCRScanner';
-import CameraFeed from './CameraFeed';
-// import CameraFeed from './CameraFeed';
 // import { ref } from 'firebase/storage';
 // import { db } from 'firebase/config';
 
