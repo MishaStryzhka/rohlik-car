@@ -51,9 +51,9 @@ const ModalScan = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody p={4}>
           <div>
-            <Box width="300px" height="200px">
+            {/* <Box width="300px" height="200px">
               <CameraFeed />
-            </Box>
+            </Box> */}
             <OCRScanner onRecognized={handleRecognized} />
           </div>
         </ModalBody>
