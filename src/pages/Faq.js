@@ -4,7 +4,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { subscribeToFaqQuestions } from 'app';
 import AddFaqQuestion from 'components/AddFaqQuestion/AddFaqQuestion';
 import FAQItem from 'components/FAQItem/FAQItem';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import React, { useEffect, useState } from 'react';
 
 const faqData = [

@@ -1,18 +1,11 @@
 import { ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
-import {
-  Box,
-  Container,
-  Flex,
-  IconButton,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { Container, Flex, IconButton, Text } from '@chakra-ui/react';
+import CoderWorking from 'components/CoderWorking/CoderWorking';
 import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import programmerImage from '../image/programmer_coding_grayscale.png';
 
 const OneReturnablePackaging = () => {
   // eslint-disable-next-line no-unused-vars
@@ -60,30 +53,9 @@ const OneReturnablePackaging = () => {
             aria-label="Назад"
           />
         </Flex>
-        <Flex mt={2} direction="column" align="center" justify="center">
-          <div>Pracujeme na tom</div>
-          <Box
-            mt={4}
-            position="relative"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            width="300px"
-            height="300px"
-            borderRadius="full"
-            overflow="hidden"
-            boxShadow="-1px -1px 50px 15px #6da305 inset"
-          >
-            <Image
-              src={programmerImage}
-              alt="Programmer coding"
-              objectFit="cover"
-              width="100%"
-              height="100%"
-              zIndex="-1"
-            />
-          </Box>
-        </Flex>
+        {/* ====== <CoderWorking /> ======*/}
+        <CoderWorking />
+        {/* ==============================*/}
       </Container>
 
       {/* {isOpenModalEdit && (

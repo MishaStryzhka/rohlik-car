@@ -1,6 +1,6 @@
 import { Container } from '@chakra-ui/react';
 import { addReturnablePackaging } from 'app';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import AddPackagingForm from 'components/ReturnablePackaging/AddPackagingForm/AddPackagingForm';
 import FilterPanerReturnablePackaging from 'components/ReturnablePackaging/FilterPanerReturnablePackaging/FilterPanerReturnablePackaging';
 import PackagingBox from 'components/ReturnablePackaging/PackagingBox/PackagingBox';

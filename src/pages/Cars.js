@@ -1,14 +1,16 @@
 import { Container } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import ModalWrapper from 'components/Modal/Modal';
+import ModalWrapper from 'components/Modals/Modal';
 import AddCarForm from 'components/AddCarForm/AddCarForm';
 import { addsNewCar } from 'app';
 import CarsBox from 'components/CarsBox/CarsBox';
 import FilterPanel from 'components/FilterPanel/FilterPanel';
+import ModalScan from 'components/Modals/ModalScan/ModalScan';
 
 const Cars = () => {
   const [isOpenModalAddCar, setIsOpenModalAddCar] = useState(false);
+  const [isOpenModalScan, setIsOpenModalScan] = useState(false);
   const [search, setSearch] = useState('');
   const [typeCars, setTypeCars] = useState('');
   const [hasAirConditioner, setHasAirConditioner] = useState(false);
@@ -52,6 +54,7 @@ const Cars = () => {
           setHasHeating={setHasHeating}
           hasSoundProofed={hasSoundProofed}
           setHasSoundProofed={setHasSoundProofed}
+          setIsOpenModalScan={setIsOpenModalScan}
         />
         <CarsBox
           filters={{
@@ -74,6 +77,12 @@ const Cars = () => {
         >
           <AddCarForm onSubmit={handleSubmitAddCar} />
         </ModalWrapper>
+      )}
+      {isOpenModalScan && (
+        <ModalScan
+          isOpen={isOpenModalScan}
+          onClose={() => setIsOpenModalScan(false)}
+        ></ModalScan>
       )}
     </>
   );
