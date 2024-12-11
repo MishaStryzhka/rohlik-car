@@ -55,7 +55,7 @@ const OCRScanner = ({ onRecognized }) => {
       // Викликаємо Vision API
       try {
         const response = await fetch(
-          `https://vision.googleapis.com/v1/images:annotate?key=AIzaSyC7XaJepPoBSwzFYPrHgEEr3QYBPXTYDcA`,
+          `https://vision.googleapis.com/v1/images:annotate?key=${process.env.REACT_APP_CLOUD_VISION_API_KEY}`,
           {
             method: 'POST',
             headers: {
