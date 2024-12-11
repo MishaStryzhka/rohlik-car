@@ -6,7 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import OCRScanner from './OCRScanner';
 // import { ref } from 'firebase/storage';
@@ -14,24 +14,9 @@ import OCRScanner from './OCRScanner';
 
 const ModalScan = ({ isOpen, onClose }) => {
   const [allowedTexts, setAllowedTexts] = useState([]);
-  //   const [recognizedText, setRecognizedText] = useState('');
-
-  useEffect(() => {
-    // const allowedRef = ref(db, 'allowedTexts/');
-    // onValue(allowedRef, snapshot => {
-    //   const data = snapshot.val();
-    //   setAllowedTexts(Object.values(data || {}));
-    // });
-  }, []);
 
   const handleRecognized = text => {
-    console.log('text', text);
     setAllowedTexts(pref => [...pref, text]);
-    // setRecognizedText(text);
-
-    // if (allowedTexts.includes(text)) {
-    //   alert(`Text "${text}" is allowed!`);
-    // }
   };
 
   return createPortal(
@@ -46,13 +31,8 @@ const ModalScan = ({ isOpen, onClose }) => {
       <ModalContent mt={20} borderTopRadius={20}>
         <ModalHeader>Real-Time OCR Scanner Text: {allowedTexts}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody p={4}>
-          <div>
-            {/* <Box width="300px" height="200px">
-              <CameraFeed />
-            </Box> */}
-            <OCRScanner onRecognized={handleRecognized} />
-          </div>
+        <ModalBody p={4} h="100%">
+          <OCRScanner onRecognized={handleRecognized} />
         </ModalBody>
       </ModalContent>
     </Modal>,

@@ -1,18 +1,16 @@
+import { Box, Flex } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Tesseract from 'tesseract.js';
+import AnnotatedImage from './AnnotatedImage';
 
 const OCRScanner = ({ onRecognized }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
-  const [useRearCamera, setUseRearCamera] = useState(true); // Стан для вибору камери
+  const [image, setImage] = useState(null);
+  const [annotations, setAnnotations] = useState(null);
 
   const startCamera = useCallback(() => {
-    // const constraints = {
-    //   video: {
-    //     facingMode: useRearCamera ? 'environment' : 'user', // Перемикаємо між "environment" (задня камера) і "user" (передня камера)
-    //   },
-    // };
-
     navigator.mediaDevices
       .getUserMedia({ video: { facingMode: 'environment' } })
       .then(stream => {
@@ -37,9 +35,11 @@ const OCRScanner = ({ onRecognized }) => {
         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
       }
     };
-  }, [startCamera, useRearCamera]); // Перезапуск камери при зміні типу камери
+  }, [startCamera]);
 
-  const handleCapture = () => {
+  const handleCapture = async () => {
+    setIsProcessing(true);
+
     const canvas = canvasRef.current;
     const video = videoRef.current;
 
@@ -49,30 +49,141 @@ const OCRScanner = ({ onRecognized }) => {
       canvas.height = video.videoHeight;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // Розпізнаємо текст з canvas
-      Tesseract.recognize(canvas, 'eng').then(({ data }) => {
-        if (data.text.trim()) {
-          onRecognized(data.text.trim());
-        } else {
-          onRecognized('Текст не розпізнано');
-        }
-      });
+      const image = canvas.toDataURL('image/png'); // Перетворення кадру в Base64-формат
+
+      setImage(image);
+      // Викликаємо Vision API
+      try {
+        const response = await fetch(
+          `https://vision.googleapis.com/v1/images:annotate?key=${process.env.REACT_APP_CLOUD_VISION_API_KEY}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              requests: [
+                {
+                  image: {
+                    content: image.split(',')[1], // Відокремлюємо Base64-контент
+                  },
+                  features: [
+                    {
+                      type: 'TEXT_DETECTION', // Використовуємо розпізнавання тексту
+                    },
+                  ],
+                },
+              ],
+            }),
+          }
+        );
+
+        const result = await response.json();
+
+        // const result = {
+        //   responses: [
+        //     {
+        //       fullTextAnnotation: {
+        //         pages: [
+        //           {
+        //             property: {},
+        //             width: 640,
+        //             height: 480,
+        //             blocks: [
+        //               {
+        //                 boundingBox: {
+        //                   vertices: [
+        //                     { x: 151, y: 257 },
+        //                     { x: 273, y: 229 },
+        //                     { x: 281, y: 263 },
+        //                     { x: 159, y: 291 },
+        //                   ],
+        //                 },
+        //                 paragraphs: Array(1),
+        //                 blockType: 'TEXT',
+        //               },
+        //             ],
+        //           },
+        //         ],
+        //         text: 'CD 412',
+        //       },
+        //       textAnnotations: [
+        //         { locale: 'en', description: 'CD 412', boundingPoly: {} },
+        //         { description: 'CD', boundingPoly: {} },
+        //         { description: '412', boundingPoly: {} },
+        //       ],
+        //     },
+        //   ],
+        // };
+        console.log('result', result);
+        const detectedText =
+          result.responses[0].fullTextAnnotation?.text || 'Текст не розпізнано';
+        setAnnotations(result.responses[0].fullTextAnnotation.pages[0].blocks);
+        setIsProcessing(false);
+        console.log('detectedText', detectedText);
+        onRecognized(detectedText);
+      } catch (error) {
+        console.error('Error with Vision API:', error);
+        setIsProcessing(false);
+        alert('Сталася помилка при розпізнаванні тексту.');
+      }
     }
   };
 
-  const toggleCamera = () => {
-    setUseRearCamera(prev => !prev); // Перемикаємо між передньою і задньою камерою
-  };
+  // const annotations = [
+  //   {
+  //     boundingBox: {
+  //       vertices: [
+  //         { x: 151, y: 257 },
+  //         { x: 273, y: 229 },
+  //         { x: 281, y: 263 },
+  //         { x: 159, y: 291 },
+  //       ],
+  //     },
+  //   },
+  //   // Можна додати інші області
+  // ];
 
   return (
-    <div>
-      <video ref={videoRef} style={{ width: '100%', maxWidth: '500px' }} />
-      <button onClick={handleCapture}>Сканувати</button>
-      <button onClick={toggleCamera}>
-        Перемкнути на {useRearCamera ? 'передню' : 'задню'} камеру
-      </button>
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-    </div>
+    <Flex justify="center" height="calc(100vh - 140px)" position="relative">
+      {image ? (
+        <AnnotatedImage imageSrc={image} annotations={annotations} />
+      ) : (
+        <>
+          {/* Відеопотік */}
+          <Box
+            position="relative"
+            display="inline-block"
+            w="100%"
+            height="100%"
+          >
+            <video
+              ref={videoRef}
+              style={{
+                width: '100%',
+                height: '100%',
+                // maxWidth: '400px',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+              }}
+            />
+            {/* Canvas для обробки (не відображається) */}
+            <canvas ref={canvasRef} style={{ display: 'none' }} />
+          </Box>
+        </>
+      )}
+      <button
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          width: '50px',
+          height: '50px',
+          borderRadius: '30px',
+          backgroundColor: 'gray',
+        }}
+        onClick={handleCapture}
+      ></button>
+    </Flex>
   );
 };
 
