@@ -1,8 +1,9 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AnnotatedImage from './AnnotatedImage';
 
 const OCRScanner = ({ onRecognized }) => {
+  // eslint-disable-next-line no-unused-vars
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
