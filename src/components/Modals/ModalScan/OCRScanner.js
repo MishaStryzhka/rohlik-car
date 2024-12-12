@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AnnotatedImage from './AnnotatedImage';
 
@@ -117,11 +117,12 @@ const OCRScanner = ({ onRecognized }) => {
         // };
         console.log('result', result);
         const detectedText =
-          result.responses[0].fullTextAnnotation?.text || 'Текст не розпізнано';
-        setAnnotations(result.responses[0].fullTextAnnotation.pages[0].blocks);
+          result.responses[0].textAnnotations[0]?.description ||
+          'Текст не розпізнано';
+        setAnnotations(result.responses[0].textAnnotations);
         setIsProcessing(false);
         console.log('detectedText', detectedText);
-        onRecognized(detectedText);
+        onRecognized(detectedText.replace(/\s+/g, ''));
       } catch (error) {
         console.error('Error with Vision API:', error);
         setIsProcessing(false);
@@ -130,20 +131,6 @@ const OCRScanner = ({ onRecognized }) => {
     }
   };
 
-  // const annotations = [
-  //   {
-  //     boundingBox: {
-  //       vertices: [
-  //         { x: 151, y: 257 },
-  //         { x: 273, y: 229 },
-  //         { x: 281, y: 263 },
-  //         { x: 159, y: 291 },
-  //       ],
-  //     },
-  //   },
-  //   // Можна додати інші області
-  // ];
-
   return (
     <Flex justify="center" height="calc(100vh - 140px)" position="relative">
       {image ? (
@@ -151,25 +138,19 @@ const OCRScanner = ({ onRecognized }) => {
       ) : (
         <>
           {/* Відеопотік */}
-          <Box
-            position="relative"
-            display="inline-block"
-            w="100%"
-            height="100%"
-          >
+          <Flex position="relative" justify="center" w="100%" height="100%">
             <video
               ref={videoRef}
               style={{
-                width: '100%',
-                height: '100%',
-                // maxWidth: '400px',
+                maxWidth: '100%',
+                maxHeight: '100%',
                 border: '1px solid #ccc',
                 borderRadius: '8px',
               }}
             />
             {/* Canvas для обробки (не відображається) */}
             <canvas ref={canvasRef} style={{ display: 'none' }} />
-          </Box>
+          </Flex>
         </>
       )}
       <button

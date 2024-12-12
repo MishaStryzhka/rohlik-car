@@ -1,7 +1,8 @@
 const { addComment } = require('./addComment/addComment');
 const { addFaqQuestion } = require('./addFaqQuestion/addFaqQuestion');
-const { addsNewCar } = require('./addsNewCar/addsNewCar');
-const { getCarById } = require('./getCarById/getCarById');
+const { addsNewCar } = require('./cars/addsNewCar/addsNewCar');
+const { getCarById } = require('./cars/getCarById/getCarById');
+const { default: getCarByName } = require('./cars/getCarByName/getCarByName');
 const { removeComment } = require('./removeComment/removeComment');
 const {
   addReturnablePackaging,
@@ -17,14 +18,15 @@ const { updateFaqQuestion } = require('./updateFaqQuestion/updateFaqQuestion');
 const { uploadPhotos } = require('./uploadPhotos/uploadPhotos');
 
 module.exports = {
-  addFaqQuestion,
   addsNewCar,
   getCarById,
+  getCarByName,
   addComment,
   updateComment,
   removeComment,
   uploadPhotos,
   subscribeToFaqQuestions,
+  addFaqQuestion,
   updateFaqQuestion,
 
   addReturnablePackaging,
