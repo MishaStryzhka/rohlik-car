@@ -68,8 +68,6 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
 
       {/* Відображення накладених елементів */}
       {carList.map((car, index) => {
-        const detectedText = car.annotation.description;
-
         const vertices = car.annotation.boundingPoly.vertices;
 
         // Обчислюємо позицію компонента
