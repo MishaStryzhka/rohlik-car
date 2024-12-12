@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { getCarById } from 'app';
-import { updateCarById } from 'app/updateCarById/updateCarById';
+import { updateCarById } from 'app/cars/updateCarById/updateCarById';
 import AddCarForm from 'components/AddCarForm/AddCarForm';
 import CarComments from 'components/CarComments/CarComments';
 import Loader from 'components/Loader/Loader';

@@ -1,49 +1,155 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { getCarByName } from 'app';
+import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
+import { FaBox, FaSnowflake } from 'react-icons/fa';
+import { GiHotSurface } from 'react-icons/gi';
+import { MdVolumeOff } from 'react-icons/md';
 
-const AnnotatedImage = ({ imageSrc, annotations }) => {
-  const canvasRef = useRef(null);
+const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
+  const [carList, setCarList] = useState([]);
+  const containerRef = useRef(null);
+  console.log('carList', carList);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const image = new Image();
+    const container = containerRef.current;
 
-    image.onload = () => {
-      // Налаштування розмірів canvas відповідно до зображення
-      canvas.width = image.width;
-      canvas.height = image.height;
+    if (container) {
+      container.style.position = 'relative';
+      container.style.display = 'inline-block';
+    }
+  }, []);
 
-      // Малюємо зображення
-      ctx.drawImage(image, 0, 0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log('annotations', annotations);
 
-      // Малюємо квадратики поверх зображення
-      if (annotations) {
-        annotations.forEach(annotation => {
-          const vertices = annotation.boundingBox.vertices;
+        // Виконуємо запити до Firebase паралельно
+        const dataCarList = await Promise.all(
+          annotations.map(async annotation => {
+            const detectedText = annotation.description.replace(/\s+/g, ''); // Видаляємо пробіли
+            const result = await getCarByName(detectedText); // Запит до Firebase
 
-          ctx.beginPath();
-          ctx.moveTo(vertices[0].x, vertices[0].y); // Початкова точка
-          vertices.forEach((vertex, index) => {
-            if (index > 0) {
-              ctx.lineTo(vertex.x, vertex.y); // Малюємо лінію до наступної вершини
+            // Повертаємо об'єкт тільки якщо знайдено результат
+            if (result) {
+              return { data: result, annotation };
             }
-          });
-          ctx.closePath(); // Замикаємо контур
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = 'red'; // Червоний колір рамки
-          ctx.stroke();
-        });
+            return null; // Якщо нічого не знайдено, повертаємо null
+          })
+        );
+
+        // Фільтруємо `null`, щоб зберегти тільки валідні результати
+        setCarList(dataCarList.filter(item => item !== null));
+      } catch (error) {
+        console.error('Error fetching car data:', error);
       }
     };
 
-    image.src = imageSrc; // Завантажуємо зображення
-  }, [imageSrc, annotations]);
+    if (annotations && annotations.length > 0) {
+      fetchData(); // Викликаємо асинхронну функцію тільки якщо є анотації
+    }
+  }, [annotations]);
+
+  const calculateRotation = vertices => {
+    const dx = vertices[1].x - vertices[0].x; // Різниця по X
+    const dy = vertices[1].y - vertices[0].y; // Різниця по Y
+    return (Math.atan2(dy, dx) * 180) / Math.PI; // Обчислення кута в градусах
+  };
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', border: '1px solid black' }}
-    />
+    <Box ref={containerRef}>
+      {/* Відображення зображення */}
+      <img
+        src={imageSrc}
+        alt="Annotated"
+        style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }}
+      />
+
+      {/* Відображення накладених елементів */}
+      {carList.map((car, index) => {
+        const detectedText = car.annotation.description;
+
+        const vertices = car.annotation.boundingPoly.vertices;
+
+        // Обчислюємо позицію компонента
+        const left = vertices[0].x; // x координата верхнього лівого кута
+        const top = vertices[0].y; // y координата верхнього лівого кута
+        const width = vertices[1].x - vertices[0].x; // Різниця між x правого і лівого кута
+        const height = vertices[2].y - vertices[0].y;
+
+        const rotation = calculateRotation(vertices);
+
+        return (
+          <Box
+            key={index}
+            position="absolute"
+            left={`${left}px`}
+            top={`${top}px`}
+            width={`${width}px`}
+            height={`${height}px`}
+            transform={`rotate(${rotation}deg)`}
+            background="rgba(255, 255, 255, 0.8)"
+            border={`2px solid ${getColorDrivingStyle(car.data.drivingStyle)}`}
+            padding="8px"
+            borderRadius="8px"
+            zIndex={10}
+            bg="transparent"
+          >
+            <Flex
+              w={'fit-content'}
+              alignItems="center"
+              justify="space-between"
+              gap={1}
+              position="absolute"
+              top="-29px"
+              right="0"
+              bg="#9b9b9b"
+              p="3px"
+              borderTopRadius={'3px'}
+            >
+              {/* Name */}
+              <Text
+                fontWeight="bold"
+                fontSize={14}
+                color={getColorDrivingStyle(car.data.drivingStyle)}
+              >
+                {car.data.name} ({car.data.drivingStyle})
+              </Text>
+
+              <Box display="flex" gap={1}>
+                {/* Перемикачі */}
+                <Box display="flex" alignItems="center">
+                  <FaSnowflake
+                    color={car.data.hasAirConditioner ? 'green' : 'red'}
+                  />
+                </Box>
+
+                {'hasHeating' in car.data && (
+                  <Box display="flex" alignItems="center">
+                    <GiHotSurface
+                      color={car.data.hasHeating ? 'green' : 'red'}
+                    />
+                  </Box>
+                )}
+
+                <Box display="flex" alignItems="center">
+                  <FaBox color={car.data.hasFridge ? 'green' : 'red'} />
+                </Box>
+
+                {'hasSoundProofed' in car.data && (
+                  <Box display="flex" alignItems="center">
+                    <MdVolumeOff
+                      color={car.data.hasSoundProofed ? 'green' : 'red'}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </Flex>
+          </Box>
+        );
+      })}
+    </Box>
   );
 };
 
