@@ -63,7 +63,12 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
       <img
         src={imageSrc}
         alt="Annotated"
-        style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }}
+        style={{
+          maxWidth: '100%',
+          maxHeight: '100%',
+          display: 'block',
+          borderRadius: '8px',
+        }}
       />
 
       {/* Відображення накладених елементів */}
@@ -105,7 +110,7 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
               justify="space-between"
               gap={1}
               position="absolute"
-              top="-29px"
+              top="-28px"
               right="-2px"
               bg={getColorDrivingStyle(car.data.drivingStyle)}
               p="3px"
