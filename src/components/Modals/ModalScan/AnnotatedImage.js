@@ -5,6 +5,7 @@ import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const AnnotatedImage = ({ imageSrc, annotations }) => {
   const [carList, setCarList] = useState([]);
@@ -87,74 +88,77 @@ const AnnotatedImage = ({ imageSrc, annotations }) => {
         const rotation = calculateRotation(vertices);
 
         return (
-          <Box
-            key={index}
-            position="absolute"
-            left={`${left}px`}
-            top={`${top}px`}
-            width={`${width}px`}
-            height={`${height}px`}
-            transform={`rotate(${rotation}deg)`}
-            background="rgba(255, 255, 255, 0.8)"
-            border={`2px solid ${getColorDrivingStyle(car.data.drivingStyle)}`}
-            padding="8px"
-            // borderRadius="8px"
-            borderLeftRadius="8px"
-            borderBottomRightRadius="8px"
-            zIndex={10}
-            bg="transparent"
-          >
-            <Flex
-              w={'fit-content'}
-              alignItems="center"
-              justify="space-between"
-              gap={1}
+          <Link key={index} to={`/cars/${car.data.id}`}>
+            <Box
               position="absolute"
-              top="-28px"
-              right="-2px"
-              bg={getColorDrivingStyle(car.data.drivingStyle)}
-              p="3px"
-              borderTopRadius={'3px'}
+              left={`${left}px`}
+              top={`${top}px`}
+              width={`${width}px`}
+              height={`${height}px`}
+              transform={`rotate(${rotation}deg)`}
+              background="rgba(255, 255, 255, 0.8)"
+              border={`2px solid ${getColorDrivingStyle(
+                car.data.drivingStyle
+              )}`}
+              padding="8px"
+              // borderRadius="8px"
+              borderLeftRadius="8px"
+              borderBottomRightRadius="8px"
+              zIndex={10}
+              bg="transparent"
             >
-              {/* Name */}
-              <Text
-                fontWeight="bold"
-                fontSize={14}
-                // color={getColorDrivingStyle(car.data.drivingStyle)}
+              <Flex
+                w={'fit-content'}
+                alignItems="center"
+                justify="space-between"
+                gap={1}
+                position="absolute"
+                top="-28px"
+                right="-2px"
+                bg={getColorDrivingStyle(car.data.drivingStyle)}
+                p="3px"
+                borderTopRadius={'3px'}
               >
-                {car.data.name} ({car.data.drivingStyle})
-              </Text>
+                {/* Name */}
+                <Text
+                  fontWeight="bold"
+                  fontSize={14}
+                  // color={getColorDrivingStyle(car.data.drivingStyle)}
+                >
+                  {car.data.name} ({car.data.drivingStyle})
+                </Text>
 
-              <Box display="flex" gap={1}>
-                {/* Перемикачі */}
-                <Box display="flex" alignItems="center">
-                  <FaSnowflake
-                    color={car.data.hasAirConditioner ? 'green' : 'red'}
-                  />
-                </Box>
-
-                {'hasHeating' in car.data && (
+                <Box display="flex" gap={1}>
+                  {/* Перемикачі */}
                   <Box display="flex" alignItems="center">
-                    <GiHotSurface
-                      color={car.data.hasHeating ? 'green' : 'red'}
+                    <FaSnowflake
+                      color={car.data.hasAirConditioner ? 'green' : 'red'}
                     />
                   </Box>
-                )}
 
-                <Box display="flex" alignItems="center">
-                  <FaBox color={car.data.hasFridge ? 'green' : 'red'} />
-                </Box>
+                  {'hasHeating' in car.data && (
+                    <Box display="flex" alignItems="center">
+                      <GiHotSurface
+                        color={car.data.hasHeating ? 'green' : 'red'}
+                      />
+                    </Box>
+                  )}
 
-                {'hasSoundProofed' in car.data && (
                   <Box display="flex" alignItems="center">
-                    <MdVolumeOff
-                      color={car.data.hasSoundProofed ? 'green' : 'red'}
-                    />
+                    <FaBox color={car.data.hasFridge ? 'green' : 'red'} />
                   </Box>
-                )}
-              </Box>
-            </Flex>
-          </Box>
+
+                  {'hasSoundProofed' in car.data && (
+                    <Box display="flex" alignItems="center">
+                      <MdVolumeOff
+                        color={car.data.hasSoundProofed ? 'green' : 'red'}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              </Flex>
+            </Box>
+          </Link>
         );
       })}
     </Box>
