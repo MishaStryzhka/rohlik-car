@@ -59,17 +59,20 @@ const CarComments = ({ carId }) => {
           {!comments ? (
             <Text textAlign="center">Neznalezen žádný komentář</Text>
           ) : (
-            comments.map(comment => (
-              <OneComment
-                key={comment.id}
-                elemId={carId}
-                commentId={comment.id}
-                userId={comment.userId}
-                name={comment.name}
-                date={comment.data || comment.CreatedAt}
-                text={comment.text}
-              />
-            ))
+            comments.map(comment => {
+              console.log('comment', comment);
+              return (
+                <OneComment
+                  key={comment.id}
+                  elemId={carId}
+                  commentId={comment.id}
+                  userId={comment.userId}
+                  name={comment.name}
+                  date={comment.date || comment.CreatedAt}
+                  text={comment.text}
+                />
+              );
+            })
           )}
         </Box>
       </Box>
