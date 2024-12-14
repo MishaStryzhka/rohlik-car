@@ -97,7 +97,7 @@ const CarPage = () => {
         h={'100vh'}
         position="absolute"
         top={0}
-        style={{ paddingTop: '20px' }}
+        style={{ paddingTop: '20px', zIndex: 9999 }}
         bg="#fff"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
