@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { getCarByName } from 'app';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
@@ -6,10 +6,8 @@ import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { ModalScanContext } from './ModalScan';
 
 const AnnotatedImage = ({ imageSrc, annotations }) => {
-  const { onClose } = useContext(ModalScanContext);
   const [carList, setCarList] = useState([]);
   const containerRef = useRef(null);
   console.log('carList', carList);
