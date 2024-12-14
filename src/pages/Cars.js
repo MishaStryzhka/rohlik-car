@@ -7,6 +7,7 @@ import { addsNewCar } from 'app';
 import CarsBox from 'components/CarsBox/CarsBox';
 import FilterPanel from 'components/FilterPanel/FilterPanel';
 import ModalScan from 'components/Modals/ModalScan/ModalScan';
+import { Outlet } from 'react-router-dom';
 
 const Cars = () => {
   const [isOpenModalAddCar, setIsOpenModalAddCar] = useState(false);
@@ -69,6 +70,7 @@ const Cars = () => {
           isGridView={isGridView}
         />
       </Container>
+      <Outlet />
 
       {isOpenModalAddCar && (
         <ModalWrapper

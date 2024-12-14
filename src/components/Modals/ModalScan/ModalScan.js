@@ -9,8 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import OCRScanner from './OCRScanner';
-// import { ref } from 'firebase/storage';
-// import { db } from 'firebase/config';
 
 const ModalScan = ({ isOpen, onClose }) => {
   const [allowedTexts, setAllowedTexts] = useState([]);
@@ -35,7 +33,6 @@ const ModalScan = ({ isOpen, onClose }) => {
       size="full"
       isCentered
       scrollBehavior="inside"
-      // style={{ overflow: 'hidden' }}
     >
       <ModalOverlay />
       <ModalContent mt={20} borderTopRadius={20}>

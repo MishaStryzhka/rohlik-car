@@ -21,8 +21,47 @@ import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdVolumeOff } from 'react-icons/md';
 import { GiHotSurface } from 'react-icons/gi';
+import { motion } from 'framer-motion';
+
+const MotionContainer = motion(Container);
 
 const CarPage = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const [startX, setStartX] = useState(0);
+
+  const onClose = () => {
+    setIsOpen(false);
+    setTimeout(() => navigate(-1), 500);
+  };
+
+  // Початок свайпу
+  const handleTouchStart = e => {
+    console.log(e.touches[0].clientX);
+    setStartX(e.touches[0].clientX);
+  };
+
+  // Закінчення свайпу
+  const handleTouchEnd = e => {
+    const endX = e.changedTouches[0].clientX;
+
+    // Якщо рух вгору (координата зменшується), закриваємо меню
+    if (startX - endX > 50) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isOpen]);
+
   const [car, setCar] = useState(null);
   const { carId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -53,16 +92,23 @@ const CarPage = () => {
         <title>{car.name}</title>
       </Helmet>
 
-      <Container
-        w={'100%'}
-        maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
-        p={2}
-        borderRadius={6}
+      <MotionContainer
+        maxW={'none'}
+        h={'100vh'}
+        position="absolute"
+        top={0}
+        style={{ paddingTop: '20px', zIndex: 9999 }}
+        bg="#fff"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        initial={{ left: '-100%' }} // Початковий стан
+        animate={isOpen ? { left: 0 } : { left: '-100%' }}
+        transition={{ left: { duration: 0.5 } }} // Тривалість анімації
       >
         <Flex alignItems="center" justify="space-between">
           <IconButton
             icon={<ArrowBackIcon />}
-            onClick={() => navigate(-1)}
+            onClick={onClose}
             aria-label="Назад"
           />
           <Text>{car.name}</Text>
@@ -154,7 +200,7 @@ const CarPage = () => {
           <Divider my={4} />
           <CarComments carId={carId} />
         </Box>
-      </Container>
+      </MotionContainer>
 
       {isOpenModalEdit && (
         <ModalWrapper
