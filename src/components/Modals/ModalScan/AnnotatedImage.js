@@ -58,7 +58,7 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
   };
 
   return (
-    <Box ref={containerRef}>
+    <Box ref={containerRef} key="132">
       {/* Відображення зображення */}
       <img
         src={imageSrc}
@@ -68,7 +68,10 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
 
       {/* Відображення накладених елементів */}
       {carList.map((car, index) => {
-        const vertices = car.annotation.boundingPoly.vertices;
+        console.log('car', car);
+        const vertices = car?.annotation?.boundingPoly?.vertices;
+
+        if (!vertices) return <div key={index}></div>;
 
         // Обчислюємо позицію компонента
         const left = vertices[0].x; // x координата верхнього лівого кута
@@ -90,7 +93,9 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
             background="rgba(255, 255, 255, 0.8)"
             border={`2px solid ${getColorDrivingStyle(car.data.drivingStyle)}`}
             padding="8px"
-            borderRadius="8px"
+            // borderRadius="8px"
+            borderLeftRadius="8px"
+            borderBottomRightRadius="8px"
             zIndex={10}
             bg="transparent"
           >
@@ -101,8 +106,8 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
               gap={1}
               position="absolute"
               top="-29px"
-              right="0"
-              bg="#9b9b9b"
+              right="-2px"
+              bg={getColorDrivingStyle(car.data.drivingStyle)}
               p="3px"
               borderTopRadius={'3px'}
             >
@@ -110,7 +115,7 @@ const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
               <Text
                 fontWeight="bold"
                 fontSize={14}
-                color={getColorDrivingStyle(car.data.drivingStyle)}
+                // color={getColorDrivingStyle(car.data.drivingStyle)}
               >
                 {car.data.name} ({car.data.drivingStyle})
               </Text>
