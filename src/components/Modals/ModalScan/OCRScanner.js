@@ -192,7 +192,15 @@ const OCRScanner = ({ onRecognized }) => {
   };
 
   return (
-    <Flex justify="center" height="calc(100vh - 140px)" position="relative">
+    <Flex
+      justify="center"
+      align="center"
+      height={{
+        base: 'calc(100vh - 140px)',
+        md: 'calc(100vh - 110px)',
+      }}
+      position="relative"
+    >
       {!image ? (
         <>
           <Webcam
@@ -226,6 +234,7 @@ const OCRScanner = ({ onRecognized }) => {
               height: '50px',
               borderRadius: '30px',
               backgroundColor: 'gray',
+              boxShadow: '0px 0px 5px 2px #fff inset',
             }}
           ></button>
         </>

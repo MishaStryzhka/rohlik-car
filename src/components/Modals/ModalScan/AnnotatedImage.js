@@ -6,7 +6,7 @@ import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
 
-const AnnotatedImage = ({ imageSrc, annotations, renderComponent }) => {
+const AnnotatedImage = ({ imageSrc, annotations }) => {
   const [carList, setCarList] = useState([]);
   const containerRef = useRef(null);
   console.log('carList', carList);

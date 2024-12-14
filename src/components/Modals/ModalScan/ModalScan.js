@@ -6,7 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import OCRScanner from './OCRScanner';
 // import { ref } from 'firebase/storage';
@@ -19,6 +19,14 @@ const ModalScan = ({ isOpen, onClose }) => {
     setAllowedTexts(pref => [...pref, text]);
   };
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return createPortal(
     <Modal
       motionPreset="slideInBottom"
@@ -26,12 +34,14 @@ const ModalScan = ({ isOpen, onClose }) => {
       onClose={onClose}
       size="full"
       isCentered
+      scrollBehavior="inside"
+      // style={{ overflow: 'hidden' }}
     >
       <ModalOverlay />
       <ModalContent mt={20} borderTopRadius={20}>
         <ModalHeader>Real-Time OCR Scanner Text: {allowedTexts}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody p={4} h="100%">
+        <ModalBody p={0} h="100%">
           <OCRScanner onRecognized={handleRecognized} />
         </ModalBody>
       </ModalContent>
