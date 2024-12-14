@@ -187,6 +187,10 @@ const OCRScanner = ({ onRecognized }) => {
     }
   };
 
+  const videoConstraints = {
+    facingMode: 'environment',
+  };
+
   return (
     <Flex justify="center" height="calc(100vh - 140px)" position="relative">
       {!image ? (
@@ -194,6 +198,7 @@ const OCRScanner = ({ onRecognized }) => {
           <Webcam
             audio={false}
             ref={webcamRef}
+            videoConstraints={videoConstraints}
             screenshotFormat="image/jpeg"
             style={{ maxWidth: '100%', maxHeight: '100%', borderRadius: '8px' }}
           />
