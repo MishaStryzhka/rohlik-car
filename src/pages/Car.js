@@ -51,16 +51,28 @@ const CarPage = () => {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
+    const disableScroll = event => {
+      event.preventDefault();
+    };
+
+    // Увімкнути блокування прокрутки
+    function lockScroll() {
+      window.addEventListener('wheel', disableScroll, { passive: false });
+      window.addEventListener('touchmove', disableScroll, { passive: false });
     }
 
+    // Вимкнути блокування прокрутки
+    function unlockScroll() {
+      window.removeEventListener('wheel', disableScroll);
+      window.removeEventListener('touchmove', disableScroll);
+    }
+
+    lockScroll();
+
     return () => {
-      document.body.classList.remove('no-scroll');
+      unlockScroll();
     };
-  }, [isOpen]);
+  }, []);
 
   const [car, setCar] = useState(null);
   const { carId } = useParams();
@@ -83,7 +95,7 @@ const CarPage = () => {
   };
 
   return isLoading ? (
-    <Loader />
+    <></>
   ) : !car ? (
     <Text>Not found</Text>
   ) : (
@@ -92,7 +104,7 @@ const CarPage = () => {
         <title>{car.name}</title>
       </Helmet>
 
-      <Box position="sticky" top={0} zIndex={1}>
+      <Box position="sticky" top={0} zIndex="2">
         <MotionContainer
           maxW={'none'}
           h={'100vh'}
@@ -100,7 +112,6 @@ const CarPage = () => {
           top={0}
           style={{
             height: '100vh',
-            overflow: 'auto',
             padding: 0,
             zIndex: 9999,
           }}
@@ -110,10 +121,6 @@ const CarPage = () => {
           initial={{ left: '-100%' }} // Початковий стан
           animate={isOpen ? { left: 0 } : { left: '-100%' }}
           transition={{ left: { duration: 0.5 } }} // Тривалість анімації
-          onScroll={e => {
-            console.log('e', e);
-            e.preventDefault();
-          }}
         >
           <Flex alignItems="center" justify="space-between">
             <IconButton
