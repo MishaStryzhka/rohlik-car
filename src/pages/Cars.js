@@ -8,8 +8,10 @@ import CarsBox from 'components/CarsBox/CarsBox';
 import FilterPanel from 'components/FilterPanel/FilterPanel';
 import ModalScan from 'components/Modals/ModalScan/ModalScan';
 import { Outlet } from 'react-router-dom';
+import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
 
 const Cars = () => {
+  const [isOpenFilterMobMenu, setIsOpenFilterMobMenu] = useState(false);
   const [isOpenModalAddCar, setIsOpenModalAddCar] = useState(false);
   const [isOpenModalScan, setIsOpenModalScan] = useState(false);
   const [search, setSearch] = useState('');
@@ -32,6 +34,7 @@ const Cars = () => {
         <title>Cars</title>
       </Helmet>
 
+      <Outlet />
       <Container
         w={'100%'}
         maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
@@ -40,8 +43,25 @@ const Cars = () => {
         overflow="auto"
         height="100vh"
       >
-        <Outlet />
+        <FilterMobMenu
+          isOpen={isOpenFilterMobMenu}
+          onClose={() => setIsOpenFilterMobMenu(false)}
+          typeCars={typeCars}
+          setTypeCars={setTypeCars}
+          drivingStyle={drivingStyle}
+          setDrivingStyle={setDrivingStyle}
+          hasAirConditioner={hasAirConditioner}
+          setHasAirConditioner={setHasAirConditioner}
+          hasFridge={hasFridge}
+          setHasFridge={setHasFridge}
+          hasHeating={hasHeating}
+          setHasHeating={setHasHeating}
+          hasSoundProofed={hasSoundProofed}
+          setHasSoundProofed={setHasSoundProofed}
+        />
         <FilterPanel
+          isOpenFilterMobMenu={isOpenFilterMobMenu}
+          setIsOpenFilterMobMenu={setIsOpenFilterMobMenu}
           search={search}
           setSearch={setSearch}
           typeCars={typeCars}
@@ -61,6 +81,7 @@ const Cars = () => {
           setHasSoundProofed={setHasSoundProofed}
           setIsOpenModalScan={setIsOpenModalScan}
         />
+
         <CarsBox
           filters={{
             search,

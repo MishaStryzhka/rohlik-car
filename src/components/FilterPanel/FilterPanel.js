@@ -15,21 +15,20 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { IoSearch } from 'react-icons/io5';
-import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
-import { FaSnowflake, FaBox } from 'react-icons/fa';
-import FilterMobMenu from 'components/FilterMobMenu/FilterMobMenu';
+import { ChevronDownIcon, AddIcon, CloseIcon } from '@chakra-ui/icons';
+import { FaSnowflake, FaBox, FaFilter } from 'react-icons/fa';
 import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
 import { IoScan } from 'react-icons/io5';
 
 const FilterPanel = ({
+  isOpenFilterMobMenu,
+  setIsOpenFilterMobMenu,
   search,
   setSearch,
   typeCars,
   setTypeCars,
-  drivingStyle,
-  setDrivingStyle,
   hasAirConditioner,
   setHasAirConditioner,
   hasFridge,
@@ -48,7 +47,7 @@ const FilterPanel = ({
   };
 
   return (
-    <Flex gap={2}>
+    <Flex gap={2} position="sticky" zIndex="1" paddingBottom="10px" bg="#fff">
       <IconButton
         color="#6da305"
         icon={<IoScan />}
@@ -75,19 +74,17 @@ const FilterPanel = ({
       <ListViewSwitcher isGridView={isGridView} setIsGridView={setIsGridView} />
 
       <Box display={{ base: 'flex', xl: 'none' }} gap={2}>
-        <FilterMobMenu
-          typeCars={typeCars}
-          setTypeCars={setTypeCars}
-          drivingStyle={drivingStyle}
-          setDrivingStyle={setDrivingStyle}
-          hasAirConditioner={hasAirConditioner}
-          setHasAirConditioner={setHasAirConditioner}
-          hasFridge={hasFridge}
-          setHasFridge={setHasFridge}
-          hasHeating={hasHeating}
-          setHasHeating={setHasHeating}
-          hasSoundProofed={hasSoundProofed}
-          setHasSoundProofed={setHasSoundProofed}
+        {/* Кнопка для відкриття фільтр-меню */}
+
+        <IconButton
+          icon={isOpenFilterMobMenu ? <CloseIcon /> : <FaFilter />}
+          onClick={() =>
+            isOpenFilterMobMenu
+              ? setIsOpenFilterMobMenu(false)
+              : setIsOpenFilterMobMenu(true)
+          }
+          aria-label="Open Filter Menu"
+          position="relative"
         />
         <IconButton
           bg="#6da305"
