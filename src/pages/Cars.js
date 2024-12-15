@@ -35,8 +35,12 @@ const Cars = () => {
       <Container
         w={'100%'}
         maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
-        p={2}
+        p={0}
+        position="relative"
+        overflow="auto"
+        height="100vh"
       >
+        <Outlet />
         <FilterPanel
           search={search}
           setSearch={setSearch}
@@ -70,7 +74,6 @@ const Cars = () => {
           isGridView={isGridView}
         />
       </Container>
-      <Outlet />
 
       {isOpenModalAddCar && (
         <ModalWrapper
