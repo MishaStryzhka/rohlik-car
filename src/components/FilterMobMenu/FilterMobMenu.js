@@ -89,8 +89,8 @@ const FilterMobMenu = ({
   return (
     <MotionBox
       ref={filterMenuRef}
-      initial={{ top: '40px' }} // Початковий стан
-      animate={isOpen ? { top: '-100%' } : { top: '40px' }}
+      initial={{ top: '-100%' }} // Початковий стан
+      animate={isOpen ? { top: '40px' } : { top: '-100%' }}
       overflow="hidden" // Важливо для приховування контенту
       position="absolute"
       top="40px"
