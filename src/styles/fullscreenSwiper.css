@@ -1,0 +1,39 @@
+/* swiper-container::part(...)
+
+// container - styles for <div class="swiper">
+// wrapper - styles for <div class="swiper-wrapper">
+// button-prev - styles for prev Navigation button <div class="swiper-button-prev">
+// button-next - styles for next Navigation button <div class="swiper-button-next">
+// pagination - styles for prev Pagination container <div class="swiper-pagination">
+// bullet - styles for Pagination bullet element
+// bullet-active - styles for active Pagination bullet element */
+
+/* ========= default========== */
+.fullscreenSwiper .swiper-slide {
+  display: flex;
+}
+
+.fullscreenSwiperContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreenSwiper {
+  width: 90%;
+  height: 90%;
+}
+
+.fullscreenSwiper img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+}

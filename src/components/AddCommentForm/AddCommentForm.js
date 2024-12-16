@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, FormControl, Textarea, VStack } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
-const AddCarCommentForm = ({ value, onSubmit }) => {
+const AddCommentForm = ({ value, onSubmit }) => {
   return (
     <Formik
       initialValues={{
@@ -37,4 +37,4 @@ const AddCarCommentForm = ({ value, onSubmit }) => {
   );
 };
 
-export default AddCarCommentForm;
+export default AddCommentForm;

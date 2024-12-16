@@ -73,7 +73,7 @@ const CarsBox = ({ filters, isGridView }) => {
 
   return isGridView ? (
     <Grid
-      pt={4}
+      pt={2}
       w={'100%'}
       templateColumns={{
         base: 'repeat(4, 1fr)',
@@ -135,7 +135,7 @@ const CarsBox = ({ filters, isGridView }) => {
     </Grid>
   ) : (
     <Grid
-      pt={4}
+      pt={2}
       w={'100%'}
       templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
       gap={{ base: 3, md: 6 }}

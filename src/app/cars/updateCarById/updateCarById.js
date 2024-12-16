@@ -1,5 +1,5 @@
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { db } from '../../../firebase/config';
 
 export const updateCarById = async credential => {
   const { carId, ...updatedData } = credential;

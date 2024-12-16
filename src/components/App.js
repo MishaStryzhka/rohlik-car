@@ -11,6 +11,8 @@ import BarCode from 'pages/BarCode';
 import Loader from './Loader/Loader';
 import CarPage from 'pages/Car';
 import FAQ from 'pages/Faq';
+import ReturnablePackaging from 'pages/ReturnablePackaging';
+import OneReturnablePackaging from 'pages/OneReturnablePackaging';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -48,14 +50,36 @@ export const App = () => {
           element={
             <PrivateRoute redirectTo="/login" component={<CarsPage />} />
           }
-        />
-        <Route
-          path="/cars/:carId"
-          element={<PrivateRoute redirectTo="/login" component={<CarPage />} />}
-        />
+        >
+          <Route
+            path=":carId"
+            element={
+              <PrivateRoute redirectTo="/login" component={<CarPage />} />
+            }
+          />
+        </Route>
+
         <Route
           path="/bar-code"
           element={<PrivateRoute redirectTo="/login" component={<BarCode />} />}
+        />
+        <Route
+          path="/packagings"
+          element={
+            <PrivateRoute
+              redirectTo="/login"
+              component={<ReturnablePackaging />}
+            />
+          }
+        />
+        <Route
+          path="/packaging/:packagingId"
+          element={
+            <PrivateRoute
+              redirectTo="/login"
+              component={<OneReturnablePackaging />}
+            />
+          }
         />
         <Route
           path="/faq"

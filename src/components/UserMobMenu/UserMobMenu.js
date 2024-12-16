@@ -29,7 +29,7 @@ const UserMobMenu = () => {
   return (
     <Box display={{ base: 'block', md: 'none' }} ref={userMenuRef}>
       <IconButton
-        icon={isOpen ? <CloseIcon /> : <FaUser size="20px" color="green" />}
+        icon={isOpen ? <CloseIcon /> : <FaUser size="20px" color="#6da305" />}
         onClick={toggleMenu}
         variant="ghost"
         aria-label="Open Menu"

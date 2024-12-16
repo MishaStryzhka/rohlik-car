@@ -55,11 +55,12 @@ const MobMenu = () => {
                 BarCode
               </NavLink>
             )}
-            {(user?.role === 'VIP' || user?.role === 'dev') && (
-              <NavLink to="/faq" onClick={onClose}>
-                FAQ
-              </NavLink>
-            )}
+            <NavLink to="/packagings" onClick={onClose}>
+              Vratné obaly
+            </NavLink>
+            <NavLink to="/faq" onClick={onClose}>
+              FAQ
+            </NavLink>
           </VStack>
         </Box>
       )}

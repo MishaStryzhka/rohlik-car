@@ -1,9 +1,9 @@
 import { db } from '../../firebase/config';
 import { deleteDoc, doc } from 'firebase/firestore';
 
-export const removeCarComment = async ({ carId, commentId }) => {
+export const removeComment = async ({ colectionsName, elemId, commentId }) => {
   try {
-    const carRef = doc(db, 'cars', carId, 'comments', commentId);
+    const carRef = doc(db, colectionsName, elemId, 'comments', commentId);
     await deleteDoc(carRef);
     console.log('Comment updated successfully');
   } catch (error) {
