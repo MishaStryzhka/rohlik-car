@@ -7,43 +7,43 @@ import {
   ModalFooter,
   Text,
 } from '@chakra-ui/react';
-import { removeCarComment, updateCarComment } from 'app';
-import AddCarCommentForm from 'components/AddCarsCommentForm/AddCarsCommentForm';
-import ModalWrapper from 'components/Modal/Modal';
+import { removeComment, updateComment } from 'app';
+import AddCommentForm from 'components/AddCommentForm/AddCommentForm';
+import ModalWrapper from 'components/Modals/Modal';
 import { getFormatDate } from 'helpers/getFormatDate';
 import { useAuth } from 'hooks';
 import React, { useState } from 'react';
 import { IoIosPerson } from 'react-icons/io';
 import { MdDelete, MdOutlineModeEdit } from 'react-icons/md';
 
-const OneComment = ({ carId, id, userId, name, date, text }) => {
+const OneComment = ({
+  colectionsName,
+  elemId,
+  commentId,
+  userId,
+  name,
+  date,
+  CreatedAt,
+  text,
+}) => {
   const { user } = useAuth();
   const [isOpenModalUpdateComment, setIsOpenModalUpdateComment] =
     useState(false);
   const [isOpenModalConfirmRemove, setIsOpenModalConfirmRemove] =
     useState(false);
 
-  const hendleUpdateComment = ({ carId, commentId, comment }) => {
-    updateCarComment({ carId, commentId, comment });
+  const hendleUpdateComment = ({ elemId, commentId, comment }) => {
+    updateComment({ colectionsName, elemId, commentId, comment });
     setIsOpenModalUpdateComment(false);
-    alert('Komentář byl upraven!');
   };
 
-  const hendleRemoveComent = ({ carId, commentId }) => {
-    removeCarComment({ carId, commentId });
+  const hendleRemoveComent = ({ elemId, commentId }) => {
+    removeComment({ colectionsName, elemId, commentId });
     setIsOpenModalConfirmRemove(false);
     setIsOpenModalUpdateComment(false);
-    alert('Komentář byl vymazan!');
   };
   return (
-    <Box
-      key={id}
-      border="1px solid #e2e8f0"
-      borderRadius="md"
-      p={2}
-      mt={3}
-      mb={3}
-    >
+    <Box key={commentId} border="1px solid #e2e8f0" borderRadius="md" p={2}>
       <Flex justify="space-between" align="center">
         <Flex gap={1}>
           <IoIosPerson size="24" color="#6da305" />
@@ -81,13 +81,13 @@ const OneComment = ({ carId, id, userId, name, date, text }) => {
           isOpen={isOpenModalUpdateComment}
           onClose={() => setIsOpenModalUpdateComment(false)}
         >
-          <AddCarCommentForm
+          <AddCommentForm
             value={{ comment: text }}
             onSubmit={text =>
               hendleUpdateComment({
-                carId,
-                commentId: id,
-                comment: { userId, name, date, text },
+                elemId,
+                commentId,
+                comment: { userId, name, CreatedAt: date || CreatedAt, text },
               })
             }
           />
@@ -120,7 +120,7 @@ const OneComment = ({ carId, id, userId, name, date, text }) => {
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => hendleRemoveComent({ carId, commentId: id })}
+              onClick={() => hendleRemoveComent({ elemId, commentId })}
             >
               Potvrdit
             </Button>
