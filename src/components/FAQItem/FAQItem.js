@@ -18,7 +18,7 @@ import { GrSend } from 'react-icons/gr';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const FAQItem = ({ id, images, question, answer: defAnswer }) => {
   const [answer, setAnswer] = useState(defAnswer);
