@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { IconButton, Box, VStack, useDisclosure } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { Box, VStack } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from 'hooks';
 
-const MobMenu = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const toggleMenu = () => (isOpen ? onClose() : onOpen());
+const MobMenu = ({ isOpen, onClose }) => {
   const menuRef = useRef();
   const { user } = useAuth();
 
@@ -24,17 +21,12 @@ const MobMenu = () => {
   }, [onClose]);
 
   return (
-    <Box display={{ base: 'block', md: 'none' }} ref={menuRef}>
-      <IconButton
-        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-        onClick={toggleMenu}
-        variant="ghost"
-        aria-label="Open Menu"
-      />
-
+    <>
       {/* Меню */}
       {isOpen && (
         <Box
+          display={{ base: 'block', md: 'none' }}
+          ref={menuRef}
           position="absolute"
           top="60px"
           left="0"
@@ -64,7 +56,7 @@ const MobMenu = () => {
           </VStack>
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 

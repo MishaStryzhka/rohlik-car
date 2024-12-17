@@ -15,12 +15,13 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { IoSearch } from 'react-icons/io5';
-import { ChevronDownIcon, AddIcon, CloseIcon } from '@chakra-ui/icons';
-import { FaSnowflake, FaBox, FaFilter } from 'react-icons/fa';
+import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
+import { FaSnowflake, FaBox, FaFilter, FaChevronUp } from 'react-icons/fa';
 import ListViewSwitcher from 'components/ListViewSwitcher/ListViewSwitcher';
 import { GiHotSurface } from 'react-icons/gi';
 import { MdVolumeOff } from 'react-icons/md';
 import { IoScan } from 'react-icons/io5';
+import { TYPES_CAR } from 'data';
 
 const FilterPanel = ({
   isOpenFilterMobMenu,
@@ -47,7 +48,7 @@ const FilterPanel = ({
   };
 
   return (
-    <Flex gap={2} position="sticky" zIndex="1" paddingBottom="10px" bg="#fff">
+    <Flex gap={2} position="sticky" zIndex="2" paddingBottom="10px" bg="#fff">
       <IconButton
         color="#6da305"
         icon={<IoScan />}
@@ -77,12 +78,12 @@ const FilterPanel = ({
         {/* Кнопка для відкриття фільтр-меню */}
 
         <IconButton
-          icon={isOpenFilterMobMenu ? <CloseIcon /> : <FaFilter />}
-          onClick={() =>
+          icon={isOpenFilterMobMenu ? <FaChevronUp /> : <FaFilter />}
+          onClick={() => {
             isOpenFilterMobMenu
               ? setIsOpenFilterMobMenu(false)
-              : setIsOpenFilterMobMenu(true)
-          }
+              : setIsOpenFilterMobMenu(true);
+          }}
           aria-label="Open Filter Menu"
           position="relative"
         />
@@ -105,11 +106,11 @@ const FilterPanel = ({
             </MenuButton>
             <MenuList minW="80px">
               <MenuItem onClick={() => handleSelect('')}>Type</MenuItem>
-              <MenuItem onClick={() => handleSelect('CDV')}>CDV</MenuItem>
-              <MenuItem onClick={() => handleSelect('CD')}>CD</MenuItem>
-              <MenuItem onClick={() => handleSelect('D')}>D</MenuItem>
-              <MenuItem onClick={() => handleSelect('OV')}>OV</MenuItem>
-              <MenuItem onClick={() => handleSelect('EXP')}>EXP</MenuItem>
+              {TYPES_CAR.map((typeCar, index) => (
+                <MenuItem key={index} onClick={() => handleSelect(typeCar)}>
+                  {typeCar}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
           {/* Перемикач для кондиціонера */}
