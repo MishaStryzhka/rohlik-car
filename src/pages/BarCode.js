@@ -112,17 +112,19 @@ const BarCode = () => {
             -DN
           </Button>
         </Flex>
-        <Flex justify="center" mt={8}>
-          <Barcode
-            value={barCode} // Значення для генерації штрих-коду
-            width={2} // Ширина кожного штриха
-            height={100} // Висота штрих-коду
-            displayValue={true} // Відображення значення під штрих-кодом
-            fontSize={16} // Розмір шрифту для значення
-            background="#ffffff" // Колір фону
-            lineColor="#000000" // Колір штрихів
-          />
-        </Flex>
+        {barCode && (
+          <Flex justify="center" mt={8}>
+            <Barcode
+              value={barCode} // Значення для генерації штрих-коду
+              width={2} // Ширина кожного штриха
+              height={100} // Висота штрих-коду
+              displayValue={true} // Відображення значення під штрих-кодом
+              fontSize={16} // Розмір шрифту для значення
+              background="#ffffff" // Колір фону
+              lineColor="#000000" // Колір штрихів
+            />
+          </Flex>
+        )}
       </Container>
     </>
   );

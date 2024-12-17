@@ -23,7 +23,7 @@ import { MdVolumeOff } from 'react-icons/md';
 import { GiHotSurface } from 'react-icons/gi';
 import { motion } from 'framer-motion';
 
-const MotionContainer = motion(Container);
+const MotionContainer = motion.create(Container);
 
 const CarPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -36,7 +36,6 @@ const CarPage = () => {
 
   // Початок свайпу
   const handleTouchStart = e => {
-    console.log(e.touches[0].clientX);
     setStartX(e.touches[0].clientX);
   };
 
@@ -104,7 +103,7 @@ const CarPage = () => {
         <title>{car.name}</title>
       </Helmet>
 
-      <Box position="sticky" top={0} zIndex="2">
+      <Box position="sticky" top={0} zIndex="3">
         <MotionContainer
           maxW={'none'}
           h={'100vh'}
@@ -222,6 +221,7 @@ const CarPage = () => {
 
       {isOpenModalEdit && (
         <ModalWrapper
+          title="Upravit auto"
           isOpen={isOpenModalEdit}
           onClose={() => setIsOpenModalEdit(false)}
         >

@@ -1,10 +1,13 @@
+import { TYPES_CAR } from 'data';
 import { checkNameUnique } from 'helpers/checkNameUnique';
 import * as Yup from 'yup';
+
+const carTypeRegex = new RegExp(`^(${TYPES_CAR.join('|')})\\d+$`);
 
 export const validationAddCarSchema = Yup.object({
   name: Yup.string()
     .matches(
-      /^(CD|CDV|OV|D|EXP)\d+$/,
+      carTypeRegex,
       'Název musí obsahovat typ a číslo, například "CDV114"'
     )
     .required('Název je povinný')
