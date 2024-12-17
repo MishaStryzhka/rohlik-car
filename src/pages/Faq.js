@@ -5,6 +5,7 @@ import { subscribeToFaqQuestions } from 'app';
 import AddFaqQuestion from 'components/AddFaqQuestion/AddFaqQuestion';
 import FAQItem from 'components/FAQItem/FAQItem';
 import ModalWrapper from 'components/Modals/Modal';
+import { TYPES_CAR } from 'data';
 import React, { useEffect, useState } from 'react';
 
 const faqData = [
@@ -23,7 +24,7 @@ const faqData = [
   {
     id: nanoid(),
     question: 'Jaké jsou podporované typy aut?',
-    answer: 'Podporované typy aut zahrnují CD, CDV, D, OV a EXP.',
+    answer: `Podporované typy aut zahrnují ${TYPES_CAR}`,
   },
 ];
 
@@ -41,7 +42,14 @@ const FAQ = () => {
 
   return (
     <>
-      <VStack align="stretch" spacing={4} mt={6}>
+      <VStack
+        align="stretch"
+        spacing={4}
+        mt={6}
+        height="calc(100% - 65px)"
+        overflow="auto"
+        style={{ scrollbarWidth: 'none' }}
+      >
         <Box
           display="flex"
           justifyContent="space-between"
