@@ -1,4 +1,4 @@
-import { Grid } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
 import { db } from '../../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -45,13 +45,42 @@ const PackagingBox = ({ filters, isGridView }) => {
           }}
           gap={{ base: 1, md: 6, xl: 2 }}
         >
-          {filteredPackagings
-            // .sort((a, b) => getSortCars(a, b))
-            .map(packaging => (
-              <Link key={packaging.id} to={`/packaging/${packaging.id}`}>
-                <OnePackaging isGridView={isGridView} packaging={packaging} />
-              </Link>
-            ))}
+          {filteredPackagings.map(packaging => (
+            <Box
+              key={packaging.id}
+              position="relative"
+              w="100%"
+              pb="100%"
+              overflow="hidden"
+            >
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                right="0"
+                bottom="0"
+                p={{ base: 1, md: 3 }}
+                borderWidth={1}
+                borderRadius="md"
+                boxShadow="md"
+                overflow="hidden"
+              >
+                <Link
+                  to={`/packaging/${packaging.id}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <OnePackaging isGridView={isGridView} packaging={packaging} />
+                </Link>
+              </Box>
+            </Box>
+          ))}
         </Grid>
       ) : (
         <Grid
@@ -63,7 +92,9 @@ const PackagingBox = ({ filters, isGridView }) => {
           {filteredPackagings
             // .sort((a, b) => getSortCars(a, b))
             .map(packaging => (
-              <OnePackaging isGridView={isGridView} packaging={packaging} />
+              <Link key={packaging.id} to={`/packaging/${packaging.id}`}>
+                <OnePackaging isGridView={isGridView} packaging={packaging} />
+              </Link>
             ))}
         </Grid>
       )}
