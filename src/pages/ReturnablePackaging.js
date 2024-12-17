@@ -31,6 +31,9 @@ const ReturnablePackaging = () => {
         w={'100%'}
         maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
         p={2}
+        height="calc(100% - 65px)"
+        overflow="auto"
+        style={{ scrollbarWidth: 'none' }}
       >
         <FilterPanerReturnablePackaging
           search={search}

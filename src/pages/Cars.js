@@ -40,8 +40,10 @@ const Cars = () => {
         maxW={{ base: '100%', md: '95vw', xl: '80vw' }}
         p={0}
         position="relative"
-        overflow="auto"
-        height="100vh"
+        height="calc(100% - 65px)"
+        display="flex"
+        flexDirection="column"
+        overflow="hidden"
       >
         <FilterMobMenu
           isOpen={isOpenFilterMobMenu}
