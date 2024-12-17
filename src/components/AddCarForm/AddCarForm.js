@@ -12,6 +12,7 @@ import {
 import { Formik, Form, Field } from 'formik';
 import { validationAddCarSchema } from 'schemas/addCarScheme';
 import { updateCarSchema } from 'schemas/updateCarScheme';
+import { TYPES_CAR } from 'data';
 
 const AddCarForm = ({ value, onSubmit }) => {
   return (
@@ -60,11 +61,11 @@ const AddCarForm = ({ value, onSubmit }) => {
                 placeholder="Vyberte typ"
                 disabled={value?.type ? true : false}
               >
-                <option value="CD">CD</option>
-                <option value="CDV">CDV</option>
-                <option value="OV">OV</option>
-                <option value="D">D</option>
-                <option value="EXP">EXP</option>
+                {TYPES_CAR.map((typeCar, index) => (
+                  <option key={index} value={typeCar}>
+                    {typeCar}
+                  </option>
+                ))}
               </Field>
               {touched.type && errors.type ? (
                 <Box color="red.500">{errors.type}</Box>
