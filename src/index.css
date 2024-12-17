@@ -36,3 +36,12 @@ h6 {
 .no-scroll {
   overflow: hidden;
 }
+
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch; /* Плавна прокрутка для мобільних */
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
