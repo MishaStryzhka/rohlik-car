@@ -13,6 +13,7 @@ import CarPage from 'pages/Car';
 import FAQ from 'pages/Faq';
 import ReturnablePackaging from 'pages/ReturnablePackaging';
 import OneReturnablePackaging from 'pages/OneReturnablePackaging';
+import AccountSuspended from 'pages/AccountSuspended';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -33,6 +34,7 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route path="account-suspended" element={<AccountSuspended />} />
         <Route
           path="/register"
           element={
