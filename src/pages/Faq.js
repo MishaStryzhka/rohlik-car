@@ -48,7 +48,7 @@ const FAQ = () => {
         mt={6}
         height="calc(100% - 65px)"
         overflow="auto"
-        style={{ scrollbarWidth: 'none' }}
+        className='no-scrollbar'
       >
         <Box
           display="flex"
