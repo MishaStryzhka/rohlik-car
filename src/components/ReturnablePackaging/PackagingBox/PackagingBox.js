@@ -10,7 +10,6 @@ const PackagingBox = ({ filters, isGridView }) => {
   const [packagings, setPackagings] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(null);
-  console.log('packagings', packagings);
 
   useEffect(() => {
     const packagingCollection = collection(db, 'returnable-packaging');
