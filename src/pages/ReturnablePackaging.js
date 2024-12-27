@@ -33,7 +33,7 @@ const ReturnablePackaging = () => {
         p={2}
         height="calc(100% - 65px)"
         overflow="auto"
-        style={{ scrollbarWidth: 'none' }}
+        className="no-scrollbar"
       >
         <FilterPanerReturnablePackaging
           search={search}

@@ -83,7 +83,7 @@ const CarsBox = ({ filters, isGridView }) => {
       gap={{ base: 1, md: 6, xl: 2 }}
       flex={1}
       overflow="auto"
-      style={{ scrollbarWidth: 'none' }}
+      className="no-scrollbar"
     >
       {cars
         .sort((a, b) => getSortCars(a, b))
@@ -144,7 +144,7 @@ const CarsBox = ({ filters, isGridView }) => {
       gap={{ base: 3, md: 6 }}
       flex={1}
       overflow="auto"
-      style={{ scrollbarWidth: 'none' }}
+      className="no-scrollbar"
     >
       {cars
         .sort((a, b) => getSortCars(a, b))

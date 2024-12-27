@@ -35,21 +35,12 @@ const OnePackaging = ({ isGridView, packaging }) => {
           alignItems="center"
           justify="space-between"
           gap={1}
-          p={{ base: 1, md: 3 }}
-          borderWidth={1}
-          borderRadius="md"
-          boxShadow="md"
         >
           {/* Image */}
-          <Image
-            src={packaging.img}
-            width={{ base: '120px', md: '150px', xl: '200px' }}
-            height={{ base: '120px', md: '150px', xl: '200px' }}
-            objectFit="cover"
-          />
+          <Image src={packaging.img} objectFit="cover" />
 
           {/* Check icon  */}
-          <Box position="absolute" top={1} left={1}>
+          <Box position="absolute" top={4} left={1}>
             {packaging.isReturnable === 'null' ? (
               <FaQuestion size="24px" color="#c0c8b2" />
             ) : packaging.isReturnable === 'true' ? (
@@ -72,18 +63,6 @@ const OnePackaging = ({ isGridView, packaging }) => {
           boxShadow="md"
           // bg={getColorDrivingStyle(car.drivingStyle)}
         >
-          {/* Check icon  */}
-          <Box position="absolute">
-            {packaging.isReturnable === 'null' ? (
-              <FaQuestion size="24px" color="#c0c8b2" />
-            ) : packaging.isReturnable === 'true' ? (
-              <FaCheck size="24px" color="#6da305" />
-            ) : (
-              <FaTimes size="24px" color="red" />
-            )}
-          </Box>
-
-          {/*  */}
           <Box position="absolute" right="5px">
             <IconButton
               height="22px"
@@ -100,6 +79,16 @@ const OnePackaging = ({ isGridView, packaging }) => {
               aria-label="Open Modal Update"
               position="relative"
             />
+          </Box>
+
+          <Box position="absolute" right="5px" bottom="5px">
+            {packaging.isReturnable === 'null' ? (
+              <FaQuestion size="24px" color="#c0c8b2" />
+            ) : packaging.isReturnable === 'true' ? (
+              <FaCheck size="24px" color="#6da305" />
+            ) : (
+              <FaTimes size="24px" color="red" />
+            )}
           </Box>
 
           {/* Image */}
