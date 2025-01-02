@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
 import IconCars from 'components/IconCars';
-import { Box, Flex, Heading, Link, VStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, Link } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 
 export default function Register() {
