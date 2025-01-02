@@ -9,7 +9,6 @@ import { useAuth } from 'hooks';
 import FullScreenGalery from 'components/FullScreenGalery/FullScreenGalery';
 
 const OnePackaging = ({ isGridView, packaging }) => {
-  console.log('packaging', packaging);
   const [isOpenModalUpdatePackaging, setIsOpenModalUpdatePackaging] =
     useState(false);
   const [isLoadingUpdatePackaging, setIsLoadingUpdatePackaging] =
@@ -20,7 +19,6 @@ const OnePackaging = ({ isGridView, packaging }) => {
 
   const handleSubmitUpdatePackaging = async newData => {
     setIsLoadingUpdatePackaging(true);
-    console.log('e', newData);
     await updateReturnablePackaging({ id: packaging.id, ...newData, user });
     setIsOpenModalUpdatePackaging(false);
     setIsLoadingUpdatePackaging(false);
@@ -104,7 +102,6 @@ const OnePackaging = ({ isGridView, packaging }) => {
               src={packaging.img}
               objectFit="cover"
               onClick={() => {
-                console.log('qwe');
                 setCurrentIndexImage(0);
                 setIsOpenFullScreenGalery(true);
               }}
@@ -113,7 +110,14 @@ const OnePackaging = ({ isGridView, packaging }) => {
 
           <Flex direction="column">
             {/* Name */}
-            <Text fontWeight="bold" fontSize="lg">
+            <Text
+              whiteSpace="nowrap"
+              overflow="hidden"
+              textOverflow="ellipsis"
+              width="calc(100% - 20px)"
+              fontWeight="bold"
+              fontSize="lg"
+            >
               {packaging.name}
             </Text>
 
