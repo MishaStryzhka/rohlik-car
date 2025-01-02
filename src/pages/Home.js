@@ -12,7 +12,7 @@ export default function Home() {
       justifyContent="center"
     >
       <Helmet>
-        <title>Home</title>
+        <title>Help-Book</title>
       </Helmet>
       <VStack
         w={{ base: '100%', md: '650px' }}
@@ -26,7 +26,7 @@ export default function Home() {
           lineHeight={{ base: '2.6', md: '1.5' }}
           color="#6DA305"
         >
-          Your personal Help-Book.
+          „Váš osobní Help-Book“
         </Heading>
         <Box width={{ base: '150px', md: '300px' }}>
           <IconCars />

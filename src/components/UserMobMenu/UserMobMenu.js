@@ -14,7 +14,6 @@ import { db } from '../../firebase/config';
 
 const UserMobMenu = () => {
   const { user } = useAuth();
-  console.log('user', user);
 
   // ====== unreadNotificationsCout ======
   const [unreadNotificationsCout, setUnreadNotificationsCout] = useState(0);
@@ -25,7 +24,8 @@ const UserMobMenu = () => {
     const unsubscribe = onSnapshot(notificationsCollection, snapshot => {
       const notificationsData = [];
       snapshot.docs.forEach(doc => {
-        if (user.uid === doc.data().userId) {
+        if (user.uid === doc.data().userId && !doc.data().isRead) {
+          console.log('doc.data()', doc.data());
           notificationsData.push({ id: doc.id, ...doc.data() });
         }
       });
@@ -137,7 +137,7 @@ const UserMobMenu = () => {
               className={css.link}
               onClick={() => dispatch(logOut())}
             >
-              Logout
+              Odhlásit se
             </button>
           </VStack>
         </Box>

@@ -40,11 +40,11 @@ const MobMenu = ({ isOpen, onClose }) => {
               Home
             </NavLink>
             <NavLink to="/cars" onClick={onClose}>
-              Cars
+              Auta
             </NavLink>
             {(user?.role === 'VIP' || user?.role === 'dev') && (
               <NavLink to="/bar-code" onClick={onClose}>
-                BarCode
+                Čárový kód
               </NavLink>
             )}
             <NavLink to="/packagings" onClick={onClose}>
