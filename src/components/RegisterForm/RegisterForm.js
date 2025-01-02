@@ -2,11 +2,13 @@ import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 import {
+  Box,
   Button,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Text,
 } from '@chakra-ui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { EmailIcon, PhoneIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons';
@@ -47,7 +49,10 @@ export const RegisterForm = () => {
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="id" />
+            <Text ml="16px">
+              <ErrorMessage name="id" />
+            </Text>
+
             <Field name="name">
               {({ field }) => (
                 <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
@@ -55,7 +60,10 @@ export const RegisterForm = () => {
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="name" />
+            <Text ml="16px">
+              <ErrorMessage name="name" />
+            </Text>
+
             <Field name="surname">
               {({ field }) => (
                 <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
@@ -63,7 +71,10 @@ export const RegisterForm = () => {
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="surname" />
+            <Text ml="16px">
+              <ErrorMessage name="surname" />
+            </Text>
+
             <Field name="email">
               {({ field }) => (
                 <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
@@ -74,18 +85,24 @@ export const RegisterForm = () => {
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="email" />
+            <Text ml="16px">
+              <ErrorMessage name="email" />
+            </Text>
+
             <Field name="phoneNumber">
               {({ field }) => (
                 <InputGroup mt={4} minW={{ base: '100%', md: '400px' }}>
                   <InputLeftElement pointerEvents="none">
                     <PhoneIcon color="gray.300" />
                   </InputLeftElement>
-                  <Input {...field} placeholder="phone" />
+                  <Input {...field} placeholder="telefon" />
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="phoneNumber" />
+            <Text ml="16px">
+              <ErrorMessage name="phoneNumber" />
+            </Text>
+
             <Field name="password">
               {({ field }) => (
                 <InputGroup mt={4} size="md">
@@ -93,7 +110,7 @@ export const RegisterForm = () => {
                     {...field}
                     pr="4.5rem"
                     type={show ? 'text' : 'password'}
-                    placeholder="password"
+                    placeholder="heslo"
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -103,16 +120,19 @@ export const RegisterForm = () => {
                 </InputGroup>
               )}
             </Field>
-            <ErrorMessage name="password" />
-            <Button
-              mt={8}
-              mx="calc(50% - 40px)"
-              bgColor="#6DA305"
-              isLoading={isLoading}
-              type="submit"
-            >
-              Sign up
-            </Button>
+            <Text ml="16px">
+              <ErrorMessage name="password" />
+            </Text>
+            <Box w="100%" mt={8} textAlign="center">
+              <Button
+                bgColor="#6DA305"
+                color="white"
+                isLoading={isLoading}
+                type="submit"
+              >
+                Zaregistrovat se
+              </Button>
+            </Box>
             {error && (
               <p style={{ marginTop: 10 }}>
                 <b>This email is busy. Try another one.</b>

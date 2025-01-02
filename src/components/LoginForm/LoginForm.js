@@ -1,9 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useAuth } from 'hooks';
+import { MdOutlineVisibility, MdVisibilityOff } from 'react-icons/md';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -41,26 +48,37 @@ export const LoginForm = () => {
                   {...field}
                   pr="4.5r em"
                   type={show ? 'text' : 'password'}
-                  placeholder="Enter password"
+                  placeholder="heslo"
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? 'Hide' : 'Show'}
+                  <Button
+                    h="1.75rem"
+                    px="8px"
+                    border="1px"
+                    borderColor="#dee2e6"
+                    onClick={handleClick}
+                  >
+                    {show ? (
+                      <MdVisibilityOff fontSize="20px" color="#6DA305" />
+                    ) : (
+                      <MdOutlineVisibility fontSize="20px" color="#6DA305" />
+                    )}
                   </Button>
                 </InputRightElement>
               </InputGroup>
             )}
           </Field>
           <ErrorMessage name="password" />
-          <Button
-            mt={8}
-            mx="calc(50% - 40px)"
-            colorScheme="teal"
-            isLoading={isLoading}
-            type="submit"
-          >
-            log In
-          </Button>
+          <Box mt={8} textAlign="center">
+            <Button
+              bgColor="#6DA305"
+              color="white"
+              isLoading={isLoading}
+              type="submit"
+            >
+              Přihlásit se
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>
