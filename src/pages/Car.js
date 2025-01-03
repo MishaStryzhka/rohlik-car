@@ -31,7 +31,7 @@ const CarPage = () => {
 
   const onClose = () => {
     setIsOpen(false);
-    setTimeout(() => navigate(-1), 500);
+    setTimeout(() => navigate('/cars'), 500);
   };
 
   // Початок свайпу
@@ -80,6 +80,10 @@ const CarPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsOpen(true);
+  }, [car]);
+
+  useEffect(() => {
     const fetchCarData = async () => {
       const carData = await getCarById(carId);
       setCar(carData);
@@ -117,9 +121,14 @@ const CarPage = () => {
           bg="#fff"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          initial={{ left: '-100%' }} // Початковий стан
-          animate={isOpen ? { left: 0 } : { left: '-100%' }}
-          transition={{ left: { duration: 0.5 } }} // Тривалість анімації
+          initial={{ left: '-100%', opacity: 0 }}
+          animate={
+            isOpen ? { left: 0, opacity: 1 } : { left: '-100%', opacity: 0 }
+          }
+          transition={{
+            left: { duration: 0.5 },
+            opacity: { duration: 0.5 },
+          }}
         >
           <Flex alignItems="center" justify="space-between">
             <IconButton

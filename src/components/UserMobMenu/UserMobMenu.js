@@ -5,12 +5,50 @@ import { useAuth } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
 import css from './UserMobMenu.module.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { MdNotifications } from 'react-icons/md';
+import MenuNotifications from 'components/MenuNotifications/MenuNotifications';
+import Count from 'components/Count/Count';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase/config';
 
 const UserMobMenu = () => {
+  const { user } = useAuth();
+
+  // ====== unreadNotificationsCout ======
+  const [unreadNotificationsCout, setUnreadNotificationsCout] = useState(0);
+  console.log('unreadNotificationsCout', unreadNotificationsCout);
+  useEffect(() => {
+    const notificationsCollection = collection(db, 'notifications');
+
+    const unsubscribe = onSnapshot(notificationsCollection, snapshot => {
+      const notificationsData = [];
+      snapshot.docs.forEach(doc => {
+        if (user.uid === doc.data().userId && !doc.data().isRead) {
+          console.log('doc.data()', doc.data());
+          notificationsData.push({ id: doc.id, ...doc.data() });
+        }
+      });
+
+      setUnreadNotificationsCout(notificationsData.length);
+    });
+
+    return () => unsubscribe();
+  }, [user.uid]);
+
+  // ========================================
+
+  const [isOpenMenuNotifications, setIsOpenMenuNotifications] = useState(false);
+  const toggleMenuNotifications = () => {
+    isOpenMenuNotifications
+      ? setIsOpenMenuNotifications(false)
+      : setIsOpenMenuNotifications(true);
+  };
+  const userMenuNotificationsRef = useRef();
+  const userMenuNotificationsButtonRef = useRef();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toggleMenu = () => (isOpen ? onClose() : onOpen());
-  const { user } = useAuth();
   const dispatch = useDispatch();
   const userMenuRef = useRef();
 
@@ -26,14 +64,55 @@ const UserMobMenu = () => {
     };
   }, [onClose]);
 
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        userMenuNotificationsRef.current &&
+        !userMenuNotificationsRef.current.contains(event.target) &&
+        !userMenuNotificationsButtonRef.current.contains(event.target)
+      ) {
+        setIsOpenMenuNotifications(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
-    <Box display={{ base: 'block', md: 'none' }} ref={userMenuRef}>
+    <Box display={{ base: 'flex', md: 'none' }} ref={userMenuRef}>
       <IconButton
-        icon={isOpen ? <CloseIcon /> : <FaUser size="20px" color="#6da305" />}
+        icon={
+          isOpen ? (
+            <CloseIcon size="16px" />
+          ) : (
+            <FaUser size="16px" color="#6da305" />
+          )
+        }
         onClick={toggleMenu}
         variant="ghost"
         aria-label="Open Menu"
       />
+
+      <Count count={unreadNotificationsCout}>
+        <IconButton
+          ref={userMenuNotificationsButtonRef}
+          icon={<MdNotifications size="22px" color="#6da305" />}
+          onClick={toggleMenuNotifications}
+          variant="ghost"
+          aria-label="Open Menu"
+        />
+      </Count>
+
+      {/* Меню Notifications */}
+      {isOpenMenuNotifications && (
+        <MenuNotifications
+          ref={userMenuNotificationsRef}
+          onClose={() => setIsOpenMenuNotifications(false)}
+        />
+      )}
 
       {/* Меню */}
       {isOpen && (
@@ -45,6 +124,7 @@ const UserMobMenu = () => {
           bg="white"
           zIndex="overlay"
           boxShadow="md"
+          ref={userMenuRef}
         >
           <VStack align="start" spacing={4} p={4}>
             <p>ID: {user.userId}</p>
@@ -57,7 +137,7 @@ const UserMobMenu = () => {
               className={css.link}
               onClick={() => dispatch(logOut())}
             >
-              Logout
+              Odhlásit se
             </button>
           </VStack>
         </Box>

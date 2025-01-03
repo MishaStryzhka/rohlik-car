@@ -37,7 +37,7 @@ export const Navigation = () => {
               }
               to="/cars"
             >
-              Cars
+              Auta
             </NavLink>
             {(user?.role === 'VIP' || user?.role === 'dev') && (
               <NavLink
@@ -46,7 +46,7 @@ export const Navigation = () => {
                 }
                 to="/bar-code"
               >
-                BarCode
+                Čárový kód
               </NavLink>
             )}
 

@@ -8,7 +8,7 @@ import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyD2pc98ZOmoAtwdobffoQqOOS2Cr-EF8os',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'rohlik-help-courier.firebaseapp.com',
   projectId: 'rohlik-help-courier',
   storageBucket: 'rohlik-help-courier.appspot.com',

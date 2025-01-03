@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet';
 import { LoginForm } from 'components/LoginForm/LoginForm';
-import { Flex, Box, Heading, VStack } from '@chakra-ui/react';
+import { Flex, Box, Heading, VStack, Link } from '@chakra-ui/react';
 import IconCars from 'components/IconCars';
+import { NavLink } from 'react-router-dom';
 
 export default function Login() {
   return (
     <div>
       <Helmet>
-        <title>Login</title>
+        <title>Přihlášení</title>
       </Helmet>
 
       <Flex
@@ -30,7 +31,7 @@ export default function Login() {
             color="#6DA305"
             noOfLines={1}
           >
-            Log in "Help-Book"
+            Přihlásit se "Help-Book"
           </Heading>
           <Box width={{ base: '150px', md: '300px' }}>
             <IconCars />
@@ -45,6 +46,20 @@ export default function Login() {
         >
           <LoginForm />
         </Box>
+        <Link
+          as={NavLink}
+          to="/register"
+          display="inline-block"
+          textDecoration="none"
+          padding="12px"
+          fontWeight="700"
+          color="#6da305"
+          _hover={{
+            textDecoration: 'underline',
+          }}
+        >
+          Zaregistrovat se
+        </Link>
       </Flex>
     </div>
   );
