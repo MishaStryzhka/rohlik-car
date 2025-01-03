@@ -35,6 +35,7 @@ jobs:
             ${{ secrets.REACT_APP_CLOUD_VISION_API_KEY }}
           REACT_APP_BASENAME: '/help-book'
           PUBLIC_URL: 'https://MishaStryzhka.github.io/help-book/'
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
         run: npm run build
 
       - name: Deploy with gh-pages

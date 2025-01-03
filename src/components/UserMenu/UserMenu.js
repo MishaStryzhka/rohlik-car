@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/auth/operations';
-import { useAuth } from 'hooks';
-import css from './UserMenu.module.css';
-import { Box } from '@chakra-ui/react';
-import UserMobMenu from 'components/UserMobMenu/UserMobMenu';
+import { useDispatch } from "react-redux";
+import { logOut } from "redux/auth/operations";
+import { useAuth } from "hooks";
+import css from "./UserMenu.module.css";
+import { Box } from "@chakra-ui/react";
+import UserMobMenu from "components/UserMobMenu/UserMobMenu";
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const UserMenu = () => {
   return (
     <>
       <UserMobMenu />
-      <Box display={{ base: 'none', md: 'block' }}>
+      <Box display={{ base: "none", md: "block" }}>
         <div className={css.wrapper}>
           <p className={css.username}>
             {user.name} ID: {user.userId}

@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet';
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
 import IconCars from 'components/IconCars';
-import { Box, Flex, Heading, VStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, Link } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 
 export default function Register() {
   return (
     <div>
       <Helmet>
-        <title>Registration</title>
+        <title>Registrace</title>
       </Helmet>
 
       <Flex
@@ -17,25 +18,26 @@ export default function Register() {
         justify={{ base: 'center', md: 'space-evenly' }}
         p={4}
       >
-        <VStack
+        <Flex
           w={{ base: '100%', md: '550px' }}
-          align="center"
-          justify="center"
+          align="flex-end"
+          justify="space-around"
           spacing={4}
         >
           <Heading
-            as="h1"
-            fontSize={{ base: '24px', md: '48px' }}
-            lineHeight={{ base: '2.6', md: '1.5' }}
+            as="h2"
+            fontSize={{ base: '22px', md: '48px' }}
+            lineHeight={{ base: '1.7', md: '1.5' }}
             color="#6DA305"
-            noOfLines={1}
+            textAlign="center"
           >
-            Sign up "Help-Book"
+            Zaregistrujte se <br />
+            "Help-Book"
           </Heading>
-          <Box width={{ base: '150px', md: '300px' }}>
+          <Box width={{ base: '120px', md: '300px' }}>
             <IconCars />
           </Box>
-        </VStack>
+        </Flex>
         <Box
           w={{ base: '100%', md: '550px' }}
           display="flex"
@@ -45,6 +47,20 @@ export default function Register() {
         >
           <RegisterForm />
         </Box>
+        <Link
+          as={NavLink}
+          to="/login"
+          display="inline-block"
+          textDecoration="none"
+          padding="12px"
+          fontWeight="700"
+          color="#6da305"
+          _hover={{
+            textDecoration: 'underline',
+          }}
+        >
+          Přihlásit se
+        </Link>
       </Flex>
     </div>
   );

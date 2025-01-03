@@ -3,6 +3,7 @@ const { addFaqQuestion } = require('./addFaqQuestion/addFaqQuestion');
 const { addsNewCar } = require('./cars/addsNewCar/addsNewCar');
 const { getCarById } = require('./cars/getCarById/getCarById');
 const { default: getCarByName } = require('./cars/getCarByName/getCarByName');
+const { setReadsStatusById } = require('./notifications/setReadsStatusById');
 const { removeComment } = require('./removeComment/removeComment');
 const {
   addReturnablePackaging,
@@ -31,4 +32,6 @@ module.exports = {
 
   addReturnablePackaging,
   updateReturnablePackaging,
+
+  setReadsStatusById,
 };
