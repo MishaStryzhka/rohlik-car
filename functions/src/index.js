@@ -1,6 +1,7 @@
-// import {initializeApp} from "firebase-admin/app";
-import {createNotificationAboutCars} from "./triggers/cars.js";
+import "./config.js"; // Ініціалізація Firebase
 
-// initializeApp();
+import {createNotificationAboutCars} from "./triggers/cars.js";
+import {createNotificationsAboutNewUser} from "./triggers/users.js";
 
 export const setNotificationAboutCars = createNotificationAboutCars;
+export const setNotificationsAboutNewUser = createNotificationsAboutNewUser;
