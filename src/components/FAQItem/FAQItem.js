@@ -121,7 +121,7 @@ const FAQItem = ({ id, images, question, answer: defAnswer }) => {
               }}
             >
               {images.map((img, index) => (
-                <SwiperSlide>
+                <SwiperSlide key={index}>
                   <Image
                     src={img}
                     // width="100px"

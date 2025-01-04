@@ -9,7 +9,6 @@ import { setReadsStatusById } from 'app';
 
 const MenuNotifications = forwardRef(({ children, onClose, ...props }, ref) => {
   const [notifications, setNotifications] = useState([]);
-  console.log('notifications', notifications);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -67,39 +66,58 @@ const MenuNotifications = forwardRef(({ children, onClose, ...props }, ref) => {
       borderColor="#dee2e6"
       ref={ref}
     >
-      <VStack align="start" spacing={2} p={2}>
-        {notifications.map((not, index) => (
-          <Link
-            to={`./cars/${not.carId}`}
-            onClick={() => {
-              onClose();
-              setReadsStatusById(not.id);
-            }}
-            style={{
-              display: 'flex',
-              width: '100%',
-              opacity: `${not.isRead ? 0.5 : 1}`,
-            }}
-            key={index}
-          >
-            <Flex
-              justifyContent="flex-start"
-              direction="column"
-              width="100%"
-              height="auto"
-              border="1px"
-              borderColor="#dee2e6"
-              p="4px 6px"
-              borderRadius={4}
-              bg="#f8f9fa"
+      <VStack align="start" spacing={2} p={2} height="160px" overflow="auto">
+        {notifications
+          .sort((a, b) => {
+            const getCorrectDate = date => {
+              let currentDate;
+
+              if (date instanceof Date) {
+                currentDate = date; // Якщо вже є JavaScript Date
+              } else if (typeof date === 'string') {
+                currentDate = new Date(date); // Якщо ISO 8601 рядок
+              } else if (date?.toDate) {
+                currentDate = date.toDate(); // Якщо Firestore Timestamp
+              } else {
+                console.error('Unknown date format');
+              }
+              return currentDate;
+            };
+
+            return getCorrectDate(b.createdAt) - getCorrectDate(a.createdAt);
+          })
+          .map((not, index) => (
+            <Link
+              to={`./cars/${not.carId}`}
+              onClick={() => {
+                onClose();
+                !not.isRead && setReadsStatusById(not.id);
+              }}
+              style={{
+                display: 'flex',
+                width: '100%',
+                opacity: `${not.isRead ? 0.5 : 1}`,
+              }}
+              key={index}
             >
-              <Text fontSize="10px">{not.message}</Text>
-              <Box textAlign="end">
-                <Text fontSize="8px">{getFormatDate(not.createdAt)}</Text>
-              </Box>
-            </Flex>
-          </Link>
-        ))}
+              <Flex
+                justifyContent="flex-start"
+                direction="column"
+                width="100%"
+                height="auto"
+                border="1px"
+                borderColor="#dee2e6"
+                p="4px 6px"
+                borderRadius={4}
+                bg="#f8f9fa"
+              >
+                <Text fontSize="10px">{not.message}</Text>
+                <Box textAlign="end">
+                  <Text fontSize="8px">{getFormatDate(not.createdAt)}</Text>
+                </Box>
+              </Flex>
+            </Link>
+          ))}
       </VStack>
     </Box>
   );

@@ -1,10 +1,6 @@
 import {onDocumentWritten} from "firebase-functions/firestore";
-import {getFirestore} from "firebase-admin/firestore";
-import {initializeApp} from "firebase-admin/app";
-
-initializeApp();
-
-const db = getFirestore();
+import {FieldValue} from "firebase-admin/firestore";
+import {db} from "../config.js";
 
 export const createNotificationAboutCars = onDocumentWritten(
     "cars/{docId}",
@@ -104,7 +100,7 @@ async function createNotificationsAboutDeletedCar(carData, carId) {
             carId: carId,
             message: `Auto bylo odstraněno: ${carData?.name || "bez názvu"}`,
             isRead: false,
-            createdAt: new Date().toISOString() // nebo použijte Firebase Timestamp
+            createdAt: FieldValue.serverTimestamp()
         });
     });
 
