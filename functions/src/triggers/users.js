@@ -8,23 +8,23 @@ export const createNotificationsAboutNewUser = onDocumentCreated(
         const newUserData = event.data?.data();
         const newUserId = event.params.userId;
 
-        console.log(`Новий користувач створений: ${newUserId}`);
+        console.log(`Nový uživatel byl vytvořen: ${newUserId}`);
 
-        // Отримуємо всіх існуючих користувачів
+        // Získání všech existujících uživatelů
         const usersSnapshot = await db.collection("users").get();
         const batch = db.batch();
 
         usersSnapshot.forEach((userDoc) => {
             const userData = userDoc.data();
 
-            // Перевіряємо, чи підписаний користувач на категорію "users"
+            // Kontrolujeme, zda je uživatel přihlášen k odběru kategorie "users"
             if (userData.subscriptions && userData.subscriptions["users"]) {
                 const notificationRef = db.collection("notifications").doc();
 
                 batch.set(notificationRef, {
                     userId: userDoc.id,
                     category: "users",
-                    message: `Новий користувач зареєструвався: ${newUserData.name || "Анонім"}`,
+                    message: `Nový uživatel se zaregistroval: ${newUserData.name || "Anonym"}`,
                     isRead: false,
                     createdAt: FieldValue.serverTimestamp()
                 });
@@ -33,7 +33,7 @@ export const createNotificationsAboutNewUser = onDocumentCreated(
 
         await batch.commit();
         console.log(
-            "Сповіщення про нового користувача створені для підписаних."
+            "Oznámení o novém uživateli byla vytvořena pro odběratele."
         );
     }
 );

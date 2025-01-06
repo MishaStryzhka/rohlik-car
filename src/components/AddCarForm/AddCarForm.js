@@ -140,17 +140,6 @@ const AddCarForm = ({ value, onSubmit }) => {
               </Field>
             </FormControl>
 
-            {/* Pole "Komentář k autu"
-            <FormControl>
-              <FormLabel>Komentář k autu</FormLabel>
-              <Field
-                as={Textarea}
-                name="comment"
-                placeholder="Přidejte komentář..."
-              />
-            </FormControl> */}
-
-            {/* Tlačítko odeslání */}
             <Button
               type="submit"
               bg="#6da305"
