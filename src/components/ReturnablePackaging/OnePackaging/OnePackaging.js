@@ -125,7 +125,9 @@ const OnePackaging = ({ isGridView, packaging }) => {
             {packaging?.systemName && (
               <Text fontWeight="normal" fontSize={10}>
                 V systému:
-                <Text fontWeight="bold">{packaging?.systemName}</Text>
+                <span style={{ fontWeight: 'bold' }}>
+                  {packaging?.systemName}
+                </span>
               </Text>
             )}
 
@@ -133,9 +135,9 @@ const OnePackaging = ({ isGridView, packaging }) => {
             <Text fontWeight="normal" fontSize={10}>
               Komentář:
               {packaging?.comment ? (
-                <Text fontWeight="bold">{packaging?.comment}</Text>
+                <span style={{ fontWeight: 'bold' }}>{packaging?.comment}</span>
               ) : (
-                <Text fontWeight="bold">---</Text>
+                <span style={{ fontWeight: 'bold' }}>---</span>
               )}
             </Text>
           </Flex>

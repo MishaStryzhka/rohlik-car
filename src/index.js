@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './styles/fullscreenSwiper.css';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
+import Providers from 'contexts/Providers';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter basename={process.env.REACT_APP_BASENAME || ''}>
         <ChakraProvider>
           <ErrorBoundary>
-            <App />
+            <Providers>
+              <App />
+            </Providers>
           </ErrorBoundary>
         </ChakraProvider>
       </BrowserRouter>

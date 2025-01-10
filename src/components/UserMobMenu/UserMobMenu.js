@@ -17,7 +17,6 @@ const UserMobMenu = () => {
 
   // ====== unreadNotificationsCout ======
   const [unreadNotificationsCout, setUnreadNotificationsCout] = useState(0);
-  console.log('unreadNotificationsCout', unreadNotificationsCout);
   useEffect(() => {
     const notificationsCollection = collection(db, 'notifications');
 
@@ -25,7 +24,6 @@ const UserMobMenu = () => {
       const notificationsData = [];
       snapshot.docs.forEach(doc => {
         if (user.uid === doc.data().userId && !doc.data().isRead) {
-          console.log('doc.data()', doc.data());
           notificationsData.push({ id: doc.id, ...doc.data() });
         }
       });

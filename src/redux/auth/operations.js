@@ -39,6 +39,11 @@ export const register = createAsyncThunk(
         email: email,
         name: name,
         surname: surname,
+        subscriptions: {
+          cars: true,
+          questions: true,
+          'returnable-packaging': true,
+        },
       });
 
       const user = { uid, userId, email, name, surname };

@@ -3,10 +3,16 @@ import { LoginForm } from 'components/LoginForm/LoginForm';
 import { Flex, Box, Heading, VStack, Link } from '@chakra-ui/react';
 import IconCars from 'components/IconCars';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import ModalWrapper from 'components/Modals/Modal';
+import { PaswordRecoveryContext } from 'contexts/PasswordRecovery/PaswordRecoveryContext';
+import ModalRecoverPassword from 'components/Modals/ModalRecoverPassword/ModalRecoverPassword';
 
 export default function Login() {
+  const { isOpenModalRecoverPassword, setIsOpenModalRecoverPassword } =
+    useContext(PaswordRecoveryContext);
   return (
-    <div>
+    <>
       <Helmet>
         <title>Přihlášení</title>
       </Helmet>
@@ -61,6 +67,16 @@ export default function Login() {
           Zaregistrovat se
         </Link>
       </Flex>
-    </div>
+
+      {isOpenModalRecoverPassword && (
+        <ModalWrapper
+          isOpen={isOpenModalRecoverPassword}
+          onClose={() => setIsOpenModalRecoverPassword(false)}
+          title="Obnovení hesla"
+        >
+          <ModalRecoverPassword />
+        </ModalWrapper>
+      )}
+    </>
   );
 }
