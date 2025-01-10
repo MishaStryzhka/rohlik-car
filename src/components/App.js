@@ -14,6 +14,7 @@ import FAQ from 'pages/Faq';
 import ReturnablePackaging from 'pages/ReturnablePackaging';
 import OneReturnablePackaging from 'pages/OneReturnablePackaging';
 import AccountSuspended from 'pages/AccountSuspended';
+import RecoveryPassword from 'pages/RecoveryPassword';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -87,6 +88,7 @@ export const App = () => {
           path="/faq"
           element={<PrivateRoute redirectTo="/login" component={<FAQ />} />}
         />
+        <Route path="/recovery-password" element={<RecoveryPassword />} />
         <Route path="*" component={<NotFound />} />
       </Route>
     </Routes>

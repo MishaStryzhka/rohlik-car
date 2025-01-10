@@ -3,19 +3,23 @@ import { logIn } from 'redux/auth/operations';
 import {
   Box,
   Button,
+  Flex,
   Input,
   InputGroup,
   InputRightElement,
+  Text,
 } from '@chakra-ui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useAuth } from 'hooks';
 import { MdOutlineVisibility, MdVisibilityOff } from 'react-icons/md';
+import { PaswordRecoveryContext } from 'contexts/PasswordRecovery/PaswordRecoveryContext';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const { isLoading } = useAuth();
   const [show, setShow] = useState(false);
+  const { setIsOpenModalRecoverPassword } = useContext(PaswordRecoveryContext);
 
   const handleClick = () => setShow(!show);
 
@@ -69,6 +73,20 @@ export const LoginForm = () => {
             )}
           </Field>
           <ErrorMessage name="password" />
+          <Flex mt="10px">
+            <Text display="inline-block">Nepamatuješ si heslo.</Text>
+            <Button
+              bgColor="transparent"
+              color="#6DA305"
+              textDecoration="underline"
+              type="button"
+              height="auto"
+              p="2px 6px"
+              onClick={() => setIsOpenModalRecoverPassword(true)}
+            >
+              Obnovit heslo
+            </Button>
+          </Flex>
           <Box mt={8} textAlign="center">
             <Button
               bgColor="#6DA305"
