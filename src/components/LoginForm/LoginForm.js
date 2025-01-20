@@ -14,10 +14,11 @@ import { useContext, useState } from 'react';
 import { useAuth } from 'hooks';
 import { MdOutlineVisibility, MdVisibilityOff } from 'react-icons/md';
 import { PaswordRecoveryContext } from 'contexts/PasswordRecovery/PaswordRecoveryContext';
+import { clearError } from '../../redux/auth/slice';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useAuth();
+  const { isLoading, error } = useAuth();
   const [show, setShow] = useState(false);
   const { setIsOpenModalRecoverPassword } = useContext(PaswordRecoveryContext);
 
@@ -25,6 +26,12 @@ export const LoginForm = () => {
 
   const handleSubmit = e => {
     dispatch(logIn(e));
+  };
+
+  const handleFieldChange = () => {
+    if (error) {
+      dispatch(clearError()); // Очищаємо помилку, якщо користувач починає вводити дані
+    }
   };
 
   return (
@@ -40,7 +47,14 @@ export const LoginForm = () => {
           <Field name="id">
             {({ field }) => (
               <InputGroup minW={{ base: '100%', md: '400px' }}>
-                <Input {...field} placeholder="id" />
+                <Input
+                  {...field}
+                  placeholder="id"
+                  onChange={e => {
+                    field.onChange(e);
+                    handleFieldChange(); // Виклик скидання помилки
+                  }}
+                />
               </InputGroup>
             )}
           </Field>
@@ -53,6 +67,10 @@ export const LoginForm = () => {
                   pr="4.5r em"
                   type={show ? 'text' : 'password'}
                   placeholder="heslo"
+                  onChange={e => {
+                    field.onChange(e);
+                    handleFieldChange(); // Виклик скидання помилки
+                  }}
                 />
                 <InputRightElement width="4.5rem">
                   <Button
@@ -73,6 +91,11 @@ export const LoginForm = () => {
             )}
           </Field>
           <ErrorMessage name="password" />
+          {error && (
+            <p style={{ marginTop: 10 }}>
+              <p style={{ fontSize: '12px', color: 'red' }}>{error}</p>
+            </p>
+          )}
           <Flex mt="10px">
             <Text display="inline-block">Nepamatuješ si heslo.</Text>
             <Button

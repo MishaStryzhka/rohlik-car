@@ -59,36 +59,55 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async ({ id: userId, password }, thunkAPI) => {
     try {
+      // Пошук користувача за userId
       const usersRef = collection(db, 'users');
       const q = query(usersRef, where('userId', '==', userId));
       const querySnapshot = await getDocs(q);
 
+      if (querySnapshot.empty) {
+        // Якщо користувача не знайдено
+        return thunkAPI.rejectWithValue(
+          'Zadané ID není platné. Zkontrolujte prosím své údaje.'
+        );
+      }
+
       let userDate;
       querySnapshot.forEach(doc => {
-        if (doc.data().email) {
-          userDate = doc.data();
-        } else {
-          return thunkAPI.rejectWithValue('Користувача з таким ID не знайдено');
-        }
+        userDate = doc.data();
       });
 
-      let userPryvatDate;
-      await signInWithEmailAndPassword(auth, userDate.email, password)
-        .then(userCredential => {
-          userPryvatDate = userCredential.user;
-        })
-        .catch(error => {
-          return thunkAPI.rejectWithValue(error.message);
-        });
+      if (!userDate?.email) {
+        // Якщо у даних користувача немає email
+        return thunkAPI.rejectWithValue(
+          'Zadané ID není platné. Zkontrolujte prosím své údaje.'
+        );
+      }
 
-      const { accessToken, uid } = userPryvatDate;
-      const user = {
-        uid,
-        ...userDate,
-      };
+      // Спроба авторизації користувача
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          userDate.email,
+          password
+        );
+        const { accessToken, uid } = userCredential.user;
 
-      return { user, token: accessToken };
+        // Повернення успішного результату
+        const user = {
+          uid,
+          ...userDate,
+        };
+
+        return { user, token: accessToken };
+      } catch (error) {
+        console.log('error1', error);
+        // Помилка при неправильному паролі
+        return thunkAPI.rejectWithValue(
+          'ID nebo heslo je nesprávné. Zkuste to znovu.'
+        );
+      }
     } catch (error) {
+      console.log('error', error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

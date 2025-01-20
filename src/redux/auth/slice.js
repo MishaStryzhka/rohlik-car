@@ -12,6 +12,11 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    clearError: state => {
+      state.error = null;
+    },
+  },
   extraReducers: builder => {
     builder
       //  register
@@ -37,6 +42,7 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(logIn.rejected, (state, action) => {
+        console.log('action.payload', action.payload);
         state.error = action.payload;
         state.isLoggedIn = false;
         state.isLoading = false;
@@ -61,4 +67,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { clearError } = authSlice.actions;
 export const authReducer = authSlice.reducer;
