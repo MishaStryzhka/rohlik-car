@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { Box, Text, Grid, Flex } from '@chakra-ui/react';
+import { Box, Text, Grid, Flex, Icon } from '@chakra-ui/react';
 import { FaSnowflake, FaBox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 import { GiHotSurface } from 'react-icons/gi';
 import { getSortCars } from 'helpers/getSortCars';
 import { MdVolumeOff } from 'react-icons/md';
+import { ChatIcon } from '@chakra-ui/icons';
+import colors from 'styles/colors';
 
 const CarsBox = ({ filters, isGridView }) => {
   const {
@@ -20,6 +22,7 @@ const CarsBox = ({ filters, isGridView }) => {
     hasSoundProofed,
   } = filters;
   const [cars, setCars] = useState([]);
+  console.log('cars', cars);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
@@ -195,6 +198,25 @@ const CarsBox = ({ filters, isGridView }) => {
                 {/* Іконка для стилю їзди */}
                 <Box display="flex" alignItems="center" px={1}>
                   <Text fontSize={22}>{car.drivingStyle}</Text>
+                </Box>
+
+                <Box
+                  position="relative"
+                  display="flex"
+                  alignItems="flex-end"
+                  gap={1}
+                >
+                  <Icon as={ChatIcon} boxSize={7} color={colors.primary} />
+                  <Text
+                    position="absolute"
+                    top={1}
+                    left={2.5}
+                    fontSize="16px"
+                    color="gray.700"
+                    fontWeight="medium"
+                  >
+                    {5}
+                  </Text>
                 </Box>
               </Box>
             </Flex>

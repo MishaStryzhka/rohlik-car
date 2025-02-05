@@ -75,6 +75,7 @@ export const logIn = createAsyncThunk(
       querySnapshot.forEach(doc => {
         userDate = doc.data();
       });
+      console.log('userDate', userDate);
 
       if (!userDate?.email) {
         // Якщо у даних користувача немає email
@@ -90,6 +91,7 @@ export const logIn = createAsyncThunk(
           userDate.email,
           password
         );
+        console.log('userCredential', userCredential);
         const { accessToken, uid } = userCredential.user;
 
         // Повернення успішного результату
@@ -133,7 +135,7 @@ export const refreshUser = createAsyncThunk(
               email: user.email,
             });
           } else {
-            reject('User is not authenticated');
+            reject('Uživatel není ověřen.');
           }
         });
       });
@@ -151,6 +153,8 @@ export const refreshUser = createAsyncThunk(
           ...userFirestoreData,
         };
         return { user };
+      } else {
+        return thunkAPI.rejectWithValue('Uživatelská data nebyla nalezena.');
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

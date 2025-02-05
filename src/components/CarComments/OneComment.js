@@ -27,6 +27,8 @@ const OneComment = ({
   text,
 }) => {
   const { user } = useAuth();
+  console.log('user', user.userId);
+  console.log('userId', userId);
   const [isOpenModalUpdateComment, setIsOpenModalUpdateComment] =
     useState(false);
   const [isOpenModalConfirmRemove, setIsOpenModalConfirmRemove] =
@@ -43,7 +45,14 @@ const OneComment = ({
     setIsOpenModalUpdateComment(false);
   };
   return (
-    <Box key={commentId} border="1px solid #e2e8f0" borderRadius="md" p={2}>
+    <Box
+      ml={user.userId === userId ? 'auto' : ''}
+      width={'85%'}
+      key={commentId}
+      border="1px solid #e2e8f0"
+      borderRadius="md"
+      p={2}
+    >
       <Flex justify="space-between" align="center">
         <Flex gap={1}>
           <IoIosPerson size="24" color="#6da305" />
