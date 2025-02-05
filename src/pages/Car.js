@@ -1,31 +1,56 @@
 import { ArrowBackIcon, EditIcon } from '@chakra-ui/icons';
-import {
-  Box,
-  Container,
-  Divider,
-  Flex,
-  Icon,
-  IconButton,
-  Switch,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Container, Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { getCarById } from 'app';
 import { updateCarById } from 'app/cars/updateCarById/updateCarById';
 import AddCarForm from 'components/AddCarForm/AddCarForm';
 import CarComments from 'components/CarComments/CarComments';
 // import Loader from 'components/Loader/Loader';
 import ModalWrapper from 'components/Modals/Modal';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FaBox, FaSnowflake } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdVolumeOff } from 'react-icons/md';
-import { GiHotSurface } from 'react-icons/gi';
+import { GiCheckMark, GiHotSurface } from 'react-icons/gi';
 import { motion } from 'framer-motion';
+import { BsInfoCircle } from 'react-icons/bs';
+import { RxQuestionMark } from 'react-icons/rx';
+import MenuCarInfo from 'components/MenuCarInfo/MenuCarInfo';
+import { IoClose } from 'react-icons/io5';
+import colors from 'styles/colors';
+import { getColorDrivingStyle } from 'helpers/getColorDrivingStyle';
 
 const MotionContainer = motion.create(Container);
 
 const CarPage = () => {
+  const [isOpenMenuCarInfo, setIsOpenMenuCarInfo] = useState(false);
+  const userMenuCarInfoRef = useRef();
+  const userMenuCarInfoButtonRef = useRef();
+
+  const toggleMenuCarInfo = () => {
+    isOpenMenuCarInfo
+      ? setIsOpenMenuCarInfo(false)
+      : setIsOpenMenuCarInfo(true);
+  };
+
+  // closing "MenuCarInfo", by pressing from the outside
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        userMenuCarInfoRef.current &&
+        !userMenuCarInfoRef.current.contains(event.target) &&
+        !userMenuCarInfoButtonRef.current.contains(event.target)
+      ) {
+        setIsOpenMenuCarInfo(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const [isOpen, setIsOpen] = useState(true);
   const [startX, setStartX] = useState(0);
 
@@ -51,7 +76,7 @@ const CarPage = () => {
 
   useEffect(() => {
     const disableScroll = event => {
-      event.preventDefault();
+      // event.preventDefault();
     };
 
     // Увімкнути блокування прокрутки
@@ -97,6 +122,19 @@ const CarPage = () => {
     setIsOpenModalEdit(false);
   };
 
+  const getResultIcon = (car, value) => {
+    // color={car.hasFridge ? colors.primary : 'gray.500'}
+    return value in car ? (
+      car?.[value] ? (
+        <GiCheckMark color={colors.primary} />
+      ) : (
+        <IoClose color={colors.danger} size={'25px'} />
+      )
+    ) : (
+      <RxQuestionMark color={colors.textSecondary} />
+    );
+  };
+
   return isLoading ? (
     <></>
   ) : !car ? (
@@ -110,11 +148,10 @@ const CarPage = () => {
       <Box position="sticky" top={0} zIndex="3">
         <MotionContainer
           maxW={'none'}
-          h={'100vh'}
+          h={'calc(100vh - 65px)'}
           position="absolute"
           top={0}
           style={{
-            height: '100vh',
             padding: 0,
             zIndex: 9999,
           }}
@@ -132,99 +169,119 @@ const CarPage = () => {
         >
           <Flex alignItems="center" justify="space-between">
             <IconButton
+              size={'sm'}
               icon={<ArrowBackIcon />}
               onClick={onClose}
-              aria-label="Назад"
+              aria-label="Zpět"
             />
             <Text>{car.name}</Text>
-            <IconButton
-              icon={<EditIcon />}
-              onClick={() => setIsOpenModalEdit(true)}
-              aria-label="Назад"
-            />
+            <Flex gap={2}>
+              <IconButton
+                ref={userMenuCarInfoButtonRef}
+                size={'sm'}
+                icon={<BsInfoCircle />}
+                onClick={() => toggleMenuCarInfo()}
+                aria-label="Informace"
+              />
+              <IconButton
+                size={'sm'}
+                icon={<EditIcon />}
+                onClick={() => setIsOpenModalEdit(true)}
+                aria-label="Upravit auto"
+              />
+              {isOpenMenuCarInfo && (
+                <MenuCarInfo
+                  ref={userMenuCarInfoRef}
+                  onClose={() => setIsOpenMenuCarInfo(false)}
+                />
+              )}
+            </Flex>
           </Flex>
-          <Box mt={2}>
-            <Text>Typ: {car.type}</Text>
-            <Flex flexDirection="column">
-              <Text>Klimatizace:</Text>
-              <Flex align="center">
-                <Icon
-                  as={FaSnowflake}
-                  boxSize={5}
-                  mr={2}
-                  color={car.hasAirConditioner ? 'green.500' : 'gray.500'}
-                />
-                <Switch
-                  colorScheme="green"
-                  isChecked={car.hasAirConditioner}
-                  onChange={() => {}}
-                />
-              </Flex>
-            </Flex>
-            <Flex flexDirection="column">
-              <Text>Topení:</Text>
-              <Flex align="center">
-                <Icon
-                  as={GiHotSurface}
-                  boxSize={5}
-                  mr={2}
-                  color={car?.hasHeating ? 'green.500' : 'gray.200'}
-                />
-                {'hasHeating' in car ? (
-                  <Switch
-                    colorScheme="green"
-                    isChecked={car?.hasHeating}
-                    onChange={() => {}}
+          <Flex direction="column" mt={2} h={'calc(100% - 40px)'}>
+            <Flex justify={'space-around'} align={'center'}>
+              <Flex flexDirection="column">
+                <Flex align="center">
+                  <Icon
+                    as={FaSnowflake}
+                    boxSize={6}
+                    mr={1}
+                    color={
+                      'hasAirConditioner' in car
+                        ? car.hasAirConditioner
+                          ? 'green'
+                          : colors.danger
+                        : colors.textSecondary
+                    }
                   />
-                ) : (
-                  <Text fontWeight="bold" color="gray.200">
-                    nenalezeno
-                  </Text>
-                )}
+                  {getResultIcon(car, 'hasAirConditioner')}
+                </Flex>
               </Flex>
-            </Flex>
-            <Flex flexDirection="column">
-              <Text>Vestavba (ledničce):</Text>
-              <Flex align="center">
-                <Icon
-                  as={FaBox}
-                  boxSize={5}
-                  mr={2}
-                  color={car.hasFridge ? 'green.500' : 'gray.500'}
-                />
-                <Switch
-                  colorScheme="green"
-                  isChecked={car.hasFridge}
-                  onChange={() => {}}
-                />
-              </Flex>
-            </Flex>
-            <Flex flexDirection="column">
-              <Text>Odhlučněné:</Text>
-              <Flex align="center">
-                <Icon
-                  as={MdVolumeOff}
-                  boxSize={5}
-                  mr={2}
-                  color={car?.hasSoundProofed ? 'green.500' : 'gray.200'}
-                />
-                {'hasSoundProofed' in car ? (
-                  <Switch
-                    colorScheme="green"
-                    isChecked={car?.hasSoundProofed}
-                    onChange={() => {}}
+              <Flex flexDirection="column">
+                <Flex align="center">
+                  <Icon
+                    as={GiHotSurface}
+                    boxSize={6}
+                    mr={1}
+                    color={
+                      'hasHeating' in car
+                        ? car.hasHeating
+                          ? 'green'
+                          : colors.danger
+                        : colors.textSecondary
+                    }
                   />
-                ) : (
-                  <Text fontWeight="bold" color="gray.200">
-                    nenalezeno
-                  </Text>
-                )}
+                  {getResultIcon(car, 'hasHeating')}
+                </Flex>
+              </Flex>
+              <Flex flexDirection="column">
+                <Flex align="center">
+                  <Icon
+                    as={FaBox}
+                    boxSize={6}
+                    mr={1}
+                    color={
+                      'hasFridge' in car
+                        ? car.hasFridge
+                          ? 'green'
+                          : colors.danger
+                        : colors.textSecondary
+                    }
+                  />
+                  {getResultIcon(car, 'hasFridge')}
+                </Flex>
+              </Flex>
+              <Flex flexDirection="column">
+                <Flex align="center">
+                  <Icon
+                    as={MdVolumeOff}
+                    boxSize={6}
+                    mr={1}
+                    color={
+                      'hasSoundProofed' in car
+                        ? car.hasSoundProofed
+                          ? 'green'
+                          : colors.danger
+                        : colors.textSecondary
+                    }
+                  />
+                  {getResultIcon(car, 'hasSoundProofed')}
+                </Flex>
+              </Flex>
+              <Flex
+                align="center"
+                justify="center"
+                borderRadius={'md'}
+                w="30px"
+                h="30px"
+                textAlign="center"
+                bg={getColorDrivingStyle(car.drivingStyle)}
+              >
+                <Text>{car.drivingStyle}</Text>
               </Flex>
             </Flex>
-            <Text>Styl jízdy: {car.drivingStyle}</Text>
-            <Divider my={4} />
+            {/* <Divider my={4} /> */}
             <CarComments carId={carId} />
-          </Box>
+          </Flex>
         </MotionContainer>
       </Box>
 

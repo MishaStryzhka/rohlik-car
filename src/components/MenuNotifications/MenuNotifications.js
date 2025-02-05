@@ -50,7 +50,7 @@ const MenuNotifications = forwardRef(({ children, onClose, ...props }, ref) => {
     });
 
     return () => unsubscribe();
-  }, [user.uid]);
+  }, [user]);
 
   return (
     <Box

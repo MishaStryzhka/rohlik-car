@@ -1,17 +1,16 @@
-import { AddIcon } from '@chakra-ui/icons';
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { addComment } from 'app';
-import AddCommentForm from 'components/AddCommentForm/AddCommentForm';
-import ModalWrapper from 'components/Modals/Modal';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { useAuth } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
 import OneComment from './OneComment';
+import TextArea from './TextArea';
 
 const CarComments = ({ carId }) => {
   const { user } = useAuth();
+  // eslint-disable-next-line no-unused-vars
   const [isOpenModalAddComment, setIsOpenModalAddComment] = useState(false);
 
   const [comments, setComments] = useState(null);
@@ -34,15 +33,44 @@ const CarComments = ({ carId }) => {
   const hendleAddComment = commentText => {
     addComment({ collectionName: 'cars', elemId: carId, commentText, user });
     setIsOpenModalAddComment(false);
-    alert('Komentář byl přidán!');
   };
 
   return isLoading ? (
     <Loader />
   ) : (
     <>
-      <Box>
-        <Flex justify="space-between" alignItems="center">
+      <Flex
+        direction="column-reverse"
+        borderWidth="1px"
+        borderRadius="md"
+        mt={4}
+        mb={4}
+        boxShadow="md"
+        h={'calc(100% - 65px)'}
+      >
+        <TextArea hendleAddComment={hendleAddComment} />
+        <Flex direction={'column'} gap={2} overflow={'auto'} p={2}>
+          {!comments ? (
+            <Text textAlign="center">Neznalezen žádný komentář</Text>
+          ) : (
+            comments
+              .sort((a, b) => (a.date || a.CreatedAt) - (b.date || b.CreatedAt))
+              .map(comment => {
+                return (
+                  <OneComment
+                    key={comment.id}
+                    elemId={carId}
+                    commentId={comment.id}
+                    userId={comment.userId}
+                    name={comment.name}
+                    date={comment.date || comment.CreatedAt}
+                    text={comment.text}
+                  />
+                );
+              })
+          )}
+        </Flex>
+        {/* <Flex justify="space-between" alignItems="center">
           <Text>Komentáře k autu: </Text>
           <IconButton
             size="sm"
@@ -54,29 +82,9 @@ const CarComments = ({ carId }) => {
             aria-label="Open Modal Add Coment"
             position="relative"
           />
-        </Flex>
-        <Box>
-          {!comments ? (
-            <Text textAlign="center">Neznalezen žádný komentář</Text>
-          ) : (
-            comments.map(comment => {
-              console.log('comment', comment);
-              return (
-                <OneComment
-                  key={comment.id}
-                  elemId={carId}
-                  commentId={comment.id}
-                  userId={comment.userId}
-                  name={comment.name}
-                  date={comment.date || comment.CreatedAt}
-                  text={comment.text}
-                />
-              );
-            })
-          )}
-        </Box>
-      </Box>
-      {isOpenModalAddComment && (
+        </Flex> */}
+      </Flex>
+      {/* {isOpenModalAddComment && (
         <ModalWrapper
           title="Přidat komentář"
           isOpen={isOpenModalAddComment}
@@ -84,7 +92,7 @@ const CarComments = ({ carId }) => {
         >
           <AddCommentForm onSubmit={hendleAddComment} />
         </ModalWrapper>
-      )}
+      )} */}
     </>
   );
 };
