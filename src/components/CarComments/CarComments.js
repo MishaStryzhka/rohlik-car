@@ -8,16 +8,22 @@ import Loader from 'components/Loader/Loader';
 import OneComment from './OneComment';
 import TextArea from './TextArea';
 
+const COLLECTION_CARS = 'cars';
+const COLLECTION_COMMENTS = 'comments';
+
 const CarComments = ({ carId }) => {
   const { user } = useAuth();
-  // eslint-disable-next-line no-unused-vars
-  const [isOpenModalAddComment, setIsOpenModalAddComment] = useState(false);
 
   const [comments, setComments] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const carsCollection = collection(db, 'cars', carId, 'comments');
+    const carsCollection = collection(
+      db,
+      COLLECTION_CARS,
+      carId,
+      COLLECTION_COMMENTS
+    );
     const unsubscribe = onSnapshot(carsCollection, snapshot => {
       const carCommentsData = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -31,8 +37,12 @@ const CarComments = ({ carId }) => {
   }, [carId]);
 
   const hendleAddComment = commentText => {
-    addComment({ collectionName: 'cars', elemId: carId, commentText, user });
-    setIsOpenModalAddComment(false);
+    addComment({
+      collectionName: COLLECTION_CARS,
+      elemId: carId,
+      commentText,
+      user,
+    });
   };
 
   return isLoading ? (
@@ -58,6 +68,7 @@ const CarComments = ({ carId }) => {
               .map(comment => {
                 return (
                   <OneComment
+                    collectionName={COLLECTION_CARS}
                     key={comment.id}
                     elemId={carId}
                     commentId={comment.id}

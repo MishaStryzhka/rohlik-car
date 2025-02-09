@@ -1,4 +1,4 @@
-// run terminal --- node updateSubscriptions.js
+// run terminal --- node services_functions/updateSubscriptions.js
 
 // import admin from "firebase-admin";
 // import serviceAccount from "../rohlik-help-courier-firebase-adminsdk-74qre-16b8342fde.json" assert {type: "json"};

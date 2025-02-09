@@ -5,7 +5,6 @@ import Loader from './Loader/Loader';
 export const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
   const [searchParams] = useSearchParams();
   const { user, isLoggedIn, isRefreshing } = useAuth();
-  console.log('user', user);
   const shouldRedirect = !isLoggedIn && !isRefreshing;
 
   if (isRefreshing) {

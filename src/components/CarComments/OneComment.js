@@ -17,7 +17,7 @@ import { IoIosPerson } from 'react-icons/io';
 import { MdDelete, MdOutlineModeEdit } from 'react-icons/md';
 
 const OneComment = ({
-  colectionsName,
+  collectionName,
   elemId,
   commentId,
   userId,
@@ -27,20 +27,18 @@ const OneComment = ({
   text,
 }) => {
   const { user } = useAuth();
-  console.log('user', user.userId);
-  console.log('userId', userId);
   const [isOpenModalUpdateComment, setIsOpenModalUpdateComment] =
     useState(false);
   const [isOpenModalConfirmRemove, setIsOpenModalConfirmRemove] =
     useState(false);
 
   const hendleUpdateComment = ({ elemId, commentId, comment }) => {
-    updateComment({ colectionsName, elemId, commentId, comment });
+    updateComment({ collectionName, elemId, commentId, comment });
     setIsOpenModalUpdateComment(false);
   };
 
   const hendleRemoveComent = ({ elemId, commentId }) => {
-    removeComment({ colectionsName, elemId, commentId });
+    removeComment({ collectionName, elemId, commentId });
     setIsOpenModalConfirmRemove(false);
     setIsOpenModalUpdateComment(false);
   };
