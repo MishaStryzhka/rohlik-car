@@ -22,7 +22,6 @@ const CarsBox = ({ filters, isGridView }) => {
     hasSoundProofed,
   } = filters;
   const [cars, setCars] = useState([]);
-  console.log('cars', cars);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
@@ -200,24 +199,26 @@ const CarsBox = ({ filters, isGridView }) => {
                   <Text fontSize={22}>{car.drivingStyle}</Text>
                 </Box>
 
-                <Box
-                  position="relative"
-                  display="flex"
-                  alignItems="flex-end"
-                  gap={1}
-                >
-                  <Icon as={ChatIcon} boxSize={7} color={colors.primary} />
-                  <Text
-                    position="absolute"
-                    top={1}
-                    left={2.5}
-                    fontSize="16px"
-                    color="gray.700"
-                    fontWeight="medium"
+                {car?.commentsCount > 0 && (
+                  <Box
+                    position="relative"
+                    display="flex"
+                    alignItems="flex-end"
+                    gap={1}
                   >
-                    {5}
-                  </Text>
-                </Box>
+                    <Icon as={ChatIcon} boxSize={7} color={colors.primary} />
+                    <Text
+                      position="absolute"
+                      top={1}
+                      left={2.5}
+                      fontSize="16px"
+                      color="gray.700"
+                      fontWeight="medium"
+                    >
+                      {car.commentsCount}
+                    </Text>
+                  </Box>
+                )}
               </Box>
             </Flex>
           </Link>
