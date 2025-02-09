@@ -12,7 +12,7 @@ import { updateFaqQuestion } from 'app';
 import FaqQuestionComments from 'components/FaqQuestionComments/FaqQuestionComments';
 import EmojiPicker from 'emoji-picker-react';
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { GrSend } from 'react-icons/gr';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -28,6 +28,13 @@ const FAQItem = ({ id, images, question, answer: defAnswer }) => {
   const emojiPickerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const boxRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && boxRef.current) {
+      boxRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [isOpen]);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -60,7 +67,14 @@ const FAQItem = ({ id, images, question, answer: defAnswer }) => {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="md" p={4} mb={4} boxShadow="md">
+    <Box
+      ref={boxRef}
+      borderWidth="1px"
+      borderRadius="md"
+      p={4}
+      mb={4}
+      boxShadow="md"
+    >
       {/* Питання */}
       <Button
         maxWidth="100%"

@@ -17,7 +17,7 @@ import { IoIosPerson } from 'react-icons/io';
 import { MdDelete, MdOutlineModeEdit } from 'react-icons/md';
 
 const OneComment = ({
-  colectionsName,
+  collectionName,
   elemId,
   commentId,
   userId,
@@ -33,17 +33,24 @@ const OneComment = ({
     useState(false);
 
   const hendleUpdateComment = ({ elemId, commentId, comment }) => {
-    updateComment({ colectionsName, elemId, commentId, comment });
+    updateComment({ collectionName, elemId, commentId, comment });
     setIsOpenModalUpdateComment(false);
   };
 
   const hendleRemoveComent = ({ elemId, commentId }) => {
-    removeComment({ colectionsName, elemId, commentId });
+    removeComment({ collectionName, elemId, commentId });
     setIsOpenModalConfirmRemove(false);
     setIsOpenModalUpdateComment(false);
   };
   return (
-    <Box key={commentId} border="1px solid #e2e8f0" borderRadius="md" p={2}>
+    <Box
+      ml={user.userId === userId ? 'auto' : ''}
+      width={'85%'}
+      key={commentId}
+      border="1px solid #e2e8f0"
+      borderRadius="md"
+      p={2}
+    >
       <Flex justify="space-between" align="center">
         <Flex gap={1}>
           <IoIosPerson size="24" color="#6da305" />
